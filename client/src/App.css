@@ -1,5 +1,8 @@
 body {
-  background-color: whitesmoke;
+  background-color: #30363d;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
