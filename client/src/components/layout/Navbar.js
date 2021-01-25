@@ -9,9 +9,9 @@ const Navbar = () => {
         <span className='nav-text1'>Split</span>
         <span className='nav-text2'>Share</span>
       </div>
-      <a href='#'>
-        <img src={bars} />
-      </a>
+      <button>
+        <img src={bars} alt='Navbar' />
+      </button>
     </nav>
   );
 };

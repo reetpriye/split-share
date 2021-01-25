@@ -3,7 +3,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   background-color: #272c31;
-  padding: 0.4rem 0.6rem;
+  padding: 0.6rem 0.8rem;
 }
 
 .nav-text {
@@ -18,4 +18,12 @@ nav {
 
 .nav-text2 {
   color: #fff;
+}
+
+nav button {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
