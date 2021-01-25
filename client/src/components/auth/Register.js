@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './styles/Register.css';
+import './styles/LoginRegister.css';
 
 const Register = props => {
   const onChange = e => ([e.target.name] = e.target.value);
@@ -11,7 +11,7 @@ const Register = props => {
 
   return (
     <div className='form-container'>
-      <h1 className='form-heading'>Register </h1>
+      <h1 className='form-heading'>Register</h1>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label htmlFor='name'>Name</label>
