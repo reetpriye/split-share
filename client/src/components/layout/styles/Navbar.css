@@ -3,14 +3,14 @@ nav {
   justify-content: space-between;
   align-items: center;
   background-color: #272c31;
-  padding: 0.6rem 0.8rem;
+  padding: 0.25rem 0.6rem;
 }
 
 .nav-text {
   font-family: Oswald;
   font-style: normal;
   font-weight: normal;
-  font-size: 2.25rem;
+  font-size: 2rem;
   line-height: 48px;
   color: #f27a54;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
