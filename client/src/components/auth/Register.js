@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './styles/LoginRegister.css';
 
 const Register = props => {
   const onChange = e => ([e.target.name] = e.target.value);
