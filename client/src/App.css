@@ -1,10 +1,12 @@
 /* Global CSS File */
 
-body {
-  background-color: #30363d;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* For Sticky Footer */
+.Content {
+  flex: 1 0 auto;
+}
+
+.Footer {
+  flex-shrink: 0;
 }
 
 h1 {
@@ -184,4 +186,27 @@ input[type='date'] {
 
 .label > h4 {
   margin: 0;
+}
+
+/* Footer */
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #3c444c;
+}
+
+footer > h4 {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 9px;
+  line-height: 17px;
+  letter-spacing: 1.75px;
+  color: #ffffff;
+}
+
+footer > h4 > span {
+  color: #f27a54;
 }

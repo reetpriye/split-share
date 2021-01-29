@@ -6,20 +6,26 @@ import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import About from './components/pages/About';
+import Footer from './components/layout/Footer';
 
 const App = () => {
   return (
-    <Router>
-      <Fragment>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/register' component={Register} />
-          <Route exact path='/about' component={About} />
-        </Switch>
-      </Fragment>
-    </Router>
+    <Fragment>
+      <div className='Content'>
+        <Router>
+          <Fragment>
+            <Navbar />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/about' component={About} />
+            </Switch>
+          </Fragment>
+        </Router>
+      </div>
+      <Footer className='Footer' />
+    </Fragment>
   );
 };
 
