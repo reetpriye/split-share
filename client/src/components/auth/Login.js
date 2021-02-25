@@ -1,10 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../context/auth/authContext';
 import { Link } from 'react-router-dom';
 
 const Register = props => {
   const authContext = useContext(AuthContext);
-  const { login } = authContext;
+  const { login, isAuthenticated, error } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     email: '',

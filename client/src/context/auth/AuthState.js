@@ -2,23 +2,46 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utils/setAuthToken';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGOUT
 } from '../types';
 
 const AuthState = props => {
   const initialState = {
     token: localStorage.getItem('token'),
-    error: null
+    loading: true,
+    isAuthenticated: false,
+    error: null,
+    user: null
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  // Load user
+  const loadUser = async () => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    try {
+      const res = await axios.get('/api/auth');
+      console.log(res.data);
+      dispatch({ type: USER_LOADED, payload: res.data });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
+
   // Register user
   const register = async formData => {
+    state.loading = true;
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -31,6 +54,7 @@ const AuthState = props => {
         type: REGISTER_SUCCESS,
         payload: res.data
       });
+      loadUser();
     } catch (err) {
       console.log(err);
       dispatch({
@@ -42,6 +66,7 @@ const AuthState = props => {
 
   // Login user
   const login = async formData => {
+    state.loading = true;
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -55,6 +80,7 @@ const AuthState = props => {
         type: LOGIN_SUCCESS,
         payload: res.data
       });
+      loadUser();
     } catch (err) {
       console.log('error noticed');
       dispatch({
@@ -64,12 +90,21 @@ const AuthState = props => {
     }
   };
 
+  // Logout user
+  const logout = () => dispatch({ type: LOGOUT });
+
   return (
     <AuthContext.Provider
       value={{
         token: state.token,
+        error: state.error,
+        loading: state.loading,
+        isAuthenticated: state.isAuthenticated,
+        user: state.user,
+        loadUser,
         register,
-        login
+        login,
+        logout
       }}
     >
       {props.children}
