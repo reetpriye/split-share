@@ -1,16 +1,24 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
 const Register = props => {
   const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
 
-  const { register, isAuthenticated, error } = authContext;
+  const { register, isAuthenticated, error, clearErrors } = authContext;
+  const { setAlert } = alertContext;
 
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push('/');
     }
+
+    if (error === 'User already exists') {
+      setAlert(error, 'danger');
+    }
+    clearErrors();
     // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
 
@@ -30,13 +38,15 @@ const Register = props => {
     });
 
   const onSubmit = e => {
-    console.log('User saved');
     e.preventDefault();
-    register({
-      name,
-      email,
-      password
-    });
+    if (password !== password2) setAlert('Passwords do not match', 'danger');
+    else {
+      register({
+        name,
+        email,
+        password
+      });
+    }
   };
 
   return (
