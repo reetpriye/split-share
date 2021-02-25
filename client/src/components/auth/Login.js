@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import AuthContext from '../../context/auth/authContext';
 import { Link } from 'react-router-dom';
 
 const Register = props => {
-  const onChange = e => ([e.target.name] = e.target.value);
+  const authContext = useContext(AuthContext);
+  const { login } = authContext;
+
+  const [user, setUser] = useState({
+    email: '',
+    password: ''
+  });
+
+  const onChange = e =>
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    });
+
   const onSubmit = e => {
     e.preventDefault();
-    console.log('Form Submitted...');
+    login({
+      email,
+      password
+    });
   };
-
+  const { email, password } = user;
   return (
     <div className='form-container'>
       <h1 className='form-heading'>Login</h1>
@@ -18,6 +35,7 @@ const Register = props => {
             placeholder='Enter your email'
             type='email'
             name='email'
+            value={email}
             onChange={onChange}
             required
           />
@@ -28,6 +46,7 @@ const Register = props => {
             placeholder='Enter your password'
             type='password'
             name='password'
+            value={password}
             onChange={onChange}
             required
             minLength='6'
