@@ -1,10 +1,44 @@
 /* Global CSS File */
 :root {
-  --primary-color: #003699;
+  --primary-color: #fff;
+  --secondary-color: #f27a54;
+  --tertiary-color: #3c444d;
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+}
+
+body {
+  font-family: Gilroy;
+  color: var(--primary-color);
+}
+
+.heading {
+  height: 48px;
+  font-family: Oswald;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 42px;
+  line-height: 48px;
+  color: rgba(255, 255, 255, 0.81);
+  margin: 32px 0;
+  text-align: center;
+}
+
+.sub-heading {
+  margin-top: 0;
+  text-align: center;
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.under-construction {
+  font-size: 1.5rem !important;
+  color: rgb(196, 238, 192) !important;
 }
 
 /* For Sticky Footer */
@@ -18,6 +52,13 @@
 
 h1 {
   text-align: center;
+}
+
+/* For links */
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
 }
 
 /* Alerts */
@@ -74,22 +115,11 @@ h1 {
 }
 
 /* Login & Register Page */
+
 .form-container {
   display: flex;
   flex-direction: column;
   padding: 0.8rem 3.375rem;
-}
-
-.form-heading {
-  width: 128px;
-  height: 48px;
-  font-family: Oswald;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 42px;
-  line-height: 48px;
-  color: rgba(255, 255, 255, 0.81);
-  margin: 32px auto;
 }
 
 form {

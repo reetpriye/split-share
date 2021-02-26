@@ -41,3 +41,7 @@
   display: block;
   margin: 44px auto 0 auto;
 }
+
+.under-construction > .fa-truck-pickup {
+  margin-left: 8px;
+}

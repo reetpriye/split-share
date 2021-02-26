@@ -1,0 +1,110 @@
+.members {
+  padding: 0 1rem;
+}
+
+.suggestions {
+  margin: 20px;
+  font-family: Gilroy;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.suggestions > span {
+  color: var(--secondary-color);
+}
+
+.member-list-container {
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--tertiary-color);
+}
+
+.member-list-container > h5 {
+  text-transform: uppercase;
+  font-family: Gilroy;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+}
+
+.member-list-container > h6 {
+  font-weight: 400;
+  color: #cbcfd4;
+  margin: 0;
+}
+
+.member-list-container > h2 {
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 0px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.input-container {
+  display: flex;
+}
+
+.member-list-container input {
+  background: #ffffff;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin-right: -2px;
+}
+
+.member-list-container button {
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;
+  width: 92px;
+  height: 40px;
+  background: rgba(111, 207, 151, 0.87);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border: 0;
+}
+
+.members-name-container {
+  margin-top: 1rem;
+}
+
+.member-edit-btn {
+  background-color: transparent !important;
+}
+
+.member {
+  font-size: 0.95rem;
+  display: flex;
+  margin: 1.5rem 0;
+}
+
+.member > .fa-edit {
+  margin-left: auto;
+  color: #fff;
+}
+
+.member > .fa-trash {
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
+  color: #f64034;
+}
+
+.member-name {
+  margin: 0;
+}
+
+.success-message {
+  color: #6fcf97 !important;
+}

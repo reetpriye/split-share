@@ -1,0 +1,158 @@
+.dashboard {
+  padding: 15px 20px;
+}
+
+.trip-details {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.trip-save-btn {
+  background: transparent;
+  border: 0;
+  color: var(--secondary-color);
+}
+
+.trip-name {
+  margin: 0;
+}
+
+.total-expense-container {
+  background: var(--tertiary-color);
+  padding: 26px;
+}
+
+.total-expense-container > h3 {
+  margin: 0;
+  text-align: center;
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.total-expense-container > h1 {
+  margin: 0;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 6rem;
+  line-height: 135px;
+  text-align: center;
+  color: #f27a54;
+}
+
+.new-item-inp-container {
+  display: flex;
+}
+
+.new-item-inp-container input {
+  border: 1px solid #e6eaef;
+  border-radius: 3px;
+  width: 166px;
+}
+
+.new-item-inp-container button {
+  margin-left: auto;
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;
+  width: 92px;
+  height: 40px;
+  background: rgba(111, 207, 151, 0.87);
+  border-radius: 3px;
+  border: 0;
+}
+
+.new-item-type {
+  margin-top: 0.8rem;
+  margin-bottom: 0.4rem;
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.new-item-container {
+  background: var(--tertiary-color);
+  margin-top: 19px;
+  padding: 16px;
+}
+
+.new-item-exclude,
+.new-item-payer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.new-item-exclude h5,
+.new-item-payer h5 {
+  margin: 0;
+  display: inline-block;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #cbcfd4;
+}
+
+.exclude,
+.payer {
+  margin-bottom: 0.2rem;
+}
+
+/* Members Share */
+.members-share-container {
+  padding: 26px;
+  background: var(--tertiary-color);
+  margin-top: 20px;
+}
+
+.member-share {
+  display: flex;
+  margin: 0;
+}
+
+.member-share > h5 {
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.member-share-amount {
+  margin-left: auto;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: right;
+  color: #f27a54;
+}
+
+.line {
+  /* width: 100%; */
+  background: rgba(255, 255, 255, 0.1);
+  height: 1.12px;
+}
+
+.pie-chart,
+.line-chart {
+  margin-top: 20px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tertiary-color);
+}
+
+.pie-chart > h2,
+.line-chart > h2 {
+  font-size: 2rem;
+}

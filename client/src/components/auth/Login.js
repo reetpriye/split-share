@@ -42,7 +42,7 @@ const Register = props => {
   const { email, password } = user;
   return (
     <div className='form-container'>
-      <h1 className='form-heading'>Login</h1>
+      <h1 className='heading'>Login</h1>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label htmlFor='email'>Email Address</label>
