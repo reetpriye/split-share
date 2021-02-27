@@ -1,20 +1,18 @@
-const mongoose = require('mongoose');
-const config = require('config');
-const db = config.get('mongoURI');
+import mongoose from 'mongoose'
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, {
+    const conn = await mongoose.connect(process.env.mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
-    });
+    })
 
-    console.log('MongoDB connected...');
+    console.log(`MongoDB connected: ${conn.connection.host}`.cyan.underline)
   } catch (err) {
-    console.log(err.message);
-    process.exit(1);
+    console.log(`Error: ${err.message}`.red.underline.bold)
+    process.exit(1)
   }
-};
+}
 
-module.exports = connectDB;
+export default connectDB

@@ -1,5 +1,7 @@
-import React from 'react';
-import profile from '../assets/profile.jpg';
+import React from 'react'
+import profile from '../assets/profile.jpg'
+
+import './styles/About.css'
 
 const About = () => {
   return (
@@ -31,7 +33,7 @@ const About = () => {
         </h4>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

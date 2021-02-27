@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react'
+
+import './styles/Footer.css'
 
 const Footer = () => {
   return (
@@ -7,7 +9,7 @@ const Footer = () => {
         DESIGNED & DEVELOPED BY <span>REET</span>
       </h4>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

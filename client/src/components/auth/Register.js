@@ -1,53 +1,55 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import AuthContext from '../../context/auth/authContext';
-import AlertContext from '../../context/alert/alertContext';
+import React, { useState, useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import AuthContext from '../../context/auth/authContext'
+import AlertContext from '../../context/alert/alertContext'
+
+import './styles/LoginRegister.css'
 
 const Register = props => {
-  const authContext = useContext(AuthContext);
-  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext)
+  const alertContext = useContext(AlertContext)
 
-  const { register, isAuthenticated, error, clearErrors } = authContext;
-  const { setAlert } = alertContext;
+  const { register, isAuthenticated, error, clearErrors } = authContext
+  const { setAlert } = alertContext
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/');
+      props.history.push('/')
     }
 
     if (error === 'User already exists') {
-      setAlert(error, 'danger');
+      setAlert(error, 'danger')
     }
-    clearErrors();
+    clearErrors()
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [error, isAuthenticated, props.history])
 
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
     password2: ''
-  });
+  })
 
-  const { name, email, password, password2 } = user;
+  const { name, email, password, password2 } = user
 
   const onChange = e =>
     setUser({
       ...user,
       [e.target.name]: e.target.value
-    });
+    })
 
   const onSubmit = e => {
-    e.preventDefault();
-    if (password !== password2) setAlert('Passwords do not match', 'danger');
+    e.preventDefault()
+    if (password !== password2) setAlert('Passwords do not match', 'danger')
     else {
       register({
         name,
         email,
         password
-      });
+      })
     }
-  };
+  }
 
   return (
     <div className='form-container'>
@@ -107,7 +109,7 @@ const Register = props => {
         </Link>
       </h4>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

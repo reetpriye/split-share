@@ -4,6 +4,9 @@ node_modules/
 /config/production.json
 /config/default.json
 
+# Env files
+.env
+
 # For client folder
 /client/node_modules
 /client/build
