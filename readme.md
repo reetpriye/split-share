@@ -2,4 +2,4 @@
 
 ## Prototype
 
-![Screenshot](./assets/screenshot.png)
+![Screenshot](./uploads/screenshot.png)

@@ -1,0 +1,97 @@
+.trips h3 {
+  font-family: Gilroy;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 18px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.trips-container {
+  background: var(--tertiary-color);
+  padding: 16px 0;
+}
+
+.trips-container > h2 {
+  margin-top: 1rem;
+}
+
+.add-trip-container {
+  padding: 1rem;
+}
+
+.add-trip-container > h3 > span {
+  font-family: Gilroy-SemiBold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  color: #f27a54;
+}
+
+.add-trip-container > .input-container > button {
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;
+  width: 92px;
+  height: 40px;
+  background: rgba(111, 207, 151, 0.87);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border: 0;
+}
+
+.add-trip-container > .input-container > input {
+  background: #ffffff;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin-right: -2px;
+}
+
+.add-trip-container > h6 {
+  font-weight: 400;
+  color: #cbcfd4;
+  margin: 0;
+}
+
+.your-trips-container {
+  background: var(--tertiary-color);
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.trip {
+  display: flex;
+  align-items: center;
+}
+
+.trip a {
+  color: #fff;
+  font-size: 1.4rem;
+  padding: 1rem 0;
+}
+
+.trip button {
+  text-transform: uppercase;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.trip .man-btn {
+  color: var(--secondary-color);
+  font-size: 0.7rem;
+  height: fit-content;
+  margin-left: auto;
+}
+
+.trip .del-btn {
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #f64034;
+}

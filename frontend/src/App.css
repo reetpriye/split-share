@@ -1,0 +1,64 @@
+/* Global CSS File */
+:root {
+  --primary-color: #fff;
+  --secondary-color: #f27a54;
+  --tertiary-color: #3c444d;
+  --dark-color: #333333;
+  --light-color: #f4f4f4;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+}
+
+body {
+  font-family: Montserrat;
+  color: var(--primary-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+h1 {
+  text-align: center;
+}
+
+.heading {
+  height: 48px;
+  font-family: Oswald;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 42px;
+  line-height: 48px;
+  color: rgba(255, 255, 255, 0.81);
+  text-align: center;
+  /* font-family: Montserrat;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase; */
+}
+
+.sub-heading {
+  margin-top: 0;
+  text-align: center;
+  font-family: Gilroy-Medium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.under-construction {
+  font-size: 1.5rem !important;
+  color: rgb(196, 238, 192) !important;
+}
+
+/* For Sticky Footer */
+.Content {
+  padding: 1rem;
+  flex: 1 0 auto;
+}
+
+.Footer {
+  flex-shrink: 0;
+}
