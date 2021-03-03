@@ -7,7 +7,13 @@ import {
   TRIP_DETAILS_FAIL,
   TRIP_MEMBERS_REQUEST,
   TRIP_MEMBERS_SUCCESS,
-  TRIP_MEMBERS_FAIL
+  TRIP_MEMBERS_FAIL,
+  ADD_TRIP_REQUEST,
+  ADD_TRIP_SUCCESS,
+  ADD_TRIP_FAIL,
+  DELETE_TRIP_REQUEST,
+  DELETE_TRIP_SUCCESS,
+  DELETE_TRIP_FAIL
 } from '../constants/tripConstants'
 
 export const userTripsReducer = (state = {}, action) => {
@@ -48,6 +54,38 @@ export const tripMembersReducer = (state = {}, action) => {
         members: action.payload
       }
     case TRIP_MEMBERS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const addTripReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADD_TRIP_REQUEST:
+      return { ...state, loading: true }
+    case ADD_TRIP_SUCCESS:
+      return {
+        loading: false,
+        trips: action.payload
+      }
+    case ADD_TRIP_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const deleteTripReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_TRIP_REQUEST:
+      return { ...state, loading: true }
+    case DELETE_TRIP_SUCCESS:
+      return {
+        loading: false,
+        success: true
+      }
+    case DELETE_TRIP_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

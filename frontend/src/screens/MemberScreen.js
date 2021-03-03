@@ -21,7 +21,7 @@ const MemberScreen = ({ history }) => {
     } else {
       dispatch(getTripMembers(currTripId))
     }
-  }, [history, userInfo, dispatch])
+  }, [history, userInfo, dispatch, currTripId])
 
   return (
     <div className='members'>

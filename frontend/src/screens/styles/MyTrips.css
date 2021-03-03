@@ -95,3 +95,7 @@
   font-size: 1rem;
   color: #f64034;
 }
+
+.input-container input {
+  color: #000;
+}

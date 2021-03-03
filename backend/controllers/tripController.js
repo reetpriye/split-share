@@ -42,4 +42,37 @@ const getTripMembers = asyncHandler(async (req, res) => {
   res.send(tripDetails.trips[0].membersData)
 })
 
-export { getTripData, getUserTrips, getTripMembers }
+// Method   POST
+// Route    api/trips/
+// Desc.    Add new trip
+// Access   Private
+const addTrip = asyncHandler(async (req, res) => {
+  const { tripName } = req.body
+
+  try {
+    const user = await User.findById(req.user._id)
+    user.trips.push({ tripName })
+    const updatedTrip = await user.save()
+
+    res.send(updatedTrip)
+  } catch (err) {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
+// Method   DELETE
+// Route    api/trips/:id
+// Desc.    Delete existing trip
+// Access   Private
+const deleteTrip = asyncHandler(async (req, res) => {
+  try {
+    await User.updateOne({}, { $pull: { trips: { _id: req.params.id } } })
+    res.json({ message: 'Trip removed' })
+  } catch (err) {
+    res.status(404)
+    throw new Error('Trip not found')
+  }
+})
+
+export { getTripData, getUserTrips, getTripMembers, addTrip, deleteTrip }

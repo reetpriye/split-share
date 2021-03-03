@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTripDetails } from '../actions/tripActions'
 
@@ -7,14 +8,14 @@ import './styles/Dashboard.css'
 const DashboardScreen = ({ match }) => {
   const dispatch = useDispatch()
   const currTrip = useSelector(state => state.currTrip)
-  const { tripData } = currTrip
+  const { tripData, loading } = currTrip
 
   useEffect(() => {
     const fetchTripDetails = async (req, res) => {
       dispatch(getTripDetails(match.params.id))
     }
     fetchTripDetails()
-  }, [])
+  }, [match, dispatch])
   return (
     <div className='dashboard'>
       <div className='trip-details'>
@@ -25,7 +26,7 @@ const DashboardScreen = ({ match }) => {
       </div>
       <div className='total-expense-container'>
         <h3>Total Expense</h3>
-        <h1>₹{tripData && tripData.totalExpense}</h1>
+        {loading ? <Loader /> : <h1>₹{tripData && tripData.totalExpense}</h1>}
       </div>
       <div className='new-item-container'>
         <h3 className='sub-heading'>Add New Item</h3>
@@ -36,36 +37,48 @@ const DashboardScreen = ({ match }) => {
 
         <h3 className='new-item-type'>Payer</h3>
         <div className='new-item-payer'>
-          {tripData &&
+          {loading ? (
+            <Loader />
+          ) : (
+            tripData &&
             tripData.membersData.map(member => (
               <div key={member._id} className='payer'>
                 <input type='checkbox' />
                 <h5>{member.name}</h5>
               </div>
-            ))}
+            ))
+          )}
         </div>
 
         <h3 className='new-item-type'>Exclude</h3>
         <div className='new-item-exclude'>
-          {tripData &&
+          {loading ? (
+            <Loader />
+          ) : (
+            tripData &&
             tripData.membersData.map(member => (
               <div key={member._id} className='exclude'>
                 <input type='checkbox' />
                 <h5>{member.name}</h5>
               </div>
-            ))}
+            ))
+          )}
         </div>
       </div>
 
       <div className='members-share-container'>
         <h3 className='sub-heading'>Member's Share</h3>
-        {tripData &&
+        {loading ? (
+          <Loader />
+        ) : (
+          tripData &&
           tripData.membersData.map(member => (
             <div key={member._id} className='member-share'>
               <h5>{member.name}</h5>
               <h5 className='member-share-amount'>{member.amount}</h5>
             </div>
-          ))}
+          ))
+        )}
       </div>
 
       <div className='pie-chart'>

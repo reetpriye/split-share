@@ -8,7 +8,13 @@ import {
   USER_TRIPS_FAIL,
   TRIP_MEMBERS_REQUEST,
   TRIP_MEMBERS_SUCCESS,
-  TRIP_MEMBERS_FAIL
+  TRIP_MEMBERS_FAIL,
+  ADD_TRIP_REQUEST,
+  ADD_TRIP_SUCCESS,
+  ADD_TRIP_FAIL,
+  DELETE_TRIP_REQUEST,
+  DELETE_TRIP_SUCCESS,
+  DELETE_TRIP_FAIL
 } from '../constants/tripConstants'
 
 import { logout } from './userActions'
@@ -122,6 +128,80 @@ export const getTripMembers = id => async (dispatch, getState) => {
     }
     dispatch({
       type: TRIP_MEMBERS_FAIL,
+      payload: message
+    })
+  }
+}
+
+export const addTrip = tripName => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ADD_TRIP_REQUEST
+    })
+
+    const {
+      userLogin: { userInfo }
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    const { data } = await axios.post('/api/trips/', { tripName }, config)
+
+    dispatch({
+      type: ADD_TRIP_SUCCESS,
+      payload: data
+    })
+    dispatch(getUserTrips())
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ADD_TRIP_FAIL,
+      payload: message
+    })
+  }
+}
+
+export const deleteTrip = id => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DELETE_TRIP_REQUEST
+    })
+
+    const {
+      userLogin: { userInfo }
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+
+    await axios.delete(`/api/trips/${id}`, config)
+
+    dispatch({
+      type: DELETE_TRIP_SUCCESS
+    })
+    dispatch(getUserTrips())
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: DELETE_TRIP_FAIL,
       payload: message
     })
   }

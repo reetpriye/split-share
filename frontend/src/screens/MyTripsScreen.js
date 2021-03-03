@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserTrips } from '../actions/tripActions'
+import { getUserTrips, addTrip, deleteTrip } from '../actions/tripActions'
 
 import './styles/MyTrips.css'
 
 const MyTripsScreen = ({ history }) => {
+  const [tripName, setTripName] = useState('')
+
   const dispatch = useDispatch()
   const userTrips = useSelector(state => state.userTrips)
   const userLogin = useSelector(state => state.userLogin)
@@ -34,8 +36,12 @@ const MyTripsScreen = ({ history }) => {
         <div className='add-trip-container'>
           <h6>ADD NEW TRIP</h6>
           <div className='input-container'>
-            <input type='text' />
-            <button>+ADD</button>
+            <input
+              type='text'
+              value={tripName}
+              onChange={e => setTripName(e.target.value)}
+            />
+            <button onClick={() => dispatch(addTrip(tripName))}>+ADD</button>
           </div>
           <h6 className='success-message'>Trip added successfully</h6>
         </div>
@@ -50,12 +56,15 @@ const MyTripsScreen = ({ history }) => {
           trips.map(trip => (
             <div key={trip._id} className='trip'>
               <Link to={`trip/${trip._id}`}>{trip.tripName}</Link>
-              <button className='man-btn'>
+              <button onClick={console.log('Next work')} className='man-btn'>
                 Manage
                 <br />
                 Members
               </button>
-              <button className='del-btn'>
+              <button
+                onClick={() => dispatch(deleteTrip(trip._id))}
+                className='del-btn'
+              >
                 <i className='fas fa-trash'></i>
               </button>
             </div>

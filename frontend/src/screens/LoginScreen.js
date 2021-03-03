@@ -7,7 +7,7 @@ import { login } from '../actions/userActions'
 
 import './styles/LoginRegister.css'
 
-const LoginScreen = ({ location, history }) => {
+const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
