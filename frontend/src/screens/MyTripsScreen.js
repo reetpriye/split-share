@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserTrips } from '../actions/tripActions'
 
 import './styles/MyTrips.css'
 
-const MyTripsScreen = ({ match }) => {
+const MyTripsScreen = ({ history }) => {
   const dispatch = useDispatch()
   const userTrips = useSelector(state => state.userTrips)
-  const { userAllTrips } = userTrips
+  const userLogin = useSelector(state => state.userLogin)
+  const { trips, loading } = userTrips
+  const { userInfo } = userLogin
 
   useEffect(() => {
-    dispatch(getUserTrips())
-  }, [])
+    if (!userInfo) {
+      history.push('/')
+    } else {
+      dispatch(getUserTrips())
+    }
+  }, [history, userInfo, dispatch])
 
   return (
     <div className='trips'>
@@ -36,10 +43,13 @@ const MyTripsScreen = ({ match }) => {
 
       <div className='your-trips-container'>
         <h2>Your Trips</h2>
-        {userAllTrips &&
-          userAllTrips.map(trip => (
+        {loading ? (
+          <Loader />
+        ) : (
+          trips &&
+          trips.map(trip => (
             <div key={trip._id} className='trip'>
-              <Link to={trip._id}>{trip.tripName}</Link>
+              <Link to={`trip/${trip._id}`}>{trip.tripName}</Link>
               <button className='man-btn'>
                 Manage
                 <br />
@@ -49,7 +59,8 @@ const MyTripsScreen = ({ match }) => {
                 <i className='fas fa-trash'></i>
               </button>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   )

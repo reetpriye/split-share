@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Loader from '../components/Loader'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTripMembers } from '../actions/tripActions'
+
 import './styles/Member.css'
 
-const MemberScreen = () => {
-  const [users, setUsers] = useState(null)
+const MemberScreen = ({ history }) => {
+  const dispatch = useDispatch()
+  const currTrip = useSelector(state => state.currTrip)
+  const membersData = useSelector(state => state.membersData)
+  const userLogin = useSelector(state => state.userLogin)
+  const { currTripId } = currTrip
+  const { userInfo } = userLogin
+  const { members, loading } = membersData
 
   useEffect(() => {
-    const fetchUsers = async (req, res) => {
-      const usersData = await axios.get('/api/users')
-
-      const { data } = usersData
-
-      setUsers(data)
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      dispatch(getTripMembers(currTripId))
     }
+  }, [history, userInfo, dispatch])
 
-    fetchUsers()
-  }, [])
   return (
     <div className='members'>
       <h3 className='suggestions'>
@@ -33,16 +39,20 @@ const MemberScreen = () => {
           <button>+ADD</button>
         </div>
         <h6 className='success-message'>Member added successfully</h6>
-        {/* Members */}
         <div className='members-container'>
-          {users &&
-            users[0].trips[0].membersData.map(member => (
+          {loading ? (
+            <Loader />
+          ) : (
+            members &&
+            members.length > 0 &&
+            members.map(member => (
               <div key={member._id} className='member'>
                 <h3 className='member-name'>{member.name}</h3>
                 <i className='fas fa-edit'></i>
                 <i className='fas fa-trash'></i>
               </div>
-            ))}
+            ))
+          )}
         </div>
         <h5>
           Done adding members? <Link to='dashboard'>Click here</Link> to start

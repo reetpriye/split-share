@@ -1,35 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTripDetails } from '../actions/tripActions'
 
 import './styles/Dashboard.css'
 
-const DashboardScreen = () => {
-  const [users, setUsers] = useState(null)
-  const [trip, setTrip] = useState(null)
+const DashboardScreen = ({ match }) => {
+  const dispatch = useDispatch()
+  const currTrip = useSelector(state => state.currTrip)
+  const { tripData } = currTrip
 
   useEffect(() => {
-    const fetchUsers = async (req, res) => {
-      const usersData = await axios.get('/api/users')
-
-      const { data } = usersData
-      const tripData = data[0].trips[0]
-      setUsers(data)
-      setTrip(tripData)
+    const fetchTripDetails = async (req, res) => {
+      dispatch(getTripDetails(match.params.id))
     }
-
-    fetchUsers()
+    fetchTripDetails()
   }, [])
   return (
     <div className='dashboard'>
       <div className='trip-details'>
-        <h5 className='trip-name'>TRIP: {trip && trip.tripName}</h5>
-        {trip && trip.tripName === 'Not Saved' ? (
+        <h5 className='trip-name'>TRIP: {tripData && tripData.tripName}</h5>
+        {tripData && tripData.tripName === 'Not Saved' ? (
           <button className='trip-save-btn'>Save?</button>
         ) : null}
       </div>
       <div className='total-expense-container'>
         <h3>Total Expense</h3>
-        <h1>₹{trip && trip.totalExpense}</h1>
+        <h1>₹{tripData && tripData.totalExpense}</h1>
       </div>
       <div className='new-item-container'>
         <h3 className='sub-heading'>Add New Item</h3>
@@ -40,8 +36,8 @@ const DashboardScreen = () => {
 
         <h3 className='new-item-type'>Payer</h3>
         <div className='new-item-payer'>
-          {trip &&
-            trip.membersData.map(member => (
+          {tripData &&
+            tripData.membersData.map(member => (
               <div key={member._id} className='payer'>
                 <input type='checkbox' />
                 <h5>{member.name}</h5>
@@ -51,8 +47,8 @@ const DashboardScreen = () => {
 
         <h3 className='new-item-type'>Exclude</h3>
         <div className='new-item-exclude'>
-          {trip &&
-            trip.membersData.map(member => (
+          {tripData &&
+            tripData.membersData.map(member => (
               <div key={member._id} className='exclude'>
                 <input type='checkbox' />
                 <h5>{member.name}</h5>
@@ -63,8 +59,8 @@ const DashboardScreen = () => {
 
       <div className='members-share-container'>
         <h3 className='sub-heading'>Member's Share</h3>
-        {trip &&
-          trip.membersData.map(member => (
+        {tripData &&
+          tripData.membersData.map(member => (
             <div key={member._id} className='member-share'>
               <h5>{member.name}</h5>
               <h5 className='member-share-amount'>{member.amount}</h5>

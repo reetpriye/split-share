@@ -20,12 +20,12 @@ const App = () => {
         <Navbar />
         <div className='Content'>
           <Switch>
-            <Route exact path='/' component={HomeScreen} />
+            <Route path='/' component={HomeScreen} exact />
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
-            <Route path='/dashboard' component={DashboardScreen} />
-            <Route path='/members' component={MemberScreen} />
-            <Route path='/trips/' component={MyTripsScreen} />
+            <Route path='/trip/:id/members/' component={MemberScreen} exact />
+            <Route path='/trip/:id' component={DashboardScreen} exact />
+            <Route path='/trips/' component={MyTripsScreen} exact />
             <Route path='/about' component={AboutScreen} />
           </Switch>
         </div>

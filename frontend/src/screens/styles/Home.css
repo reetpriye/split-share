@@ -31,10 +31,6 @@
   font-weight: 400;
 }
 
-.home > button {
-  margin: 0 auto;
-}
-
 .spinner {
   width: 80px;
   height: 80px;
@@ -44,4 +40,10 @@
 
 .under-construction > .fa-truck-pickup {
   margin-left: 8px;
+}
+
+#logout-btn {
+  margin: 0;
+  background: transparent;
+  outline: 0;
 }
