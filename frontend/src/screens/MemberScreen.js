@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTripMembers } from '../actions/tripActions'
+import {
+  getTripMembers,
+  createMember,
+  updateMember
+} from '../actions/tripActions'
 
 import './styles/Member.css'
 
 const MemberScreen = ({ history }) => {
+  const [name, setName] = useState('')
+  const [memberId, setMemberId] = useState()
+  const [isUpdate, setIsUpdate] = useState(false)
   const dispatch = useDispatch()
   const currTrip = useSelector(state => state.currTrip)
   const membersData = useSelector(state => state.membersData)
@@ -23,6 +30,14 @@ const MemberScreen = ({ history }) => {
     }
   }, [history, userInfo, dispatch, currTripId])
 
+  const onClickHandler = () => {
+    if (isUpdate) {
+      dispatch(updateMember({ name }, memberId))
+      setIsUpdate(false)
+      setName('')
+    } else dispatch(createMember({ name }))
+  }
+
   return (
     <div className='members'>
       <h3 className='suggestions'>
@@ -35,8 +50,14 @@ const MemberScreen = ({ history }) => {
         </h2>
         <h6>ADD NEW MEMBER</h6>
         <div className='input-container'>
-          <input type='text' />
-          <button>+ADD</button>
+          <input
+            type='text'
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+          <button onClick={onClickHandler}>
+            {isUpdate ? 'UPDATE' : '+ADD'}
+          </button>
         </div>
         <h6 className='success-message'>Member added successfully</h6>
         <div className='members-container'>
@@ -48,7 +69,17 @@ const MemberScreen = ({ history }) => {
             members.map(member => (
               <div key={member._id} className='member'>
                 <h3 className='member-name'>{member.name}</h3>
-                <i className='fas fa-edit'></i>
+                <button
+                  className='edit-btn'
+                  onClick={() => {
+                    setIsUpdate(true)
+                    setName(member.name)
+                    setMemberId(member._id)
+                  }}
+                >
+                  <i className='fas fa-edit'></i>
+                </button>
+
                 <i className='fas fa-trash'></i>
               </div>
             ))

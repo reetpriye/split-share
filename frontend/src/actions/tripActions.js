@@ -6,15 +6,21 @@ import {
   USER_TRIPS_REQUEST,
   USER_TRIPS_SUCCESS,
   USER_TRIPS_FAIL,
-  TRIP_MEMBERS_REQUEST,
-  TRIP_MEMBERS_SUCCESS,
-  TRIP_MEMBERS_FAIL,
   ADD_TRIP_REQUEST,
   ADD_TRIP_SUCCESS,
   ADD_TRIP_FAIL,
   DELETE_TRIP_REQUEST,
   DELETE_TRIP_SUCCESS,
-  DELETE_TRIP_FAIL
+  DELETE_TRIP_FAIL,
+  TRIP_MEMBERS_REQUEST,
+  TRIP_MEMBERS_SUCCESS,
+  TRIP_MEMBERS_FAIL,
+  MEMBER_CREATE_REQUEST,
+  MEMBER_CREATE_SUCCESS,
+  MEMBER_CREATE_FAIL,
+  MEMBER_UPDATE_REQUEST,
+  MEMBER_UPDATE_SUCCESS,
+  MEMBER_UPDATE_FAIL
 } from '../constants/tripConstants'
 
 import { logout } from './userActions'
@@ -102,10 +108,12 @@ export const getTripMembers = id => async (dispatch, getState) => {
     dispatch({
       type: TRIP_MEMBERS_REQUEST
     })
-
     const {
-      userLogin: { userInfo }
+      userLogin: { userInfo },
+      currTrip
     } = getState()
+
+    currTrip.currTripId = id
 
     const config = {
       headers: {
@@ -133,7 +141,7 @@ export const getTripMembers = id => async (dispatch, getState) => {
   }
 }
 
-export const addTrip = tripName => async (dispatch, getState) => {
+export const createTrip = tripName => async (dispatch, getState) => {
   try {
     dispatch({
       type: ADD_TRIP_REQUEST
@@ -202,6 +210,93 @@ export const deleteTrip = id => async (dispatch, getState) => {
     }
     dispatch({
       type: DELETE_TRIP_FAIL,
+      payload: message
+    })
+  }
+}
+
+export const createMember = member => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: MEMBER_CREATE_REQUEST
+    })
+    const { name } = member
+
+    const {
+      userLogin: { userInfo },
+      currTrip: { currTripId }
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    const { data } = await axios.post(
+      `/api/trips/${currTripId}/members/`,
+      { name },
+      config
+    )
+
+    dispatch({
+      type: MEMBER_CREATE_SUCCESS,
+      payload: data
+    })
+    dispatch(getTripMembers(currTripId))
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: MEMBER_CREATE_FAIL,
+      payload: message
+    })
+  }
+}
+
+export const updateMember = (member, id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: MEMBER_UPDATE_REQUEST
+    })
+    const { name } = member
+    const {
+      userLogin: { userInfo },
+      currTrip: { currTripId }
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+
+    const { data } = await axios.put(
+      `/api/trips/${currTripId}/members/${id}`,
+      { name },
+      config
+    )
+
+    dispatch({
+      type: MEMBER_UPDATE_SUCCESS,
+      payload: data
+    })
+    dispatch(getTripMembers(currTripId))
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: MEMBER_UPDATE_FAIL,
       payload: message
     })
   }

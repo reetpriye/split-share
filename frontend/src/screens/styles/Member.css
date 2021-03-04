@@ -85,11 +85,6 @@
   margin: 1.5rem 0;
 }
 
-.member > .fa-edit {
-  margin-left: auto;
-  color: #fff;
-}
-
 .member > .fa-trash {
   margin-left: 0.8rem;
   margin-right: 0.8rem;
@@ -102,4 +97,13 @@
 
 .success-message {
   color: #6fcf97 !important;
+}
+
+.member .edit-btn {
+  margin-left: auto;
+  width: fit-content;
+  height: fit-content;
+  border: 0;
+  color: #fff;
+  background: transparent;
 }

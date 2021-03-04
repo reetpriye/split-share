@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserTrips, addTrip, deleteTrip } from '../actions/tripActions'
+import {
+  getUserTrips,
+  createTrip,
+  deleteTrip,
+  getTripMembers
+} from '../actions/tripActions'
 
 import './styles/MyTrips.css'
 
@@ -41,7 +46,7 @@ const MyTripsScreen = ({ history }) => {
               value={tripName}
               onChange={e => setTripName(e.target.value)}
             />
-            <button onClick={() => dispatch(addTrip(tripName))}>+ADD</button>
+            <button onClick={() => dispatch(createTrip(tripName))}>+ADD</button>
           </div>
           <h6 className='success-message'>Trip added successfully</h6>
         </div>
@@ -56,10 +61,15 @@ const MyTripsScreen = ({ history }) => {
           trips.map(trip => (
             <div key={trip._id} className='trip'>
               <Link to={`trip/${trip._id}`}>{trip.tripName}</Link>
-              <button onClick={console.log('Next work')} className='man-btn'>
-                Manage
-                <br />
-                Members
+              <button
+                onClick={() => dispatch(getTripMembers(trip._id))}
+                className='man-btn'
+              >
+                <Link className='man-btn' to={`trip/${trip._id}/members`}>
+                  Manage
+                  <br />
+                  Members
+                </Link>
               </button>
               <button
                 onClick={() => dispatch(deleteTrip(trip._id))}

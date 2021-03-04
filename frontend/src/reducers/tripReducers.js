@@ -5,15 +5,21 @@ import {
   TRIP_DETAILS_REQUEST,
   TRIP_DETAILS_SUCCESS,
   TRIP_DETAILS_FAIL,
-  TRIP_MEMBERS_REQUEST,
-  TRIP_MEMBERS_SUCCESS,
-  TRIP_MEMBERS_FAIL,
   ADD_TRIP_REQUEST,
   ADD_TRIP_SUCCESS,
   ADD_TRIP_FAIL,
   DELETE_TRIP_REQUEST,
   DELETE_TRIP_SUCCESS,
-  DELETE_TRIP_FAIL
+  DELETE_TRIP_FAIL,
+  TRIP_MEMBERS_REQUEST,
+  TRIP_MEMBERS_SUCCESS,
+  TRIP_MEMBERS_FAIL,
+  MEMBER_CREATE_REQUEST,
+  MEMBER_CREATE_SUCCESS,
+  MEMBER_CREATE_FAIL,
+  MEMBER_UPDATE_REQUEST,
+  MEMBER_UPDATE_SUCCESS,
+  MEMBER_UPDATE_FAIL
 } from '../constants/tripConstants'
 
 export const userTripsReducer = (state = {}, action) => {
@@ -86,6 +92,39 @@ export const deleteTripReducer = (state = {}, action) => {
         success: true
       }
     case DELETE_TRIP_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const memberCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case MEMBER_CREATE_REQUEST:
+      return { ...state, loading: true }
+    case MEMBER_CREATE_SUCCESS:
+      return {
+        loading: false,
+        success: true
+      }
+    case MEMBER_CREATE_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const memberUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case MEMBER_UPDATE_REQUEST:
+      return { ...state, loading: true }
+    case MEMBER_UPDATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        members: action.payload
+      }
+    case MEMBER_UPDATE_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state
