@@ -1,5 +1,17 @@
 import mongoose from 'mongoose'
 
+const payerSchema = mongoose.Schema({
+  member: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Member'
+  },
+  amount: {
+    type: Number,
+    required: true
+  }
+})
+
 const transactionSchema = mongoose.Schema(
   {
     user: {
@@ -7,20 +19,15 @@ const transactionSchema = mongoose.Schema(
       required: true,
       ref: 'User'
     },
-    amount: {
+    totalAmount: {
       type: Number,
-      required: true,
-      default: 0
+      required: true
     },
     description: {
       type: String,
       default: 'NA'
     },
-    payer: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'Member'
-    },
+    payer: [payerSchema],
     exclude: [mongoose.Schema.Types.ObjectId]
   },
   {

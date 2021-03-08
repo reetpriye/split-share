@@ -62,15 +62,4 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 })
 
-const getUsers = asyncHandler(async (req, res) => {
-  try {
-    const users = await User.find({})
-    // console.log(users)
-    res.send(users)
-  } catch (err) {
-    res.status(401)
-    throw new Error('Invalid email or password')
-  }
-})
-
-export { authUser, registerUser, getUsers }
+export { authUser, registerUser }

@@ -24,6 +24,7 @@ const importData = async () => {
     await Transaction.deleteMany()
 
     const createdUsers = await User.insertMany(users)
+
     const userids = createdUsers.map(user => user._id)
     const memberids = createdUsers[0].trips[0].membersData.map(
       member => member._id
@@ -35,15 +36,23 @@ const importData = async () => {
     const reetId = memberids[3]
     const ashishId = memberids[4]
 
-    transactions[0].payer = ashishId
-    transactions[1].payer = ashishId
-    transactions[2].payer = rajId
-    transactions[3].payer = rajId
-    transactions[4].payer = manishId
-    transactions[5].payer = ankitId
+    transactions[0].payer = [{ member: ashishId, amount: 50 }]
+    transactions[1].payer = [
+      { member: reetId, amount: 60 },
+      { member: ankitId, amount: 40 }
+    ]
+    transactions[2].payer = [
+      { member: rajId, amount: 200 },
+      { member: manishId, amount: 40 }
+    ]
+    transactions[3].payer = [
+      { member: ashishId, amount: 40 },
+      { member: manishId, amount: 90 },
+      { member: reetId, amount: 20 }
+    ]
 
-    transactions[3].exclude = [ashishId, reetId]
-    transactions[5].exclude = [ashishId]
+    transactions[2].exclude = [reetId]
+    transactions[3].exclude = [ankitId, rajId]
 
     const updatedTransactions = transactions.map(transaction => {
       return {

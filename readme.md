@@ -80,10 +80,10 @@ npm run data:destroy
 Sample User Logins
 
 reetpriye@gmail.com
-123456
+Reet@1234
 
 rajsingh@gmail.com
-123456
+Raj@1234
 ```
 
 ## License

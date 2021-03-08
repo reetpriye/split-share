@@ -78,11 +78,9 @@ const RegisterScreen = props => {
             minLength='6'
           />
         </div>
-        <button
-          type='submit'
-          value='RegisterScreen'
-          className='btn-submit'
-        ></button>
+        <button type='submit' value='RegisterScreen' className='btn-submit'>
+          Sign Up
+        </button>
       </form>
       <h4 className='already-text'>
         Already a user?{' '}

@@ -49,14 +49,14 @@
   display: flex;
 }
 
-.member-list-container input {
+.input-container input {
   background: #ffffff;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  margin-right: -2px;
+  margin-right: -16px;
 }
 
-.member-list-container button {
+.add-update-btn {
   font-family: Gilroy-Medium;
   font-style: normal;
   font-weight: 600;
@@ -65,10 +65,23 @@
   color: #000000;
   width: 92px;
   height: 40px;
+  padding: 0 1rem;
   background: rgba(111, 207, 151, 0.87);
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 0;
+}
+
+.clear-btn {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  color: var(--tertiary-color);
+  position: relative;
+  left: -6px;
+  opacity: 0.8;
 }
 
 .members-name-container {
@@ -95,7 +108,7 @@
   margin: 0;
 }
 
-.success-message {
+.message {
   color: #6fcf97 !important;
 }
 

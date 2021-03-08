@@ -20,17 +20,17 @@ const App = () => {
         <Navbar />
         <div className='Content'>
           <Switch>
-            <Route path='/' component={HomeScreen} exact />
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
             <Route path='/trip/:id/members/' component={MemberScreen} exact />
             <Route path='/trip/:id' component={DashboardScreen} exact />
             <Route path='/trips/' component={MyTripsScreen} exact />
             <Route path='/about' component={AboutScreen} />
+            <Route path='/' component={HomeScreen} exact />
           </Switch>
         </div>
+        <Footer className='Footer' />
       </Router>
-      <Footer className='Footer' />
     </Fragment>
   )
 }

@@ -1,34 +1,36 @@
 import axios from 'axios'
 import {
+  TRIPS_LIST_REQUEST,
+  TRIPS_LIST_SUCCESS,
+  TRIPS_LIST_FAIL,
+  TRIP_CREATE_REQUEST,
+  TRIP_CREATE_SUCCESS,
+  TRIP_CREATE_FAIL,
+  TRIP_DELETE_REQUEST,
+  TRIP_DELETE_SUCCESS,
+  TRIP_DELETE_FAIL,
   TRIP_DETAILS_REQUEST,
   TRIP_DETAILS_SUCCESS,
   TRIP_DETAILS_FAIL,
-  USER_TRIPS_REQUEST,
-  USER_TRIPS_SUCCESS,
-  USER_TRIPS_FAIL,
-  ADD_TRIP_REQUEST,
-  ADD_TRIP_SUCCESS,
-  ADD_TRIP_FAIL,
-  DELETE_TRIP_REQUEST,
-  DELETE_TRIP_SUCCESS,
-  DELETE_TRIP_FAIL,
   TRIP_MEMBERS_REQUEST,
   TRIP_MEMBERS_SUCCESS,
   TRIP_MEMBERS_FAIL,
   MEMBER_CREATE_REQUEST,
   MEMBER_CREATE_SUCCESS,
   MEMBER_CREATE_FAIL,
+  MEMBER_CREATE_CLEAR_ERROR,
   MEMBER_UPDATE_REQUEST,
   MEMBER_UPDATE_SUCCESS,
-  MEMBER_UPDATE_FAIL
+  MEMBER_UPDATE_FAIL,
+  MEMBER_UPDATE_CLEAR_ERROR
 } from '../constants/tripConstants'
 
 import { logout } from './userActions'
 
-export const getUserTrips = () => async (dispatch, getState) => {
+export const listUserTrips = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: USER_TRIPS_REQUEST
+      type: TRIPS_LIST_REQUEST
     })
 
     const {
@@ -42,13 +44,11 @@ export const getUserTrips = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(`/api/trips/`, config)
-    // To check loader
-    // setTimeout(() => {
+
     dispatch({
-      type: USER_TRIPS_SUCCESS,
+      type: TRIPS_LIST_SUCCESS,
       payload: data
     })
-    // }, 5000)
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -58,11 +58,13 @@ export const getUserTrips = () => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: USER_TRIPS_FAIL,
+      type: TRIPS_LIST_FAIL,
       payload: message
     })
   }
 }
+
+// For dashboard screen
 
 export const getTripDetails = id => async (dispatch, getState) => {
   try {
@@ -103,7 +105,77 @@ export const getTripDetails = id => async (dispatch, getState) => {
   }
 }
 
-export const getTripMembers = id => async (dispatch, getState) => {
+export const createTrip = tripName => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TRIP_CREATE_REQUEST
+    })
+
+    const {
+      userLogin: { userInfo }
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    await axios.post('/api/trips/', { tripName }, config)
+
+    dispatch({ type: TRIP_CREATE_SUCCESS })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: TRIP_CREATE_FAIL,
+      payload: message
+    })
+  }
+}
+
+export const deleteTrip = id => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TRIP_DELETE_REQUEST
+    })
+
+    const {
+      userLogin: { userInfo }
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+
+    await axios.delete(`/api/trips/${id}`, config)
+
+    dispatch({ type: TRIP_DELETE_SUCCESS })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: TRIP_DELETE_FAIL,
+      payload: message
+    })
+  }
+}
+
+// For members screen
+
+export const listTripMembers = id => async (dispatch, getState) => {
   try {
     dispatch({
       type: TRIP_MEMBERS_REQUEST
@@ -126,6 +198,7 @@ export const getTripMembers = id => async (dispatch, getState) => {
       type: TRIP_MEMBERS_SUCCESS,
       payload: data
     })
+    localStorage.setItem('currTripId', JSON.stringify(id))
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -141,86 +214,11 @@ export const getTripMembers = id => async (dispatch, getState) => {
   }
 }
 
-export const createTrip = tripName => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: ADD_TRIP_REQUEST
-    })
-
-    const {
-      userLogin: { userInfo }
-    } = getState()
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`
-      }
-    }
-    const { data } = await axios.post('/api/trips/', { tripName }, config)
-
-    dispatch({
-      type: ADD_TRIP_SUCCESS,
-      payload: data
-    })
-    dispatch(getUserTrips())
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: ADD_TRIP_FAIL,
-      payload: message
-    })
-  }
-}
-
-export const deleteTrip = id => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: DELETE_TRIP_REQUEST
-    })
-
-    const {
-      userLogin: { userInfo }
-    } = getState()
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`
-      }
-    }
-
-    await axios.delete(`/api/trips/${id}`, config)
-
-    dispatch({
-      type: DELETE_TRIP_SUCCESS
-    })
-    dispatch(getUserTrips())
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: DELETE_TRIP_FAIL,
-      payload: message
-    })
-  }
-}
-
-export const createMember = member => async (dispatch, getState) => {
+export const createMember = ({ name }) => async (dispatch, getState) => {
   try {
     dispatch({
       type: MEMBER_CREATE_REQUEST
     })
-    const { name } = member
 
     const {
       userLogin: { userInfo },
@@ -242,7 +240,6 @@ export const createMember = member => async (dispatch, getState) => {
       type: MEMBER_CREATE_SUCCESS,
       payload: data
     })
-    dispatch(getTripMembers(currTripId))
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -255,15 +252,19 @@ export const createMember = member => async (dispatch, getState) => {
       type: MEMBER_CREATE_FAIL,
       payload: message
     })
+    setTimeout(() => {
+      dispatch({
+        type: MEMBER_CREATE_CLEAR_ERROR
+      })
+    }, 3000)
   }
 }
 
-export const updateMember = (member, id) => async (dispatch, getState) => {
+export const updateMember = ({ name }, id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: MEMBER_UPDATE_REQUEST
     })
-    const { name } = member
     const {
       userLogin: { userInfo },
       currTrip: { currTripId }
@@ -276,17 +277,11 @@ export const updateMember = (member, id) => async (dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.put(
-      `/api/trips/${currTripId}/members/${id}`,
-      { name },
-      config
-    )
+    await axios.put(`/api/trips/${currTripId}/members/${id}`, { name }, config)
 
     dispatch({
-      type: MEMBER_UPDATE_SUCCESS,
-      payload: data
+      type: MEMBER_UPDATE_SUCCESS
     })
-    dispatch(getTripMembers(currTripId))
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -299,5 +294,10 @@ export const updateMember = (member, id) => async (dispatch, getState) => {
       type: MEMBER_UPDATE_FAIL,
       payload: message
     })
+    setTimeout(() => {
+      dispatch({
+        type: MEMBER_UPDATE_CLEAR_ERROR
+      })
+    }, 3000)
   }
 }

@@ -17,7 +17,7 @@ const HomeScreen = () => {
         Site is under construction
         <i className='fas fa-truck-pickup'></i>
       </p>
-      <Link className='home-link' to='/dashboard'>
+      <Link className='home-link' to={`trip/${currTripId}`}>
         Dashboard
       </Link>
       <Link className='home-link' to='/trips'>

@@ -11,10 +11,7 @@ const DashboardScreen = ({ match }) => {
   const { tripData, loading } = currTrip
 
   useEffect(() => {
-    const fetchTripDetails = async (req, res) => {
-      dispatch(getTripDetails(match.params.id))
-    }
-    fetchTripDetails()
+    dispatch(getTripDetails(match.params.id))
   }, [match, dispatch])
   return (
     <div className='dashboard'>
@@ -32,8 +29,10 @@ const DashboardScreen = ({ match }) => {
         <h3 className='sub-heading'>Add New Item</h3>
         <div className='new-item-inp-container'>
           <input type='number' />
-          <button>+ADD</button>
+          <input type='number' />
+          <input type='number' />
         </div>
+        <button className='add-btn'>+ADD</button>
 
         <h3 className='new-item-type'>Payer</h3>
         <div className='new-item-payer'>

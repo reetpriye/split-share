@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  getUserTrips,
+  listUserTrips,
   createTrip,
   deleteTrip,
-  getTripMembers
+  listTripMembers
 } from '../actions/tripActions'
 
 import './styles/MyTrips.css'
@@ -17,16 +17,20 @@ const MyTripsScreen = ({ history }) => {
   const dispatch = useDispatch()
   const userTrips = useSelector(state => state.userTrips)
   const userLogin = useSelector(state => state.userLogin)
-  const { trips, loading } = userTrips
+  const tripDelete = useSelector(state => state.tripDelete)
+  const tripCreate = useSelector(state => state.tripCreate)
   const { userInfo } = userLogin
+  const { trips, loading } = userTrips
+  const { success: successCreate, loading: loadingCreate } = tripCreate
+  const { success: successDelete, loading: loadingDelete } = tripDelete
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/')
+      history.push('/login')
     } else {
-      dispatch(getUserTrips())
+      dispatch(listUserTrips())
     }
-  }, [history, userInfo, dispatch])
+  }, [history, userInfo, dispatch, successCreate, successDelete])
 
   return (
     <div className='trips'>
@@ -54,7 +58,7 @@ const MyTripsScreen = ({ history }) => {
 
       <div className='your-trips-container'>
         <h2>Your Trips</h2>
-        {loading ? (
+        {loading || loadingCreate || loadingDelete ? (
           <Loader />
         ) : (
           trips &&
@@ -62,7 +66,7 @@ const MyTripsScreen = ({ history }) => {
             <div key={trip._id} className='trip'>
               <Link to={`trip/${trip._id}`}>{trip.tripName}</Link>
               <button
-                onClick={() => dispatch(getTripMembers(trip._id))}
+                onClick={() => dispatch(listTripMembers(trip._id))}
                 className='man-btn'
               >
                 <Link className='man-btn' to={`trip/${trip._id}/members`}>

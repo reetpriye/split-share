@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true
     },
+    currTripId: {
+      type: mongoose.Schema.Types.ObjectId
+    },
     trips: [tripSchema]
   },
   {
