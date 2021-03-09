@@ -4,12 +4,10 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  font-family: Inter;
 }
 .not-supported-text > h1 {
   margin: 0;
   font-size: 8rem;
-  font-family: Inter;
 }
 
 .not-supported-text > h1 > span {

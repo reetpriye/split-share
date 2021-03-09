@@ -22,18 +22,12 @@
 .total-expense-container > h3 {
   margin: 0;
   text-align: center;
-  font-family: Gilroy-Medium;
-  font-style: normal;
-  font-weight: normal;
   font-size: 24px;
   line-height: 28px;
 }
 
 .total-expense-container > h1 {
   margin: 0;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: normal;
   font-size: 6rem;
   line-height: 135px;
   text-align: center;
@@ -64,11 +58,7 @@
 .new-item-container .add-btn {
   margin-top: 1rem;
   margin-left: auto;
-  font-family: Gilroy-Medium;
-  font-style: normal;
-  font-weight: 600;
   font-size: 18px;
-  line-height: 18px;
   color: #000000;
   width: 92px;
   height: 40px;
@@ -80,11 +70,7 @@
 .new-item-type {
   margin-top: 0.8rem;
   margin-bottom: 0.4rem;
-  font-family: Gilroy-Medium;
-  font-style: normal;
-  font-weight: normal;
   font-size: 24px;
-  line-height: 28px;
 }
 
 .new-item-container {
@@ -103,11 +89,7 @@
 .new-item-payer h5 {
   margin: 0;
   display: inline-block;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
   font-size: 14px;
-  line-height: 22px;
   color: #cbcfd4;
 }
 
@@ -135,11 +117,7 @@
 
 .member-share-amount {
   margin-left: auto;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
   font-size: 14px;
-  line-height: 22px;
   text-align: right;
   color: #f27a54;
 }

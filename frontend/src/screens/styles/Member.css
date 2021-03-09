@@ -1,7 +1,4 @@
 .suggestions {
-  font-family: Gilroy;
-  font-style: normal;
-  font-weight: 300;
   font-size: 18px;
   line-height: 18px;
   text-transform: uppercase;
@@ -21,11 +18,7 @@
 
 .member-list-container > h5 {
   text-transform: uppercase;
-  font-family: Gilroy;
-  font-style: normal;
-  font-weight: 300;
   font-size: 14px;
-  line-height: 18px;
   color: #ffffff;
 }
 
@@ -36,9 +29,6 @@
 }
 
 .member-list-container > h2 {
-  font-family: Gilroy-Medium;
-  font-style: normal;
-  font-weight: normal;
   font-size: 24px;
   line-height: 0px;
   text-align: center;
@@ -57,9 +47,6 @@
 }
 
 .add-update-btn {
-  font-family: Gilroy-Medium;
-  font-style: normal;
-  font-weight: 600;
   font-size: 18px;
   line-height: 18px;
   color: #000000;

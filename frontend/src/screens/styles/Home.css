@@ -10,7 +10,6 @@
   text-align: center;
   display: block;
   text-decoration: none;
-  font-family: Gilroy;
   color: #fff;
   font-size: 2rem;
 }
@@ -18,17 +17,14 @@
 .home > p {
   font-size: 1.5rem;
   color: #fff;
-  font-family: Gilroy;
   text-align: center;
 }
 
 .home > h1 {
   margin: 2rem;
   text-align: center;
-  font-family: Gilroy;
   color: #fff;
   font-size: 1.8rem;
-  font-weight: 400;
 }
 
 .spinner {

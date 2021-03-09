@@ -12,7 +12,6 @@
   justify-content: space-between;
   align-items: center;
   font-size: 1rem;
-  font-family: 'Futura LT Book', sans-serif;
 }
 
 .navbar a {
@@ -59,8 +58,6 @@
 }
 
 .nav-links {
-  font-family: Gilroy-SemiBold;
-  font-style: normal;
   font-size: 1.8rem;
   line-height: 40px;
   text-align: right;

@@ -10,9 +10,6 @@ form {
 }
 
 label {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
   font-size: 10px;
   line-height: 18px;
   text-transform: uppercase;
@@ -44,9 +41,6 @@ input[type='date'] {
   border: 0;
   border-radius: 3px;
   margin-top: 1rem;
-  font-family: Gilroy;
-  font-style: normal;
-  font-weight: 600;
   font-size: 14px;
   text-transform: uppercase;
   color: #000000;
@@ -56,9 +50,6 @@ input[type='date'] {
 .already-text {
   height: 18px;
   align-self: flex-end;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 300;
   font-size: 12px;
   line-height: 18px;
   text-transform: uppercase;

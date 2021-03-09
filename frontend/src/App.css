@@ -10,7 +10,8 @@
 }
 
 body {
-  font-family: Montserrat;
+  font-weight: 300;
+  font-family: Jost;
   color: var(--primary-color);
 }
 
@@ -24,28 +25,17 @@ h1 {
 }
 
 .heading {
-  height: 48px;
-  font-family: Oswald;
-  font-style: normal;
-  font-weight: normal;
   font-size: 42px;
-  line-height: 48px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: rgba(255, 255, 255, 0.81);
+  color: rgba(255, 255, 255);
   text-align: center;
-  /* font-family: Montserrat;
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-transform: uppercase; */
+  text-transform: uppercase;
 }
 
 .sub-heading {
-  margin-top: 0;
   text-align: center;
-  font-family: Gilroy-Medium;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 25px;
 }
 
 .under-construction {

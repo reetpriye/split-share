@@ -1,7 +1,4 @@
 .trips h3 {
-  font-family: Gilroy;
-  font-style: normal;
-  font-weight: 300;
   font-size: 18px;
   line-height: 18px;
   color: #ffffff;
@@ -22,18 +19,12 @@
 }
 
 .add-trip-container > h3 > span {
-  font-family: Gilroy-SemiBold;
-  font-style: normal;
-  font-weight: 600;
   font-size: 18px;
   line-height: 18px;
   color: #f27a54;
 }
 
 .add-trip-container > .input-container > button {
-  font-family: Gilroy-Medium;
-  font-style: normal;
-  font-weight: 600;
   font-size: 18px;
   line-height: 18px;
   color: #000000;
