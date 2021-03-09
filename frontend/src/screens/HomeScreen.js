@@ -1,13 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { logout } from '../actions/userActions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import './styles/Home.css'
 
 const HomeScreen = () => {
-  const dispatch = useDispatch()
-
   const currTrip = useSelector(state => state.currTrip)
   const { currTripId } = currTrip
 
@@ -29,19 +26,6 @@ const HomeScreen = () => {
       <Link className='home-link' to='/about'>
         About
       </Link>
-      <Link className='home-link' to='/login'>
-        Login
-      </Link>
-      <Link className='home-link' to='/register'>
-        Register
-      </Link>
-      <button
-        onClick={() => dispatch(logout())}
-        className='home-link'
-        id='logout-btn'
-      >
-        Logout
-      </button>
     </div>
   )
 }

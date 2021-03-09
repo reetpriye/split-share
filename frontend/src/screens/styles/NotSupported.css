@@ -1,0 +1,24 @@
+.not-supported {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: Inter;
+}
+.not-supported-text > h1 {
+  margin: 0;
+  font-size: 8rem;
+  font-family: Inter;
+}
+
+.not-supported-text > h1 > span {
+  color: var(--secondary-color);
+}
+
+.not-supported-text > p {
+  font-size: 1.2rem;
+  text-align: right;
+  margin: -2rem 0;
+  opacity: 0.6;
+}

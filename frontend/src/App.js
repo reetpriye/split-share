@@ -12,8 +12,10 @@ import DashboardScreen from './screens/DashboardScreen'
 import MyTripsScreen from './screens/MyTripsScreen'
 import AboutScreen from './screens/AboutScreen'
 import MemberScreen from './screens/MemberScreen'
+import NotSupportedScreen from './screens/NotSupportedScreen'
 
 const App = () => {
+  if (window.innerWidth > 600) return <NotSupportedScreen />
   return (
     <Fragment>
       <Router>
