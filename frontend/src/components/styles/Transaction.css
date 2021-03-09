@@ -1,0 +1,27 @@
+.transaction-container {
+  padding: 26px;
+  background: var(--tertiary-color);
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.transaction {
+  display: flex;
+  margin: 0;
+}
+
+.transaction > h5 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.transaction-amount {
+  margin-left: auto;
+  font-size: 14px;
+  text-align: right;
+  color: #f27a54;
+}

@@ -3,11 +3,25 @@ import mongoose from 'mongoose'
 const payerSchema = mongoose.Schema({
   member: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Member'
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
   },
   amount: {
     type: Number,
+    required: true
+  }
+})
+
+const excludeSchema = mongoose.Schema({
+  member: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  name: {
+    type: String,
     required: true
   }
 })
@@ -19,16 +33,19 @@ const transactionSchema = mongoose.Schema(
       required: true,
       ref: 'User'
     },
+    trip: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    },
     totalAmount: {
       type: Number,
       required: true
     },
     description: {
-      type: String,
-      default: 'NA'
+      type: String
     },
-    payer: [payerSchema],
-    exclude: [mongoose.Schema.Types.ObjectId]
+    payers: [payerSchema],
+    excludes: [excludeSchema]
   },
   {
     timestamps: true

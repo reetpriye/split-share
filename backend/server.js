@@ -6,6 +6,7 @@ import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
 import tripRoutes from './routes/tripRoutes.js'
+import transactionRoutes from './routes/transactionRoutes.js'
 
 dotenv.config()
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 // Define Routes
 app.use('/api/users', userRoutes)
 app.use('/api/trips', tripRoutes)
+app.use('/api/transactions', transactionRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

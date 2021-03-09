@@ -15,7 +15,7 @@ import MemberScreen from './screens/MemberScreen'
 import NotSupportedScreen from './screens/NotSupportedScreen'
 
 const App = () => {
-  if (window.innerWidth > 600) return <NotSupportedScreen />
+  if (window.innerWidth > 480) return <NotSupportedScreen />
   return (
     <Fragment>
       <Router>

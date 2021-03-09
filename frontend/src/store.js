@@ -11,6 +11,10 @@ import {
   memberCreateReducer,
   memberUpdateReducer
 } from './reducers/tripReducers'
+import {
+  transactionListReducer,
+  transactionCreateReducer
+} from './reducers/transactionReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -21,7 +25,9 @@ const reducer = combineReducers({
   tripCreate: tripCreateReducer,
   membersData: tripMembersReducer,
   memberCreate: memberCreateReducer,
-  memberUpdate: memberUpdateReducer
+  memberUpdate: memberUpdateReducer,
+  transactionCreate: transactionCreateReducer,
+  tripTransactions: transactionListReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

@@ -22,13 +22,13 @@
 .total-expense-container > h3 {
   margin: 0;
   text-align: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 28px;
 }
 
 .total-expense-container > h1 {
   margin: 0;
-  font-size: 6rem;
+  font-size: 20vw;
   line-height: 135px;
   text-align: center;
   color: #f27a54;
@@ -39,7 +39,7 @@
   /* grid-template-columns: repeat(3, 1fr); */
   /* grid-template-columns: repeat(auto-fill, minmax(3fr, 1fr)); */
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1rem 2rem;
 }
 
 .new-item-inp-container input {
@@ -48,6 +48,7 @@
   width: 100%;
   height: 2rem;
   padding: 0;
+  padding-left: 0.2rem;
 }
 
 .new-item-container {
@@ -56,6 +57,8 @@
 }
 
 .new-item-container .add-btn {
+  grid-column: 3/4;
+  grid-row: 1/2;
   margin-top: 1rem;
   margin-left: auto;
   font-size: 18px;
@@ -89,7 +92,8 @@
 .new-item-payer h5 {
   margin: 0;
   display: inline-block;
-  font-size: 14px;
+  font-size: 1.1rem;
+  font-weight: 300;
   color: #cbcfd4;
 }
 
@@ -111,6 +115,8 @@
 }
 
 .member-share > h5 {
+  font-size: 1.1rem;
+  font-weight: 400;
   margin-top: 0.7rem;
   margin-bottom: 0.7rem;
 }
@@ -138,7 +144,23 @@
   background: var(--tertiary-color);
 }
 
-.pie-chart > h2,
-.line-chart > h2 {
-  font-size: 2rem;
+.input-item > input {
+  color: #444;
+  font-size: 1.6rem;
+}
+
+.input-item > p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.desc-input {
+  background: white !important;
+  color: #333 !important;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.desc-input::placeholder {
+  font-size: 1rem;
 }
