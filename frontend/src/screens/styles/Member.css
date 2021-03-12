@@ -43,7 +43,6 @@
   background: #ffffff;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  margin-right: -16px;
 }
 
 .add-update-btn {
@@ -53,7 +52,7 @@
   width: 92px;
   height: 40px;
   padding: 0 1rem;
-  background: rgba(111, 207, 151, 0.87);
+  background: rgba(111, 207, 151, 0.87) !important;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 0;
@@ -67,7 +66,7 @@
   font-size: 1.2rem;
   color: var(--tertiary-color);
   position: relative;
-  left: -6px;
+  left: -20px;
   opacity: 0.8;
 }
 

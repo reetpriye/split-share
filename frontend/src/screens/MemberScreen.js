@@ -8,10 +8,11 @@ import {
   createMember,
   updateMember
 } from '../actions/tripActions'
+import { getTripDetails } from '../actions/tripActions'
 
 import './styles/Member.css'
 
-const MemberScreen = ({ history }) => {
+const MemberScreen = ({ history, match }) => {
   const [name, setName] = useState('')
   const [memberId, setMemberId] = useState()
   const [isUpdate, setIsUpdate] = useState(false)
@@ -45,7 +46,8 @@ const MemberScreen = ({ history }) => {
     }
   }, [history, userInfo, dispatch, currTripId, successCreate, successUpdate])
 
-  const onClickHandler = () => {
+  const onSubmitHandler = e => {
+    e.preventDefault()
     if (isUpdate) {
       dispatch(updateMember({ name }, memberId))
       setIsUpdate(false)
@@ -71,26 +73,29 @@ const MemberScreen = ({ history }) => {
           Member List <i className='fas fa-user-circle'></i>
         </h2>
         <h6>ADD NEW MEMBER</h6>
-        <div className='input-container'>
-          <input
-            type='text'
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-          <button
-            className='clear-btn'
-            onClick={() => {
-              setName('')
-              setIsUpdate(false)
-            }}
-          >
-            <i className='fas fa-times'></i>
-          </button>
-          <button className='add-update-btn' onClick={onClickHandler}>
-            {isUpdate ? 'UPDATE' : '+ADD'}
-          </button>
-        </div>
-        {/* <h6 className='message'>{msg}</h6> */}
+        <form onSubmit={onSubmitHandler}>
+          <div className='input-container'>
+            <input
+              type='text'
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+            <button
+              className='clear-btn'
+              onClick={() => {
+                setName('')
+                setIsUpdate(false)
+              }}
+            >
+              <i className='fas fa-times'></i>
+            </button>
+            <input
+              type='submit'
+              value={isUpdate ? 'UPDATE' : '+ADD'}
+              className='add-update-btn'
+            />
+          </div>
+        </form>
         <div className='members-container'>
           {loading || loadingUpdate || loadingCreate ? (
             <Loader />
@@ -118,8 +123,15 @@ const MemberScreen = ({ history }) => {
         </div>
         <h5>
           Done adding members?{' '}
-          <Link to={`/trip/${currTripId}`}>Click here</Link> to start managing
-          expense
+          <Link
+            to={`/trip/${currTripId}`}
+            onClick={() => {
+              dispatch(getTripDetails(match.params.id))
+            }}
+          >
+            Click here
+          </Link>{' '}
+          to start managing expense
         </h5>
       </div>
     </div>

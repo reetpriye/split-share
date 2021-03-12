@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -7,7 +7,15 @@ import { register } from '../actions/userActions'
 
 import './styles/LoginRegister.css'
 
-const RegisterScreen = props => {
+const RegisterScreen = ({ history }) => {
+  const { userInfo } = useSelector(state => state.userLogin)
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push('/trips')
+    }
+  }, [userInfo])
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

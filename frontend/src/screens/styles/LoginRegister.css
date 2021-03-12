@@ -16,20 +16,6 @@ label {
   color: #747d88;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='password'],
-input[type='date'] {
-  color: rgb(250, 250, 250);
-  padding-left: 0.9rem;
-  border: 1px solid #f27a54;
-  box-sizing: border-box;
-  border-radius: 3px;
-  background: transparent;
-  width: 100%;
-  height: 40px;
-}
-
 .form-group {
   margin-top: 0.9rem;
 }
