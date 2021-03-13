@@ -40,7 +40,6 @@ const getTripData = asyncHandler(async (req, res) => {
 // Access   Private
 const addTrip = asyncHandler(async (req, res) => {
   const { tripName } = req.body
-
   const user = await User.findById(req.user._id)
   user.trips.push({ tripName })
   await user.save()

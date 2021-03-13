@@ -14,7 +14,7 @@ const RegisterScreen = ({ history }) => {
     if (userInfo) {
       history.push('/trips')
     }
-  }, [userInfo])
+  }, [userInfo, history])
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

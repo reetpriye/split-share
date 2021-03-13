@@ -39,12 +39,6 @@
   display: flex;
 }
 
-.input-container input {
-  background: #ffffff;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
 .add-update-btn {
   font-size: 18px;
   line-height: 18px;
@@ -103,6 +97,6 @@
   width: fit-content;
   height: fit-content;
   border: 0;
-  color: #fff;
+  color: var(--primary-color);
   background: transparent;
 }

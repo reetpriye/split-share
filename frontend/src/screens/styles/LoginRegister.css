@@ -33,6 +33,12 @@ label {
   align-self: flex-end;
 }
 
+.btn-submit:hover {
+  transition: all 0.3s ease-out;
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
 .already-text {
   height: 18px;
   align-self: flex-end;
@@ -44,5 +50,5 @@ label {
 
 .link {
   text-decoration: none;
-  color: #f27a54;
+  color: var(--secondary-color);
 }

@@ -8,7 +8,7 @@ body {
   font-family: Jost;
   color: var(--primary-color);
   height: 100%;
-  background-color: #30363d;
+  background-color: var(--bg-color);
   margin: 0;
   padding: 0;
 }

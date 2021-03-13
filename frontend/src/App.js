@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import './App.css'
+import Chart from './components/Chart'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
@@ -12,6 +13,8 @@ import DashboardScreen from './screens/DashboardScreen'
 import MyTripsScreen from './screens/MyTripsScreen'
 import AboutScreen from './screens/AboutScreen'
 import MemberScreen from './screens/MemberScreen'
+import TransactionsScreen from './screens/TransactionsScreen'
+import AnalyticsScreen from './screens/AnalyticsScreen'
 import NotSupportedScreen from './screens/NotSupportedScreen'
 
 const App = () => {
@@ -22,11 +25,14 @@ const App = () => {
         <Navbar />
         <div className='Content'>
           <Switch>
+            <Route path='/chart' component={Chart} />
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
-            <Route path='/trip/:id/members/' component={MemberScreen} exact />
-            <Route path='/trip/:id' component={DashboardScreen} exact />
             <Route path='/trips/' component={MyTripsScreen} exact />
+            <Route path='/trip/:id' component={DashboardScreen} exact />
+            <Route path='/trip/:id/members/' component={MemberScreen} exact />
+            <Route path='/transactions' component={TransactionsScreen} />
+            <Route path='/analytics' component={AnalyticsScreen} />
             <Route path='/about' component={AboutScreen} />
             <Route path='/' component={HomeScreen} exact />
           </Switch>

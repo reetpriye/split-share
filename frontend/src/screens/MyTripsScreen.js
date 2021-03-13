@@ -44,14 +44,17 @@ const MyTripsScreen = ({ history }) => {
         </h2>
         <div className='add-trip-container'>
           <h6>ADD NEW TRIP</h6>
-          <div className='input-container'>
-            <input
-              type='text'
-              value={tripName}
-              onChange={e => setTripName(e.target.value)}
-            />
-            <button onClick={() => dispatch(createTrip(tripName))}>+ADD</button>
-          </div>
+          <form onSubmit={() => dispatch(createTrip(tripName))}>
+            <div className='input-container'>
+              <input
+                type='text'
+                required
+                value={tripName}
+                onChange={e => setTripName(e.target.value)}
+              />
+              <input className='btn' type='submit' value='+ADD' />
+            </div>
+          </form>
           <h6 className='success-message'>Trip added successfully</h6>
         </div>
       </div>

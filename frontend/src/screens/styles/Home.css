@@ -10,20 +10,20 @@
   text-align: center;
   display: block;
   text-decoration: none;
-  color: #fff;
+  color: var(--primary-color);
   font-size: 2rem;
 }
 
 .home > p {
   font-size: 1.5rem;
-  color: #fff;
+  color: var(--primary-color);
   text-align: center;
 }
 
 .home > h1 {
   margin: 2rem;
   text-align: center;
-  color: #fff;
+  color: var(--primary-color);
   font-size: 1.8rem;
 }
 

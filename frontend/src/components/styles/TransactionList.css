@@ -1,0 +1,8 @@
+.transaction-list-container {
+  padding: 1.25rem;
+  background: var(--tertiary-color);
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

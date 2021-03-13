@@ -1,39 +1,50 @@
-import React, { useEffect } from 'react'
-import Dash from '../components/Dash'
-import Loader from '../components/Loader'
-import { useDispatch, useSelector } from 'react-redux'
-import { listTransactions } from '../actions/transactionActions'
+import React, { useState, Fragment } from 'react'
+import Dash from './Dash'
 
 import './styles/Transaction.css'
 
-const Transaction = ({ tripId }) => {
-  const dispatch = useDispatch()
-
-  const tripTransactions = useSelector(state => state.tripTransactions)
-  const { loading, transactions } = tripTransactions
-
-  useEffect(() => {
-    dispatch(listTransactions(tripId))
-  }, [dispatch, tripId])
+const Transaction = ({ transaction }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const { _id, description, totalAmount, payers, excludes } = transaction
 
   return (
-    <div className='transaction-container'>
-      <h3 className='sub-heading'>Last 5 Transactions</h3>
-      {loading ? (
-        <Loader />
-      ) : (
-        transactions &&
-        transactions.map(t => (
-          <>
-            <div key={t._id} className='transaction'>
-              <h5>{t.description}</h5>
-              <h5 className='transaction-amount'>{t.totalAmount}</h5>
+    <Fragment key={_id}>
+      <div className='transaction'>
+        <div className='transaction-collapse'>
+          <h4>{description}</h4>
+          <h5 className='transaction-amount'>{totalAmount}</h5>
+          <i
+            onClick={() => setIsOpen(!isOpen)}
+            className='fas fa-caret-square-down'
+          ></i>
+        </div>
+        {isOpen && (
+          <div className='dropdown'>
+            <div className='dropdown-label'>
+              <h5>₹</h5>
+              <h5>Name</h5>
+              <h5>Excludes</h5>
             </div>
-            <Dash />
-          </>
-        ))
-      )}
-    </div>
+            <div className='dropdown-items'>
+              <div className='dropdown-payers-items'>
+                {payers.map(p => (
+                  <div className='dropdown-payer-item'>
+                    <h5>{p.amount}</h5>
+                    <h5>{p.name}</h5>
+                  </div>
+                ))}
+              </div>
+              <div className='dropdown-excludes-items'>
+                {excludes.map(e => (
+                  <h5>{e.name}</h5>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <Dash />
+    </Fragment>
   )
 }
 

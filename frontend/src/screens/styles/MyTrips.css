@@ -21,26 +21,7 @@
 .add-trip-container > h3 > span {
   font-size: 18px;
   line-height: 18px;
-  color: #f27a54;
-}
-
-.add-trip-container > .input-container > button {
-  font-size: 18px;
-  line-height: 18px;
-  color: #000000;
-  width: 92px;
-  height: 40px;
-  background: rgba(111, 207, 151, 0.87);
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border: 0;
-}
-
-.add-trip-container > .input-container > input {
-  background: #ffffff;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  margin-right: -2px;
+  color: var(--secondary-color);
 }
 
 .add-trip-container > h6 {
@@ -61,7 +42,7 @@
 }
 
 .trip a {
-  color: #fff;
+  color: var(--primary-color);
   font-size: 1.4rem;
   padding: 1rem 0;
 }
@@ -85,8 +66,4 @@
   margin-left: 10px;
   font-size: 1rem;
   color: #f64034;
-}
-
-.input-container input {
-  color: #000;
 }

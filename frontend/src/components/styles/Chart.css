@@ -1,4 +1,17 @@
-.pie-chart > h2,
-.line-chart > h2 {
-  font-size: 2rem;
+.chart-container {
+  padding: 1.25rem;
+  margin-top: 20px;
+  background: var(--tertiary-color);
+}
+
+#wrapper {
+  position: relative;
+  background: #000524;
+  background: var(--tertiary-color);
+  border: 2px solid #000;
+  border: 2px solid var(--secondary-color);
+  box-shadow: 0 22px 35px -16px var(--secondary-color);
+  box-shadow: 0 22px 35px -16px var(--tertiary-color);
+  max-width: 850px;
+  margin: 0 auto;
 }

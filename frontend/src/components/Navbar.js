@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import Button from './Button'
 import bars from '../assets/bars.svg'
 import close from '../assets/close.svg'
 import { Link } from 'react-router-dom'
@@ -93,7 +92,7 @@ const Navbar = () => {
                   }, 200)
                 }}
               >
-                <Button text='Logout' path='/admin' />
+                <button className='link-btn'>Logout</button>
               </li>
             </>
           ) : (
@@ -105,7 +104,7 @@ const Navbar = () => {
                     closeMobileMenu()
                   }}
                 >
-                  <Button text='Login' path='/login' />
+                  <button className='link-btn'>Login</button>
                 </li>
 
                 <li
@@ -114,7 +113,7 @@ const Navbar = () => {
                     closeMobileMenu()
                   }}
                 >
-                  <Button text='Register' path='/register' />
+                  <button className='link-btn'>Register</button>
                 </li>
               </div>
             </>

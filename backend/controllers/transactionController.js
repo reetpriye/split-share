@@ -9,7 +9,7 @@ import User from '../models/userModel.js'
 // Access   Private
 const getTransactions = asyncHandler(async (req, res) => {
   const transactions = await Transaction.find({ trip: req.params.id })
-  res.json(transactions.splice(0, 5))
+  res.json(transactions.slice(-5).reverse())
 })
 
 // Method   POST

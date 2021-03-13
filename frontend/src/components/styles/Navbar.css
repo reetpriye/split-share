@@ -14,17 +14,6 @@
   font-size: 1rem;
 }
 
-.navbar a {
-  text-decoration: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
 .nav-item {
   display: flex;
   align-items: right;
@@ -73,17 +62,6 @@
   padding-right: 26px;
 }
 
-/* .nav-links:hover {
-  width: 100%;
-  background-color: #30363d;
-  border-radius: 0;
-  transition: 250ms;
-} */
-
-.navbar button {
-  margin: 0 auto;
-}
-
 .branding {
   font-family: Oswald;
   font-style: normal;
@@ -94,9 +72,9 @@
 }
 
 .branding a {
-  color: #f27a54;
+  color: var(--secondary-color);
 }
 
 .branding span:nth-child(2) {
-  color: #fff;
+  color: var(--primary-color);
 }

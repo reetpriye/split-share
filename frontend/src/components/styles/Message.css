@@ -16,7 +16,7 @@
 
 .alert-primary {
   background: var(--primary-color);
-  color: #fff;
+  color: var(--primary-color);
 }
 
 .alert-light {
@@ -26,21 +26,21 @@
 
 .alert-dark {
   background: var(--dark-color);
-  color: #fff;
+  color: var(--primary-color);
 }
 
 .alert-danger {
   background: var(--danger-color);
-  color: #fff;
+  color: var(--primary-color);
 }
 
 .alert-success {
   background: var(--success-color);
-  color: #fff;
+  color: var(--primary-color);
 }
 
 .alert-white {
-  background: #fff;
+  background: var(--primary-color);
   color: #333;
   border: #ccc solid 1px;
 }

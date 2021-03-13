@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import Dash from '../components/Dash'
 import Loader from '../components/Loader'
 import Chart from '../components/Chart'
-import Transaction from '../components/Transaction'
+import TransactionList from '../components/TransactionList'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
 import { getTripDetails } from '../actions/tripActions'
@@ -11,6 +11,7 @@ import { createTransaction } from '../actions/transactionActions'
 import './styles/Dashboard.css'
 
 const DashboardScreen = ({ match, history }) => {
+  const [isInfoOpen, setIsInfoOpen] = useState(false)
   const [inputData, setInputData] = useState([])
   const [description, setDescription] = useState('')
 
@@ -20,22 +21,7 @@ const DashboardScreen = ({ match, history }) => {
   const transactionCreate = useSelector(state => state.transactionCreate)
 
   const { tripData, loading } = currTrip
-  const { success, loading: loadingCreate } = transactionCreate
-
-  useEffect(() => {
-    if (!userInfo) {
-      history.push('/login')
-      dispatch(logout())
-    }
-    if (!tripData || tripData._id !== match.params.id) {
-      dispatch(getTripDetails(match.params.id))
-    }
-    if (tripData && tripData.membersData.length === 0) {
-      history.push(`/trip/${match.params.id}/members`)
-    } else {
-      tripData && initiateStateWithLocalStorageValues()
-    }
-  }, [match, history, dispatch, tripData, success])
+  const { success } = transactionCreate
 
   const initiateStateWithLocalStorageValues = () => {
     if (localStorage.getItem('inputData')) {
@@ -57,6 +43,22 @@ const DashboardScreen = ({ match, history }) => {
       localStorage.setItem('inputData', JSON.stringify(inputDataLS))
     }
   }
+
+  useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+      dispatch(logout())
+    }
+    if (!tripData || tripData._id !== match.params.id) {
+      dispatch(getTripDetails(match.params.id))
+    }
+    if (tripData && tripData.membersData.length === 0) {
+      history.push(`/trip/${match.params.id}/members`)
+    } else {
+      tripData && initiateStateWithLocalStorageValues()
+    }
+    // eslint-disable-next-line
+  }, [match, history, dispatch, tripData, success, userInfo])
 
   const payerHandler = idx => e => {
     let updatedPayers = [...inputData]
@@ -113,81 +115,96 @@ const DashboardScreen = ({ match, history }) => {
         ) : null}
       </div>
       <div className='total-expense-container'>
-        <h3 className='sub-heading'>Total Expense</h3>
+        <h2 className='sub-heading'>Total Expense</h2>
         {loading ? <Loader /> : <h1>₹{tripData && tripData.totalExpense}</h1>}
       </div>
 
       <div className='new-item-container'>
-        <h3 className='sub-heading'>Add New Item</h3>
-
-        <div className='new-item-inp-container'>
-          <form onSubmit={onSubmitHandler}>
-            <input
-              placeholder='Enter description'
-              className='desc-input'
-              type='text'
-              onChange={e => setDescription(e.target.value)}
-              required
-            />
-
-            <div className='input-grid'>
-              <h5 id='members-name-label'>Name</h5>
-              <h5>Payer</h5>
-              <h5 id='excludes-label'>Exclude</h5>
-              <h5>Amount</h5>
-              {inputData &&
-                inputData.map((member, idx) => (
-                  <>
-                    <h3 className='members-name'>{member.name}</h3>
-                    <input
-                      type='checkbox'
-                      className='checkbox payers-checkbox'
-                      value={member.id}
-                      checked={member.isPayer}
-                      onChange={payerHandler(idx)}
-                    />
-                    <input
-                      type='checkbox'
-                      className='checkbox excludes-checkbox'
-                      value={member.id}
-                      checked={member.isExclude}
-                      onChange={excludeHandler(idx)}
-                    />
-                    <input
-                      disabled={member.isPayer ? '' : 'disabled'}
-                      className='payers-input'
-                      type='number'
-                      onChange={onChangeHandler(idx)}
-                      required
-                    />
-                  </>
-                ))}
-            </div>
-            <input type='submit' value='+ADD' className='add-btn' />
-          </form>
-        </div>
+        <h2 className='sub-heading'>Add New Item</h2>
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className='new-item-inp-container'>
+            <form onSubmit={onSubmitHandler}>
+              <div className='desc-input-container'>
+                <input
+                  placeholder='Enter description'
+                  className='desc-input'
+                  type='text'
+                  onChange={e => setDescription(e.target.value)}
+                  required
+                />
+                <input type='submit' value='+ADD' className='add-btn btn' />
+              </div>
+              <div className='t-head'>
+                <h5 id='members-name-label'>Name</h5>
+                <h5 id='payers-label'>Payer</h5>
+                <h5 id='excludes-label'>Exclude</h5>
+                <h5 id='payers-input'>Amount</h5>
+              </div>
+              <div className='input-grid'>
+                {inputData &&
+                  inputData.map((member, idx) => (
+                    <Fragment key={member.id}>
+                      <h3 className='members-name'>{member.name}</h3>
+                      <input
+                        type='checkbox'
+                        className='checkbox payers-checkbox'
+                        checked={member.isPayer}
+                        onChange={payerHandler(idx)}
+                      />
+                      <input
+                        type='checkbox'
+                        className='checkbox excludes-checkbox'
+                        checked={member.isExclude}
+                        onChange={excludeHandler(idx)}
+                      />
+                      <input
+                        disabled={member.isPayer ? '' : 'disabled'}
+                        className='payers-input'
+                        type='number'
+                        onChange={onChangeHandler(idx)}
+                        required
+                      />
+                    </Fragment>
+                  ))}
+              </div>
+            </form>
+          </div>
+        )}
       </div>
 
       <div className='members-share-container'>
-        <h3 className='sub-heading'>Member's Share</h3>
+        <i
+          onClick={() => setIsInfoOpen(!isInfoOpen)}
+          className={isInfoOpen ? 'fas fa-times' : 'fas fa-info'}
+        ></i>
+        {isInfoOpen && (
+          <h5 className='info'>
+            Minus signifies that member needs to pay that much amount and plus
+            signifies that member will recieve that much amount. Overall the
+            summation will always be zero.
+          </h5>
+        )}
+        <h2 className='sub-heading'>Member's Share</h2>
         {loading ? (
           <Loader />
         ) : (
           tripData &&
           tripData.membersData.map(member => (
-            <>
-              <div key={member._id} className='member-share'>
-                <h5>{member.name}</h5>
+            <Fragment key={member._id}>
+              <div className='member-share'>
+                <h4>{member.name}</h4>
                 <h5 className='member-share-amount'>
                   {member.amount.toFixed(2)}
                 </h5>
               </div>
               <Dash />
-            </>
+            </Fragment>
           ))
         )}
       </div>
-      <Transaction tripId={match.params.id} />
+      <TransactionList tripId={match.params.id} />
       <Chart />
     </div>
   )
