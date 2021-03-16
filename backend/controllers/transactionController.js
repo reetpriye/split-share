@@ -5,11 +5,20 @@ import User from '../models/userModel.js'
 
 // Method   GET
 // Route    api/transactions/:id
-// Desc.    Get all the user's transactions
+// Desc.    Get last 5 user's transactions
 // Access   Private
-const getTransactions = asyncHandler(async (req, res) => {
+const getLastTransactions = asyncHandler(async (req, res) => {
   const transactions = await Transaction.find({ trip: req.params.id })
   res.json(transactions.slice(-5).reverse())
+})
+
+// Method   GET
+// Route    api/transactions/:id
+// Desc.    Get all the user's transactions
+// Access   Private
+const getAllTransactions = asyncHandler(async (req, res) => {
+  const transactions = await Transaction.find({ trip: req.params.id })
+  res.json(transactions)
 })
 
 // Method   POST
@@ -93,4 +102,4 @@ const addTransaction = asyncHandler(async (req, res) => {
   }
 })
 
-export { addTransaction, getTransactions }
+export { addTransaction, getLastTransactions, getAllTransactions }

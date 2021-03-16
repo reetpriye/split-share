@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactApexChart from 'react-apexcharts'
 
 import './styles/Chart.css'
@@ -28,7 +28,7 @@ const Chart = () => {
     }
   )
 
-  const [state, setState] = useState({
+  const state = {
     series: [
       {
         data: data
@@ -89,7 +89,7 @@ const Chart = () => {
         tickAmount: 4
       }
     }
-  })
+  }
 
   return (
     <div className='chart-container'>

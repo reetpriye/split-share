@@ -11,6 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
 
   const { userInfo } = useSelector(state => state.userLogin)
+  const { currTripId } = useSelector(state => state.currTrip)
 
   const [isNavOpen, setIsNavOpen] = useState(false)
 
@@ -35,21 +36,11 @@ const Navbar = () => {
           )}
         </div>
         <ul className={isNavOpen ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-              Home
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link to='/about' className='nav-links' onClick={closeMobileMenu}>
-              About
-            </Link>
-          </li>
           {userInfo ? (
             <>
               <li className='nav-item'>
                 <Link
-                  to='/trip'
+                  to={`/trip/${currTripId}`}
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >
@@ -76,11 +67,20 @@ const Navbar = () => {
               </li>
               <li className='nav-item'>
                 <Link
-                  to='/transactions'
+                  to={`/transactions/${currTripId}`}
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >
                   Transactions
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link
+                  to='/about'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  About
                 </Link>
               </li>
               <li
@@ -98,6 +98,15 @@ const Navbar = () => {
           ) : (
             <>
               <div className='btn-container'>
+                <li className='nav-item'>
+                  <Link
+                    to='/about'
+                    className='nav-links'
+                    onClick={closeMobileMenu}
+                  >
+                    About
+                  </Link>
+                </li>
                 <li
                   className='nav-item'
                   onClick={() => {

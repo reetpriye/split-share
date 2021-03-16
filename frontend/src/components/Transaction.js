@@ -5,10 +5,10 @@ import './styles/Transaction.css'
 
 const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { _id, description, totalAmount, payers, excludes } = transaction
+  const { description, totalAmount, payers, excludes } = transaction
 
   return (
-    <Fragment key={_id}>
+    <Fragment>
       <div className='transaction'>
         <div className='transaction-collapse'>
           <h4>{description}</h4>
@@ -28,7 +28,7 @@ const Transaction = ({ transaction }) => {
             <div className='dropdown-items'>
               <div className='dropdown-payers-items'>
                 {payers.map(p => (
-                  <div className='dropdown-payer-item'>
+                  <div key={p._id} className='dropdown-payer-item'>
                     <h5>{p.amount}</h5>
                     <h5>{p.name}</h5>
                   </div>
@@ -36,7 +36,7 @@ const Transaction = ({ transaction }) => {
               </div>
               <div className='dropdown-excludes-items'>
                 {excludes.map(e => (
-                  <h5>{e.name}</h5>
+                  <h5 key={e._id}>{e.name}</h5>
                 ))}
               </div>
             </div>

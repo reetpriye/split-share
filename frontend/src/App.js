@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import './App.css'
+
 import Chart from './components/Chart'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -31,7 +32,7 @@ const App = () => {
             <Route path='/trips/' component={MyTripsScreen} exact />
             <Route path='/trip/:id' component={DashboardScreen} exact />
             <Route path='/trip/:id/members/' component={MemberScreen} exact />
-            <Route path='/transactions' component={TransactionsScreen} />
+            <Route path='/transactions/:id' component={TransactionsScreen} />
             <Route path='/analytics' component={AnalyticsScreen} />
             <Route path='/about' component={AboutScreen} />
             <Route path='/' component={HomeScreen} exact />

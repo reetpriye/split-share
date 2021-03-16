@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Transaction from './Transaction'
 import Loader from './Loader'
 import { useDispatch, useSelector } from 'react-redux'
-import { listTransactions } from '../actions/transactionActions'
+import { listLastTransactions } from '../actions/transactionActions'
 
 import './styles/TransactionList.css'
 
 const TransactionList = ({ tripId }) => {
   const dispatch = useDispatch()
 
-  const tripTransactions = useSelector(state => state.tripTransactions)
-  const { loading, transactions } = tripTransactions
+  const tripLastTransactions = useSelector(state => state.tripLastTransactions)
+  const { currTripId } = useSelector(state => state.currTrip)
+  const { loading, transactions } = tripLastTransactions
 
   useEffect(() => {
-    dispatch(listTransactions(tripId))
+    dispatch(listLastTransactions(tripId))
   }, [dispatch, tripId])
 
   return (
@@ -27,6 +29,12 @@ const TransactionList = ({ tripId }) => {
           <Transaction key={transaction._id} transaction={transaction} />
         ))
       )}
+      <Link
+        to={`/transactions/${currTripId}`}
+        style={{ textAlign: 'right', marginTop: '1rem' }}
+      >
+        Show all
+      </Link>
     </div>
   )
 }

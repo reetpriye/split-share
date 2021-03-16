@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import Dash from '../components/Dash'
 import Loader from '../components/Loader'
 import Chart from '../components/Chart'
+
 import TransactionList from '../components/TransactionList'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
