@@ -3,7 +3,7 @@ import moment from 'moment'
 import generatePDF from '../services/reportGenerator'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTripDetails } from '../actions/tripActions'
+import { getExpenseDetails } from '../actions/expenseActions'
 import { listAllTransactions } from '../actions/transactionActions'
 
 import './styles/Transactions.css'
@@ -18,7 +18,7 @@ const TransactionsScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(listAllTransactions(match.params.id))
-    dispatch(getTripDetails(match.params.id))
+    dispatch(getExpenseDetails(match.params.id))
   }, [dispatch, match])
 
   return (

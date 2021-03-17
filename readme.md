@@ -11,10 +11,10 @@
 - User authentication : Login/Register/Logout functionality
 - Multi payer
 - Exclude members
-- Add/Delete trips
-- Add/Update trip members
+- Add/Delete expenses
+- Add/Update expense members
 - Charts for better data visualisation
-- Database seeder (users, tripdata & transactions)
+- Database seeder (users, expensedata & transactions)
 
 ## Usage
 
@@ -65,7 +65,7 @@ npm run build
 
 ### Seed Database
 
-You can use the following commands to seed the database with some sample users, trips and transactions as well as destroy all data
+You can use the following commands to seed the database with some sample users, expenses and transactions as well as destroy all data
 Be careful this operation is destructive.
 
 ```

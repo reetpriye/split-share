@@ -1,7 +1,14 @@
 .loader {
-  display: block;
-  z-index: 1;
+  /* display: block; */
+  /* z-index: 1; */
   width: 5rem;
   height: 5rem;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+}
+
+.loader-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
 }

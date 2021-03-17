@@ -33,7 +33,7 @@ const transactionSchema = mongoose.Schema(
       required: true,
       ref: 'User'
     },
-    trip: {
+    expense: {
       type: mongoose.Schema.Types.ObjectId,
       required: true
     },

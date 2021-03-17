@@ -1,6 +1,7 @@
 /* Global CSS File */
 :root {
   --bg-color: #30363d;
+  --btn-color: rgba(111, 207, 151, 0.87);
   --primary-color: #ffffff;
   --secondary-color: #f27a54;
   --tertiary-color: #3c444d;
@@ -93,7 +94,7 @@ h5 {
   color: #000000;
   width: 92px;
   height: 40px;
-  background: rgba(111, 207, 151, 0.87);
+  background: var(--btn-color);
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: 1px solid var(--secondary-color);

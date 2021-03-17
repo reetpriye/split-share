@@ -1,12 +1,13 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import Dash from '../components/Dash'
 import Loader from '../components/Loader'
-import Chart from '../components/Chart'
+import LineChart from '../components/LineChart'
+import ColumnChart from '../components/ColumnChart'
 
 import TransactionList from '../components/TransactionList'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
-import { getTripDetails } from '../actions/tripActions'
+import { getExpenseDetails } from '../actions/expenseActions'
 import { createTransaction } from '../actions/transactionActions'
 
 import './styles/Dashboard.css'
@@ -18,18 +19,20 @@ const DashboardScreen = ({ match, history }) => {
 
   const dispatch = useDispatch()
   const { userInfo } = useSelector(state => state.userLogin)
-  const currTrip = useSelector(state => state.currTrip)
+  const currExpense = useSelector(state => state.currExpense)
   const transactionCreate = useSelector(state => state.transactionCreate)
 
-  const { tripData, loading } = currTrip
+  const { expenseData, loading } = currExpense
   const { success } = transactionCreate
+
+  const inpHeight = 291
 
   const initiateStateWithLocalStorageValues = () => {
     if (localStorage.getItem('inputData')) {
       const inputDataLS = JSON.parse(localStorage.getItem('inputData'))
       setInputData(inputDataLS)
     } else {
-      const inputDataLS = tripData.membersData.map(m => ({
+      const inputDataLS = expenseData.membersData.map(m => ({
         id: m._id,
         name: m.name,
         amount: 0,
@@ -37,7 +40,7 @@ const DashboardScreen = ({ match, history }) => {
         isExclude: false
       }))
       inputDataLS[0].isPayer = true
-      if (tripData.membersData.length > 1) {
+      if (expenseData.membersData.length > 1) {
         inputDataLS[1].isPayer = true
       }
       setInputData(inputDataLS)
@@ -50,16 +53,16 @@ const DashboardScreen = ({ match, history }) => {
       history.push('/login')
       dispatch(logout())
     }
-    if (!tripData || tripData._id !== match.params.id) {
-      dispatch(getTripDetails(match.params.id))
+    if (!expenseData || expenseData._id !== match.params.id) {
+      dispatch(getExpenseDetails(match.params.id))
     }
-    if (tripData && tripData.membersData.length === 0) {
-      history.push(`/trip/${match.params.id}/members`)
+    if (expenseData && expenseData.membersData.length === 0) {
+      history.push(`/expense/${match.params.id}/members`)
     } else {
-      tripData && initiateStateWithLocalStorageValues()
+      expenseData && initiateStateWithLocalStorageValues()
     }
     // eslint-disable-next-line
-  }, [match, history, dispatch, tripData, success, userInfo])
+  }, [match, history, dispatch, expenseData, success, userInfo])
 
   const payerHandler = idx => e => {
     let updatedPayers = [...inputData]
@@ -84,7 +87,7 @@ const DashboardScreen = ({ match, history }) => {
   const onSubmitHandler = () => {
     const transaction = {
       description,
-      trip: match.params.id,
+      expense: match.params.id,
       payers: [],
       excludes: []
     }
@@ -109,21 +112,27 @@ const DashboardScreen = ({ match, history }) => {
 
   return (
     <div className='dashboard'>
-      <div className='trip-details'>
-        <h5 className='trip-name'>TRIP: {tripData && tripData.tripName}</h5>
-        {tripData && tripData.tripName === 'Not Saved' ? (
-          <button className='trip-save-btn'>Save?</button>
+      <div className='expense-details'>
+        <h5 className='expense-name'>
+          {expenseData && expenseData.expenseName}
+        </h5>
+        {expenseData && expenseData.expenseName === 'Not Saved' ? (
+          <button className='expense-save-btn'>Save?</button>
         ) : null}
       </div>
       <div className='total-expense-container'>
         <h2 className='sub-heading'>Total Expense</h2>
-        {loading ? <Loader /> : <h1>₹{tripData && tripData.totalExpense}</h1>}
+        {loading ? (
+          <Loader height={'135px'} />
+        ) : (
+          <h1>₹{expenseData && expenseData.totalExpense}</h1>
+        )}
       </div>
 
       <div className='new-item-container'>
         <h2 className='sub-heading'>Add New Item</h2>
         {loading ? (
-          <Loader />
+          <Loader height={`${inpHeight}px`} />
         ) : (
           <div className='new-item-inp-container'>
             <form onSubmit={onSubmitHandler}>
@@ -191,8 +200,8 @@ const DashboardScreen = ({ match, history }) => {
         {loading ? (
           <Loader />
         ) : (
-          tripData &&
-          tripData.membersData.map(member => (
+          expenseData &&
+          expenseData.membersData.map(member => (
             <Fragment key={member._id}>
               <div className='member-share'>
                 <h4>{member.name}</h4>
@@ -205,8 +214,10 @@ const DashboardScreen = ({ match, history }) => {
           ))
         )}
       </div>
-      <TransactionList tripId={match.params.id} />
-      <Chart />
+
+      <TransactionList expenseId={match.params.id} />
+      <LineChart />
+      <ColumnChart />
     </div>
   )
 }

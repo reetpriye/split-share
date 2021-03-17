@@ -7,22 +7,24 @@ import { listLastTransactions } from '../actions/transactionActions'
 
 import './styles/TransactionList.css'
 
-const TransactionList = ({ tripId }) => {
+const TransactionList = ({ expenseId }) => {
   const dispatch = useDispatch()
 
-  const tripLastTransactions = useSelector(state => state.tripLastTransactions)
-  const { currTripId } = useSelector(state => state.currTrip)
-  const { loading, transactions } = tripLastTransactions
+  const expenseLastTransactions = useSelector(
+    state => state.expenseLastTransactions
+  )
+  const { currExpenseId } = useSelector(state => state.currExpense)
+  const { loading, transactions } = expenseLastTransactions
 
   useEffect(() => {
-    dispatch(listLastTransactions(tripId))
-  }, [dispatch, tripId])
+    dispatch(listLastTransactions(expenseId))
+  }, [dispatch, expenseId])
 
   return (
     <div className='transaction-list-container'>
       <h2 className='sub-heading'>Last 5 Transactions</h2>
       {loading ? (
-        <Loader />
+        <Loader height={'247.42px'} />
       ) : (
         transactions &&
         transactions.map(transaction => (
@@ -30,7 +32,7 @@ const TransactionList = ({ tripId }) => {
         ))
       )}
       <Link
-        to={`/transactions/${currTripId}`}
+        to={`/transactions/${currExpenseId}`}
         style={{ textAlign: 'right', marginTop: '1rem' }}
       >
         Show all

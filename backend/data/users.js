@@ -5,9 +5,9 @@ const users = [
     name: 'Reet Priye',
     email: 'reetpriye@gmail.com',
     password: bcrypt.hashSync('Reet@1234', 10),
-    trips: [
+    expenses: [
       {
-        tripName: 'Digha Trip',
+        expenseName: 'Digha Trip',
         totalExpense: 540,
         membersData: [
           { name: 'Raj Singh' },
@@ -18,7 +18,7 @@ const users = [
         ]
       },
       {
-        tripName: 'Goa Trip',
+        expenseName: 'Goa Trip',
         totalExpense: 9999,
         membersData: [{ name: 'Raj Singh' }, { name: 'Sonali Kumari' }]
       }
@@ -28,9 +28,9 @@ const users = [
     name: 'Raj Singh',
     email: 'rajsingh@gmail.com',
     password: bcrypt.hashSync('Raj@1234', 10),
-    trips: [
+    expenses: [
       {
-        tripName: 'Gangtok Trip',
+        expenseName: 'Gangtok Trip',
         membersData: [{ name: 'Raj Singh' }]
       }
     ]

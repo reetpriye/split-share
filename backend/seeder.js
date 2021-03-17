@@ -26,20 +26,20 @@ const importData = async () => {
     // const createdUsers = await User.insertMany(users)
 
     // const userids = createdUsers.map(user => user._id)
-    // const memberids = createdUsers[0].trips[0].membersData.map(
+    // const memberids = createdUsers[0].expenses[0].membersData.map(
     //   member => member._id
     // )
-    // const tripId = createdUsers[0].trips[0]._id
+    // const expenseId = createdUsers[0].expenses[0]._id
     // const rajId = memberids[0]
     // const manishId = memberids[1]
     // const ankitId = memberids[2]
     // const reetId = memberids[3]
     // const ashishId = memberids[4]
 
-    // transactions[0].trip = tripId
-    // transactions[1].trip = tripId
-    // transactions[2].trip = tripId
-    // transactions[3].trip = tripId
+    // transactions[0].expense = expenseId
+    // transactions[1].expense = expenseId
+    // transactions[2].expense = expenseId
+    // transactions[3].expense = expenseId
 
     // transactions[0].payers = [{ member: ashishId, amount: 50 }]
     // transactions[1].payers = [

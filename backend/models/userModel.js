@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import tripSchema from './tripModel.js'
+import expenseSchema from './expenseModel.js'
 import bcrypt from 'bcryptjs'
 
 const userSchema = mongoose.Schema(
@@ -17,10 +17,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true
     },
-    currTripId: {
-      type: mongoose.Schema.Types.ObjectId
-    },
-    trips: [tripSchema]
+    expenses: [expenseSchema]
   },
   {
     timestamps: true

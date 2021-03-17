@@ -10,7 +10,7 @@
 }
 
 .member-list-container {
-  padding: 13px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   background-color: var(--tertiary-color);
@@ -35,21 +35,8 @@
   color: #ffffff;
 }
 
-.input-container {
+#add-member-input-container {
   display: flex;
-}
-
-.add-update-btn {
-  font-size: 18px;
-  line-height: 18px;
-  color: #000000;
-  width: 92px;
-  height: 40px;
-  padding: 0 1rem;
-  background: rgba(111, 207, 151, 0.87) !important;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border: 0;
 }
 
 .clear-btn {
@@ -75,13 +62,8 @@
 .member {
   font-size: 0.95rem;
   display: flex;
+  align-items: center;
   margin: 1.5rem 0;
-}
-
-.member > .fa-trash {
-  margin-left: 0.8rem;
-  margin-right: 0.8rem;
-  color: #f64034;
 }
 
 .member-name {
@@ -93,10 +75,23 @@
 }
 
 .member .edit-btn {
+  outline: 0;
   margin-left: auto;
-  width: fit-content;
-  height: fit-content;
   border: 0;
   color: var(--primary-color);
   background: transparent;
+}
+
+.member .delete-btn {
+  outline: 0;
+  font-size: 1.1rem;
+  border: 0;
+  background: transparent;
+  margin-left: 0.4rem;
+}
+
+.fa-times {
+  border: 0;
+  color: #f64034;
+  opacity: 0.8;
 }

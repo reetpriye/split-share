@@ -1,10 +1,10 @@
-.trip-details {
+.expense-details {
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
 }
 
-.trip-name {
+.expense-name {
   margin: 0;
 }
 
@@ -63,6 +63,7 @@
 }
 
 .members-name {
+  margin: 0;
   justify-self: start;
   margin-left: 0.4rem;
 }

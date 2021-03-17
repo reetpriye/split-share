@@ -1,67 +1,65 @@
-.trips h3 {
-  font-size: 18px;
-  line-height: 18px;
-  color: #ffffff;
+#my-expenses-message {
   text-align: center;
 }
 
-.trips-container {
-  background: var(--tertiary-color);
-  padding: 16px 0;
-}
-
-.trips-container > h2 {
-  margin-top: 1rem;
-}
-
-.add-trip-container {
-  padding: 1rem;
-}
-
-.add-trip-container > h3 > span {
-  font-size: 18px;
-  line-height: 18px;
+#my-expenses-message > span {
   color: var(--secondary-color);
 }
 
-.add-trip-container > h6 {
-  font-weight: 400;
-  color: #cbcfd4;
-  margin: 0;
+.add-expense-container {
+  background: var(--tertiary-color);
+  padding: 1.25rem;
 }
 
-.your-trips-container {
+.add-expense-container > h6 {
+  margin: 0.4rem 0;
+}
+
+#add-expense-input-container {
+  display: flex;
+}
+
+#add-expense-success-message {
+  color: var(--btn-color);
+}
+
+.fa-plane {
+  font-size: 1.4rem;
+  color: var(--secondary-color);
+}
+
+.expense-list-container {
   background: var(--tertiary-color);
   margin: 1rem 0;
-  padding: 1rem;
+  padding: 1.25rem;
 }
 
-.trip {
+.expense {
   display: flex;
   align-items: center;
 }
 
-.trip a {
+.expense a {
   color: var(--primary-color);
   font-size: 1.4rem;
   padding: 1rem 0;
 }
 
-.trip button {
+.expense button {
   text-transform: uppercase;
   background: transparent;
   border: 0;
   padding: 0;
 }
 
-.trip .man-btn {
+.expense .man-btn {
   color: var(--secondary-color);
   font-size: 0.7rem;
   height: fit-content;
   margin-left: auto;
 }
 
-.trip .del-btn {
+.expense .del-btn {
   margin-right: 10px;
   margin-left: 10px;
   font-size: 1rem;

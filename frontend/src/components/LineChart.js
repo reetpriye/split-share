@@ -3,7 +3,7 @@ import ReactApexChart from 'react-apexcharts'
 
 import './styles/Chart.css'
 
-const Chart = () => {
+const LineChart = () => {
   const generateDayWiseTimeSeries = (baseval, count, yrange) => {
     let i = 0
     let series = []
@@ -103,4 +103,4 @@ const Chart = () => {
   )
 }
 
-export default Chart
+export default LineChart

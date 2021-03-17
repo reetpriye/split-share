@@ -5,7 +5,7 @@ import colors from 'colors'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
-import tripRoutes from './routes/tripRoutes.js'
+import expenseRoutes from './routes/expenseRoutes.js'
 import transactionRoutes from './routes/transactionRoutes.js'
 
 dotenv.config()
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 // Define Routes
 app.use('/api/users', userRoutes)
-app.use('/api/trips', tripRoutes)
+app.use('/api/expenses', expenseRoutes)
 app.use('/api/transactions', transactionRoutes)
 
 app.use(notFound)

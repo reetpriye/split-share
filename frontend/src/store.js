@@ -3,14 +3,16 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 import {
-  userTripsReducer,
-  tripDeleteReducer,
-  tripCreateReducer,
-  tripDetailsReducer,
-  tripMembersReducer,
+  userExpensesReducer,
+  expenseDeleteReducer,
+  expenseCreateReducer,
+  expenseDetailsReducer,
+  expenseMembersReducer
+} from './reducers/expenseReducers'
+import {
   memberCreateReducer,
   memberUpdateReducer
-} from './reducers/tripReducers'
+} from './reducers/memberReducer'
 import {
   transactionLastListReducer,
   transactionAllListReducer,
@@ -20,29 +22,29 @@ import {
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
-  userTrips: userTripsReducer,
-  currTrip: tripDetailsReducer,
-  tripDelete: tripDeleteReducer,
-  tripCreate: tripCreateReducer,
-  membersData: tripMembersReducer,
+  userExpenses: userExpensesReducer,
+  currExpense: expenseDetailsReducer,
+  expenseDelete: expenseDeleteReducer,
+  expenseCreate: expenseCreateReducer,
+  membersData: expenseMembersReducer,
   memberCreate: memberCreateReducer,
   memberUpdate: memberUpdateReducer,
   transactionCreate: transactionCreateReducer,
-  tripLastTransactions: transactionLastListReducer,
-  tripAllTransactions: transactionAllListReducer
+  expenseLastTransactions: transactionLastListReducer,
+  expenseAllTransactions: transactionAllListReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
-const currTripIdFromStorage = localStorage.getItem('currTripId')
-  ? JSON.parse(localStorage.getItem('currTripId'))
+const currExpenseIdFromStorage = localStorage.getItem('currExpenseId')
+  ? JSON.parse(localStorage.getItem('currExpenseId'))
   : null
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
-  currTrip: { currTripId: currTripIdFromStorage }
+  currExpense: { currExpenseId: currExpenseIdFromStorage }
 }
 
 const middleware = [thunk]

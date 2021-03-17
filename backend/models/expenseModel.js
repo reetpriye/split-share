@@ -15,12 +15,11 @@ const memberDataSchema = mongoose.Schema(
   }
 )
 
-const tripSchema = mongoose.Schema(
+const expenseSchema = mongoose.Schema(
   {
-    tripName: {
+    expenseName: {
       type: String,
-      required: true,
-      default: 'Not saved'
+      required: true
     },
     totalExpense: {
       type: Number,
@@ -33,4 +32,4 @@ const tripSchema = mongoose.Schema(
   }
 )
 
-export default tripSchema
+export default expenseSchema

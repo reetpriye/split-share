@@ -2,18 +2,18 @@ import moment from 'moment'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 
-const generatePDF = (transactions, tripData) => {
+const generatePDF = (transactions, expenseData) => {
   const doc = new jsPDF()
 
   let membersDetails = ''
-  tripData.membersData.map(m =>
+  expenseData.membersData.map(m =>
     m.amount >= 0
       ? (membersDetails += `${m.name} needs to pay ${Math.abs(m.amount)}\n`)
       : (membersDetails += `${m.name} will recieve ${Math.abs(m.amount)}\n`)
   )
 
   let membersName = ''
-  tripData.membersData.map(m => (membersName += `${m.name}\n`))
+  expenseData.membersData.map(m => (membersName += `${m.name}\n`))
 
   const tableColumn = [
     'Date',
@@ -52,10 +52,10 @@ const generatePDF = (transactions, tripData) => {
   doc.setFontSize(10)
   doc.setTextColor(0, 0, 255)
   doc.setFont('helvetica', 'bold')
-  doc.text(`Trip Name: ${tripData.tripName}`, 200, 15, null, null, 'right')
+  doc.text(`${expenseData.expenseName}`, 200, 15, null, null, 'right')
 
   doc.setTextColor(0, 0, 0)
-  doc.text(`Total expense: ${tripData.totalExpense}`, 14, 25)
+  doc.text(`Total expense: ${expenseData.totalExpense}`, 14, 25)
 
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(0, 0, 255)
@@ -65,7 +65,7 @@ const generatePDF = (transactions, tripData) => {
   doc.setFont('times', 'italic')
   doc.text(membersDetails, 14, 35)
 
-  const yMargin = tripData.membersData.length * 5 + 40
+  const yMargin = expenseData.membersData.length * 5 + 40
 
   doc.line(14, yMargin - 8, 195, yMargin - 8)
 

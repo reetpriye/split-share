@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import bars from '../assets/bars.svg'
 import close from '../assets/close.svg'
@@ -11,11 +11,15 @@ const Navbar = () => {
   const dispatch = useDispatch()
 
   const { userInfo } = useSelector(state => state.userLogin)
-  const { currTripId } = useSelector(state => state.currTrip)
+  const { currExpenseId } = useSelector(state => state.currExpense)
 
   const [isNavOpen, setIsNavOpen] = useState(false)
 
   const toggleNav = () => setIsNavOpen(!isNavOpen)
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => setIsNavOpen(false))
+  }, [])
 
   const closeMobileMenu = () => setIsNavOpen(false)
 
@@ -23,7 +27,12 @@ const Navbar = () => {
     <>
       <nav className='navbar'>
         <div className='branding'>
-          <Link to='/'>
+          <Link
+            to='/'
+            onClick={() => {
+              setIsNavOpen(false)
+            }}
+          >
             <span>Split</span>
             <span>Share</span>
           </Link>
@@ -40,7 +49,7 @@ const Navbar = () => {
             <>
               <li className='nav-item'>
                 <Link
-                  to={`/trip/${currTripId}`}
+                  to={`/expense/${currExpenseId}`}
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >
@@ -49,11 +58,11 @@ const Navbar = () => {
               </li>
               <li className='nav-item'>
                 <Link
-                  to='/trips'
+                  to='/expenses'
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >
-                  My Trips
+                  Expenses
                 </Link>
               </li>
               <li className='nav-item'>
@@ -67,7 +76,7 @@ const Navbar = () => {
               </li>
               <li className='nav-item'>
                 <Link
-                  to={`/transactions/${currTripId}`}
+                  to={`/transactions/${currExpenseId}`}
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >
@@ -97,14 +106,24 @@ const Navbar = () => {
             </>
           ) : (
             <>
+              <li className='nav-item'>
+                <Link
+                  to='/about'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  About
+                </Link>
+              </li>
               <div className='btn-container'>
-                <li className='nav-item'>
-                  <Link
-                    to='/about'
-                    className='nav-links'
-                    onClick={closeMobileMenu}
-                  >
-                    About
+                <li
+                  className='nav-item'
+                  onClick={() => {
+                    closeMobileMenu()
+                  }}
+                >
+                  <Link to='/login' className='nav-links'>
+                    <button className='link-btn'>Login</button>
                   </Link>
                 </li>
                 <li
@@ -113,16 +132,9 @@ const Navbar = () => {
                     closeMobileMenu()
                   }}
                 >
-                  <button className='link-btn'>Login</button>
-                </li>
-
-                <li
-                  className='nav-item'
-                  onClick={() => {
-                    closeMobileMenu()
-                  }}
-                >
-                  <button className='link-btn'>Register</button>
+                  <Link to='/register' className='nav-links'>
+                    <button className='link-btn'>Register</button>
+                  </Link>
                 </li>
               </div>
             </>

@@ -7,7 +7,7 @@
 }
 .not-supported-text > h1 {
   margin: 0;
-  font-size: 8rem;
+  font-size: 8vw;
 }
 
 .not-supported-text > h1 > span {
@@ -15,8 +15,8 @@
 }
 
 .not-supported-text > p {
-  font-size: 1.6rem;
+  font-size: 1.4vw;
   text-align: right;
-  margin: -2rem 0;
+  margin: -3vw 0;
   opacity: 0.6;
 }

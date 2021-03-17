@@ -8,7 +8,7 @@ import User from '../models/userModel.js'
 // Desc.    Get last 5 user's transactions
 // Access   Private
 const getLastTransactions = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ trip: req.params.id })
+  const transactions = await Transaction.find({ expense: req.params.id })
   res.json(transactions.slice(-5).reverse())
 })
 
@@ -17,7 +17,7 @@ const getLastTransactions = asyncHandler(async (req, res) => {
 // Desc.    Get all the user's transactions
 // Access   Private
 const getAllTransactions = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ trip: req.params.id })
+  const transactions = await Transaction.find({ expense: req.params.id })
   res.json(transactions)
 })
 
@@ -27,20 +27,20 @@ const getAllTransactions = asyncHandler(async (req, res) => {
 // Access   Private
 const addTransaction = asyncHandler(async (req, res) => {
   const {
-    transaction: { trip: tripId, description, payers, excludes }
+    transaction: { expense: expenseId, description, payers, excludes }
   } = req.body
   const user = await User.findById(req.user._id)
-  const trip = user.trips.find(t => t._id.toString() === tripId)
+  const expense = user.expenses.find(t => t._id.toString() === expenseId)
 
-  if (trip) {
-    let { membersData } = trip
-    const numberOfMembers = trip.membersData.length
+  if (expense) {
+    let { membersData } = expense
+    const numberOfMembers = expense.membersData.length
     const numberOfConsumers = numberOfMembers - excludes.length
     const totalAmount = payers.reduce(
       (acc, payer) => Number(payer.amount) + acc,
       0
     )
-    trip.totalExpense += totalAmount
+    expense.totalExpense += totalAmount
     const shareAmount = (totalAmount / numberOfConsumers).toFixed(2)
     for (let i = 0; i < numberOfMembers; i++) {
       let isExcluded = false
@@ -74,7 +74,7 @@ const addTransaction = asyncHandler(async (req, res) => {
 
     const transaction = {
       user: req.user._id,
-      trip: trip._id,
+      expense: expense._id,
       totalAmount,
       description,
       payers: [],
@@ -98,7 +98,7 @@ const addTransaction = asyncHandler(async (req, res) => {
     res.status(201).json({ msg: 'Transaction added successfully' })
   } else {
     res.status(404)
-    throw new Error('Trip not found')
+    throw new Error('Expense not found')
   }
 })
 

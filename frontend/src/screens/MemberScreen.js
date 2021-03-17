@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
+import { createMember, updateMember } from '../actions/memberActions'
 import {
-  listTripMembers,
-  createMember,
-  updateMember
-} from '../actions/tripActions'
-import { getTripDetails } from '../actions/tripActions'
+  listExpenseMembers,
+  getExpenseDetails
+} from '../actions/expenseActions'
 
 import './styles/Member.css'
 
@@ -19,11 +18,11 @@ const MemberScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
-  const currTrip = useSelector(state => state.currTrip)
+  const currExpense = useSelector(state => state.currExpense)
   const membersData = useSelector(state => state.membersData)
-  const userLogin = useSelector(state => state.userLogin)
-  const memberUpdate = useSelector(state => state.memberUpdate)
   const memberCreate = useSelector(state => state.memberCreate)
+  const memberUpdate = useSelector(state => state.memberUpdate)
+
   const { members, loading } = membersData
   const {
     loading: loadingUpdate,
@@ -35,16 +34,11 @@ const MemberScreen = ({ history, match }) => {
     success: successCreate,
     error: errorCreate
   } = memberCreate
-  const { currTripId } = currTrip
-  const { userInfo } = userLogin
+  const { currExpenseId } = currExpense
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push('/login')
-    } else {
-      dispatch(listTripMembers(currTripId))
-    }
-  }, [history, userInfo, dispatch, currTripId, successCreate, successUpdate])
+    dispatch(listExpenseMembers(currExpenseId))
+  }, [history, dispatch, currExpenseId, successCreate, successUpdate])
 
   const onSubmitHandler = e => {
     e.preventDefault()
@@ -59,43 +53,50 @@ const MemberScreen = ({ history, match }) => {
 
   return (
     <div className='members'>
-      <h3 className='suggestions'>
-        Kindly first <span>add members</span> in order to start managing
-        expenses
-      </h3>
+      {membersData.members && membersData.members.length === 0 && (
+        <h3 className='suggestions'>
+          Kindly first <span>add members</span> in order to start managing
+          expenses
+        </h3>
+      )}
+
       {errorUpdate ? (
         <Message>{errorUpdate}</Message>
       ) : errorCreate ? (
         <Message>{errorCreate}</Message>
       ) : null}
+
       <div className='member-list-container'>
         <h2>
           Member List <i className='fas fa-user-circle'></i>
         </h2>
         <h6>ADD NEW MEMBER</h6>
         <form onSubmit={onSubmitHandler}>
-          <div className='input-container'>
+          <div id='add-member-input-container'>
             <input
+              required
               type='text'
               value={name}
               onChange={e => setName(e.target.value)}
             />
-            <button
-              className='clear-btn'
+            {/* <button
+              type='button'
+              className='clear-btn btn'
               onClick={() => {
                 setName('')
                 setIsUpdate(false)
               }}
             >
-              <i className='fas fa-times'></i>
-            </button>
+              <i className='fas fa-times' />
+            </button> */}
             <input
               type='submit'
               value={isUpdate ? 'UPDATE' : '+ADD'}
-              className='add-update-btn'
+              className='btn'
             />
           </div>
         </form>
+
         <div className='members-container'>
           {loading || loadingUpdate || loadingCreate ? (
             <Loader />
@@ -113,20 +114,29 @@ const MemberScreen = ({ history, match }) => {
                     setMemberId(member._id)
                   }}
                 >
-                  <i className='fas fa-edit'></i>
+                  <i className='fas fa-pencil-alt'></i>
                 </button>
-
-                <i className='fas fa-trash'></i>
+                <button
+                  className='delete-btn'
+                  onClick={() => {
+                    setIsUpdate(true)
+                    setName(member.name)
+                    setMemberId(member._id)
+                  }}
+                >
+                  <i className='fas fa-times'></i>
+                </button>
               </div>
             ))
           )}
         </div>
+
         <h5>
           Done adding members?{' '}
           <Link
-            to={`/trip/${currTripId}`}
+            to={`/expense/${currExpenseId}`}
             onClick={() => {
-              dispatch(getTripDetails(match.params.id))
+              dispatch(getExpenseDetails(match.params.id))
             }}
           >
             Click here
