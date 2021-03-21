@@ -18,7 +18,7 @@ const getLastTransactions = asyncHandler(async (req, res) => {
 // Access   Private
 const getAllTransactions = asyncHandler(async (req, res) => {
   const transactions = await Transaction.find({ expense: req.params.id })
-  res.json(transactions)
+  res.json(transactions.reverse())
 })
 
 // Method   POST
@@ -31,11 +31,11 @@ const addTransaction = asyncHandler(async (req, res) => {
   } = req.body
   const user = await User.findById(req.user._id)
   const expense = user.expenses.find(t => t._id.toString() === expenseId)
-
   if (expense) {
     let { membersData } = expense
     const numberOfMembers = expense.membersData.length
-    const numberOfConsumers = numberOfMembers - excludes.length
+    const numberOfExcludes = excludes.length
+    const numberOfConsumers = numberOfMembers - numberOfExcludes
     const totalAmount = payers.reduce(
       (acc, payer) => Number(payer.amount) + acc,
       0
@@ -62,10 +62,19 @@ const addTransaction = asyncHandler(async (req, res) => {
 
       if (isExcluded && isPayer) {
         membersData[i].amount += payerAmount
+        if (membersData[i].isUnmodified === true) {
+          membersData[i].isUnmodified = false
+        }
       } else if (isPayer && !isExcluded) {
         membersData[i].amount += payerAmount - shareAmount
+        if (membersData[i].isUnmodified === true) {
+          membersData[i].isUnmodified = false
+        }
       } else if (!isPayer && !isExcluded) {
         membersData[i].amount -= shareAmount
+        if (membersData[i].isUnmodified === true) {
+          membersData[i].isUnmodified = false
+        }
       } else {
         continue
       }
@@ -102,4 +111,77 @@ const addTransaction = asyncHandler(async (req, res) => {
   }
 })
 
-export { addTransaction, getLastTransactions, getAllTransactions }
+// Method   PUT
+// Route    api/transactions/:id
+// Desc.    Mark transaction as trash & update user's amount
+// Access   Private
+const deleteTransaction = asyncHandler(async (req, res) => {
+  const transactionId = req.params.id
+  const user = await User.findById(req.user._id)
+  const transaction = await Transaction.findById(transactionId)
+  const expenseId = transaction.expense
+  const expense = user.expenses.find(
+    e => e._id.toString() === expenseId.toString()
+  )
+  if (transaction) {
+    const numberOfMembers = expense.membersData.length
+    const numberOfExcludes = transaction.excludes.length
+    const numberOfConsumers = numberOfMembers - numberOfExcludes
+
+    let { membersData } = expense
+    const totalAmount = transaction.totalAmount
+    expense.totalExpense -= totalAmount
+
+    const shareAmount = (totalAmount / numberOfConsumers).toFixed(2)
+
+    for (let i = 0; i < numberOfMembers; i++) {
+      let isExcluded = false
+      let isPayer = false
+      for (let j = 0; j < transaction.excludes.length; j++) {
+        if (
+          transaction.excludes[j].member.toString() ===
+          membersData[i]._id.toString()
+        ) {
+          isExcluded = true
+          break
+        }
+      }
+      let payerAmount
+      for (let j = 0; j < transaction.payers.length; j++) {
+        if (
+          transaction.payers[j].member.toString() ===
+          membersData[i]._id.toString()
+        ) {
+          payerAmount = transaction.payers[j].amount
+          isPayer = true
+          break
+        }
+      }
+
+      if (isExcluded && isPayer) {
+        membersData[i].amount -= payerAmount
+      } else if (isPayer && !isExcluded) {
+        membersData[i].amount -= payerAmount - Number(shareAmount)
+      } else if (!isPayer && !isExcluded) {
+        membersData[i].amount += Number(shareAmount)
+      }
+      console.log(membersData[i].amount)
+    }
+    await user.save()
+
+    transaction.isTrash = true
+    await transaction.save()
+
+    res.status(201).json({ msg: 'Transaction deleted successfully' })
+  } else {
+    res.status(404)
+    throw new Error('Transaction not found')
+  }
+})
+
+export {
+  addTransaction,
+  deleteTransaction,
+  getLastTransactions,
+  getAllTransactions
+}

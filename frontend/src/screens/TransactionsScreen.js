@@ -11,15 +11,17 @@ import './styles/Transactions.css'
 const TransactionsScreen = ({ match }) => {
   const dispatch = useDispatch()
 
-  const tripAllTransactions = useSelector(state => state.tripAllTransactions)
-  const currTrip = useSelector(state => state.currTrip)
-  const { tripData } = currTrip
-  const { loading, transactions } = tripAllTransactions
+  const expenseAllTransactions = useSelector(
+    state => state.expenseAllTransactions
+  )
+  const currExpense = useSelector(state => state.currExpense)
+  const { expenseData } = currExpense
+  const { loading, transactions } = expenseAllTransactions
 
   useEffect(() => {
     dispatch(listAllTransactions(match.params.id))
     dispatch(getExpenseDetails(match.params.id))
-  }, [dispatch, match])
+  }, [dispatch, match.params.id])
 
   return (
     <div className='all-transactions-container'>
@@ -27,7 +29,7 @@ const TransactionsScreen = ({ match }) => {
         <Loader />
       ) : (
         <>
-          <button onClick={() => generatePDF(transactions, tripData)}>
+          <button onClick={() => generatePDF(transactions, expenseData)}>
             Generate Report
           </button>
           {transactions &&

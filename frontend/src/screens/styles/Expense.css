@@ -8,6 +8,7 @@
 
 .add-expense-container {
   background: var(--tertiary-color);
+  min-height: 89.156px;
   padding: 1.25rem;
 }
 
@@ -20,12 +21,49 @@
 }
 
 #add-expense-success-message {
+  margin: 0.2rem 0;
   color: var(--btn-color);
 }
 
-.fa-plane {
+#delete-expense-success-message {
+  margin: 0.2rem 0;
+  color: var(--danger-color);
+}
+
+.add-expense-success-message--appear {
+  opacity: 0;
+}
+.add-expense-success-message--appear-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.add-expense-success-message--exit {
+  opacity: 1;
+}
+.add-expense-success-message--exit-active {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.delete-expense-success-message--appear {
+  opacity: 0;
+}
+.delete-expense-success-message--appear-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.delete-expense-success-message--exit {
+  opacity: 1;
+}
+.delete-expense-success-message--exit-active {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.fa-money-check-alt {
   font-size: 1.4rem;
-  color: var(--secondary-color);
 }
 
 .expense-list-container {
@@ -41,8 +79,8 @@
 
 .expense a {
   color: var(--primary-color);
-  font-size: 1.4rem;
-  padding: 1rem 0;
+  font-size: 1rem;
+  padding: 0.8rem 0;
 }
 
 .expense button {
@@ -54,7 +92,7 @@
 
 .expense .man-btn {
   color: var(--secondary-color);
-  font-size: 0.7rem;
+  font-size: 0.57rem;
   height: fit-content;
   margin-left: auto;
 }

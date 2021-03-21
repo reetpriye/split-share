@@ -44,6 +44,10 @@ const transactionSchema = mongoose.Schema(
     description: {
       type: String
     },
+    isTrash: {
+      type: Boolean,
+      default: false
+    },
     payers: [payerSchema],
     excludes: [excludeSchema]
   },

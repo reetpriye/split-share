@@ -7,7 +7,7 @@ import { logout } from '../actions/userActions'
 
 import './styles/Navbar.css'
 
-const Navbar = () => {
+const Navbar = ({ location }) => {
   const dispatch = useDispatch()
 
   const { userInfo } = useSelector(state => state.userLogin)
@@ -20,17 +20,17 @@ const Navbar = () => {
   useEffect(() => {
     window.addEventListener('scroll', () => setIsNavOpen(false))
   }, [])
-
   const closeMobileMenu = () => setIsNavOpen(false)
-
   return (
     <>
       <nav className='navbar'>
         <div className='branding'>
           <Link
             to='/'
-            onClick={() => {
-              setIsNavOpen(false)
+            onClick={e => {
+              location.pathname.split('/')[1] === 'expense'
+                ? e.preventDefault()
+                : setIsNavOpen(false)
             }}
           >
             <span>Split</span>

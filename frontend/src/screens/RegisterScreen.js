@@ -12,7 +12,7 @@ const RegisterScreen = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push('/trips')
+      history.push('/expenses')
     }
   }, [userInfo, history])
 

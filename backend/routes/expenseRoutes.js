@@ -6,8 +6,9 @@ import {
   getExpenseMembers,
   addExpense,
   deleteExpense,
+  addMember,
   updateMember,
-  addMember
+  deleteMember
 } from '../controllers/expenseController.js'
 
 const router = express.Router()
@@ -18,6 +19,9 @@ router
   .route('/:id/members')
   .get(protect, getExpenseMembers)
   .post(protect, addMember)
-router.route('/:id/members/:memberId').put(protect, updateMember)
+router
+  .route('/:id/members/:memberId')
+  .put(protect, updateMember)
+  .delete(protect, deleteMember)
 
 export default router

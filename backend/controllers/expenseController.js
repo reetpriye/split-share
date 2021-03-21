@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
+import Transaction from '../models/transactionModel.js'
 
 // Method   GET
 // Route    api/expenses/
@@ -58,6 +59,9 @@ const deleteExpense = asyncHandler(async (req, res) => {
       expense => expense._id.toString() !== req.params.id.toString()
     )
 
+    // Delete associated transactions
+    await Transaction.remove({ expense: req.params.id })
+
     await user.save()
 
     res.status(201).json({ msg: 'Expense deleted successfully' })
@@ -95,7 +99,7 @@ const addMember = asyncHandler(async (req, res) => {
 })
 
 // Method   PUT
-// Route    api/expenses/:id/members/:id
+// Route    api/expenses/:id/members/:memberId
 // Desc.    Update member details
 // Access   Private
 const updateMember = asyncHandler(async (req, res) => {
@@ -118,6 +122,34 @@ const updateMember = asyncHandler(async (req, res) => {
   res.status(201).json({ msg: 'Member updated successfully' })
 })
 
+// Method   DELETE
+// Route    api/expenses/:id/members/:memberId
+// Desc.    Delete unmodified member
+// Access   Private
+const deleteMember = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+  const expense = user.expenses.find(
+    expense => expense._id.toString() === req.params.id.toString()
+  )
+  console.log(req.params.memberId)
+  const member = expense.membersData.find(
+    member => member._id.toString() === req.params.memberId.toString()
+  )
+  if (member) {
+    if (!member.isUnmodified) {
+      throw Error(`Member has associated transactions. Can't be deleted`)
+    }
+    expense.membersData = expense.membersData.filter(
+      member => member._id.toString() !== req.params.memberId
+    )
+    await user.save()
+    res.status(201).json({ msg: 'Member deleted successfully' })
+  } else {
+    res.status(404)
+    throw new Error('Member not found')
+  }
+})
+
 export {
   getExpenseData,
   getUserExpenses,
@@ -125,5 +157,6 @@ export {
   addExpense,
   deleteExpense,
   addMember,
-  updateMember
+  updateMember,
+  deleteMember
 }

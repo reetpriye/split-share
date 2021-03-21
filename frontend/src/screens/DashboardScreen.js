@@ -18,51 +18,54 @@ const DashboardScreen = ({ match, history }) => {
   const [description, setDescription] = useState('')
 
   const dispatch = useDispatch()
+
   const { userInfo } = useSelector(state => state.userLogin)
   const currExpense = useSelector(state => state.currExpense)
   const transactionCreate = useSelector(state => state.transactionCreate)
 
   const { expenseData, loading } = currExpense
-  const { success } = transactionCreate
+  const { success: successCreate, loading: loadingCreate } = transactionCreate
 
   const inpHeight = 291
-
-  const initiateStateWithLocalStorageValues = () => {
-    if (localStorage.getItem('inputData')) {
-      const inputDataLS = JSON.parse(localStorage.getItem('inputData'))
-      setInputData(inputDataLS)
-    } else {
-      const inputDataLS = expenseData.membersData.map(m => ({
-        id: m._id,
-        name: m.name,
-        amount: 0,
-        isPayer: false,
-        isExclude: false
-      }))
-      inputDataLS[0].isPayer = true
-      if (expenseData.membersData.length > 1) {
-        inputDataLS[1].isPayer = true
-      }
-      setInputData(inputDataLS)
-      localStorage.setItem('inputData', JSON.stringify(inputDataLS))
-    }
-  }
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
       dispatch(logout())
     }
-    if (!expenseData || expenseData._id !== match.params.id) {
-      dispatch(getExpenseDetails(match.params.id))
+    dispatch(getExpenseDetails(match.params.id))
+    // eslint-disable-next-line
+  }, [match.params.id, history, dispatch, successCreate, userInfo])
+
+  useEffect(() => {
+    const initiateStateWithLocalStorageValues = () => {
+      const inputDataLS = JSON.parse(localStorage.getItem('inputData'))
+      if (inputDataLS && inputDataLS[0].id === expenseData.membersData[0]._id) {
+        setInputData(inputDataLS)
+      } else {
+        localStorage.removeItem('inputData')
+        const inputDataLS = expenseData.membersData.map(m => ({
+          id: m._id,
+          name: m.name,
+          amount: 0,
+          isPayer: false,
+          isExclude: false
+        }))
+        inputDataLS[0].isPayer = true
+        if (expenseData.membersData.length > 1) {
+          inputDataLS[1].isPayer = true
+        }
+        setInputData(inputDataLS)
+        localStorage.setItem('inputData', JSON.stringify(inputDataLS))
+      }
     }
+
     if (expenseData && expenseData.membersData.length === 0) {
       history.push(`/expense/${match.params.id}/members`)
     } else {
       expenseData && initiateStateWithLocalStorageValues()
     }
-    // eslint-disable-next-line
-  }, [match, history, dispatch, expenseData, success, userInfo])
+  }, [expenseData, history, match.params.id])
 
   const payerHandler = idx => e => {
     let updatedPayers = [...inputData]
@@ -84,7 +87,8 @@ const DashboardScreen = ({ match, history }) => {
     setInputData(updatedPayers)
   }
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = e => {
+    e.preventDefault()
     const transaction = {
       description,
       expense: match.params.id,
@@ -122,7 +126,7 @@ const DashboardScreen = ({ match, history }) => {
       </div>
       <div className='total-expense-container'>
         <h2 className='sub-heading'>Total Expense</h2>
-        {loading ? (
+        {loading || loadingCreate ? (
           <Loader height={'135px'} />
         ) : (
           <h1>₹{expenseData && expenseData.totalExpense}</h1>

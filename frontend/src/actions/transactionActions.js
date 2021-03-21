@@ -94,8 +94,6 @@ export const createTransaction = ({ transaction }) => async (
     dispatch({
       type: TRANSACTION_CREATE_REQUEST
     })
-    console.log('From transactionActions')
-    console.log(transaction)
     const {
       userLogin: { userInfo }
     } = getState()
@@ -106,7 +104,7 @@ export const createTransaction = ({ transaction }) => async (
         Authorization: `Bearer ${userInfo.token}`
       }
     }
-    await axios.put('/api/transactions/', { transaction }, config)
+    await axios.post('/api/transactions/', { transaction }, config)
 
     dispatch({ type: TRANSACTION_CREATE_SUCCESS })
   } catch (error) {

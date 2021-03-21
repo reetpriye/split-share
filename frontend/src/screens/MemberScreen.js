@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import Dash from '../components/Dash'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
-import { createMember, updateMember } from '../actions/memberActions'
+import {
+  createMember,
+  updateMember,
+  deleteMember
+} from '../actions/memberActions'
 import {
   listExpenseMembers,
   getExpenseDetails
@@ -22,23 +27,37 @@ const MemberScreen = ({ history, match }) => {
   const membersData = useSelector(state => state.membersData)
   const memberCreate = useSelector(state => state.memberCreate)
   const memberUpdate = useSelector(state => state.memberUpdate)
+  const memberDelete = useSelector(state => state.memberDelete)
 
+  const { currExpenseId } = currExpense
   const { members, loading } = membersData
+  const {
+    loading: loadingCreate,
+    success: successCreate,
+    error: errorCreate
+  } = memberCreate
   const {
     loading: loadingUpdate,
     success: successUpdate,
     error: errorUpdate
   } = memberUpdate
   const {
-    loading: loadingCreate,
-    success: successCreate,
-    error: errorCreate
-  } = memberCreate
-  const { currExpenseId } = currExpense
+    loading: loadingDelete,
+    success: successDelete,
+    message: messageDelete,
+    error: errorDelete
+  } = memberDelete
 
   useEffect(() => {
     dispatch(listExpenseMembers(currExpenseId))
-  }, [history, dispatch, currExpenseId, successCreate, successUpdate])
+  }, [
+    history,
+    dispatch,
+    currExpenseId,
+    successCreate,
+    successUpdate,
+    successDelete
+  ])
 
   const onSubmitHandler = e => {
     e.preventDefault()
@@ -98,35 +117,39 @@ const MemberScreen = ({ history, match }) => {
         </form>
 
         <div className='members-container'>
-          {loading || loadingUpdate || loadingCreate ? (
+          {(messageDelete && <h6>{messageDelete}</h6>) ||
+            (errorDelete && <h6>{errorDelete}</h6>)}
+          {loading || loadingCreate || loadingUpdate || loadingDelete ? (
             <Loader />
           ) : (
             members &&
             members.length > 0 &&
             members.map(member => (
-              <div key={member._id} className='member'>
-                <h3 className='member-name'>{member.name}</h3>
-                <button
-                  className='edit-btn'
-                  onClick={() => {
-                    setIsUpdate(true)
-                    setName(member.name)
-                    setMemberId(member._id)
-                  }}
-                >
-                  <i className='fas fa-pencil-alt'></i>
-                </button>
-                <button
-                  className='delete-btn'
-                  onClick={() => {
-                    setIsUpdate(true)
-                    setName(member.name)
-                    setMemberId(member._id)
-                  }}
-                >
-                  <i className='fas fa-times'></i>
-                </button>
-              </div>
+              <>
+                <div key={member._id} className='member'>
+                  <h3 className='member-name'>{member.name}</h3>
+                  <button
+                    className='edit-btn'
+                    onClick={() => {
+                      setIsUpdate(true)
+                      setName(member.name)
+                      setMemberId(member._id)
+                    }}
+                  >
+                    <i className='fas fa-pencil-alt'></i>
+                  </button>
+                  <button
+                    className='delete-btn'
+                    type='button'
+                    onClick={() =>
+                      dispatch(deleteMember(currExpenseId, member._id))
+                    }
+                  >
+                    <i className='fas fa-times'></i>
+                  </button>
+                </div>
+                <Dash />
+              </>
             ))
           )}
         </div>

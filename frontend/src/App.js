@@ -12,6 +12,7 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import DashboardScreen from './screens/DashboardScreen'
 import ExpenseScreen from './screens/ExpenseScreen'
+import TrashScreen from './screens/TrashScreen'
 import AboutScreen from './screens/AboutScreen'
 import MemberScreen from './screens/MemberScreen'
 import TransactionsScreen from './screens/TransactionsScreen'
@@ -32,6 +33,7 @@ const App = () => {
     return size
   }
 
+  //eslint-disable-next-line
   const [width, height] = useWindowSize()
 
   if (width > 480) {
@@ -42,7 +44,7 @@ const App = () => {
   return (
     <Fragment>
       <Router>
-        <Navbar />
+        <Route render={props => <Navbar {...props} />} />
         <div className='Content'>
           {/* For debug purpose
           <h1>
@@ -59,7 +61,12 @@ const App = () => {
               component={MemberScreen}
               exact
             />
-            <Route path='/transactions/:id' component={TransactionsScreen} />
+            <Route
+              path='/transactions/:id'
+              component={TransactionsScreen}
+              exact
+            />
+            <Route path='/transactions/:id/trash' component={TrashScreen} />
             <Route path='/analytics' component={AnalyticsScreen} />
             <Route path='/about' component={AboutScreen} />
             <Route path='/' component={HomeScreen} exact />

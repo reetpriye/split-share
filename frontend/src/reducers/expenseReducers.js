@@ -13,7 +13,9 @@ import {
   EXPENSE_DELETE_FAIL,
   EXPENSE_MEMBERS_REQUEST,
   EXPENSE_MEMBERS_SUCCESS,
-  EXPENSE_MEMBERS_FAIL
+  EXPENSE_MEMBERS_FAIL,
+  EXPENSE_CREATE_MESSAGE_CLEAR,
+  EXPENSE_DELETE_MESSAGE_CLEAR
 } from '../constants/expenseConstants'
 
 export const userExpensesReducer = (state = {}, action) => {
@@ -31,7 +33,7 @@ export const userExpensesReducer = (state = {}, action) => {
 export const expenseDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case EXPENSE_DETAILS_REQUEST:
-      return { ...state, loading: true }
+      return { loading: true }
     case EXPENSE_DETAILS_SUCCESS:
       return {
         loading: false,
@@ -67,10 +69,13 @@ export const expenseCreateReducer = (state = {}, action) => {
     case EXPENSE_CREATE_SUCCESS:
       return {
         loading: false,
-        success: true
+        success: true,
+        message: action.payload
       }
     case EXPENSE_CREATE_FAIL:
       return { loading: false, error: action.payload }
+    case EXPENSE_CREATE_MESSAGE_CLEAR:
+      return { ...state, message: '' }
     default:
       return state
   }
@@ -83,10 +88,13 @@ export const expenseDeleteReducer = (state = {}, action) => {
     case EXPENSE_DELETE_SUCCESS:
       return {
         loading: false,
-        success: true
+        success: true,
+        message: action.payload
       }
     case EXPENSE_DELETE_FAIL:
       return { loading: false, error: action.payload }
+    case EXPENSE_DELETE_MESSAGE_CLEAR:
+      return { ...state, message: '', error: '' }
     default:
       return state
   }

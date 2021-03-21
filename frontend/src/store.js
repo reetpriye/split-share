@@ -11,7 +11,8 @@ import {
 } from './reducers/expenseReducers'
 import {
   memberCreateReducer,
-  memberUpdateReducer
+  memberUpdateReducer,
+  memberDeleteReducer
 } from './reducers/memberReducer'
 import {
   transactionLastListReducer,
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   membersData: expenseMembersReducer,
   memberCreate: memberCreateReducer,
   memberUpdate: memberUpdateReducer,
+  memberDelete: memberDeleteReducer,
   transactionCreate: transactionCreateReducer,
   expenseLastTransactions: transactionLastListReducer,
   expenseAllTransactions: transactionAllListReducer

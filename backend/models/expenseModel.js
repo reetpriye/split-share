@@ -8,6 +8,10 @@ const memberDataSchema = mongoose.Schema(
     amount: {
       type: Number,
       default: 0
+    },
+    isUnmodified: {
+      type: Boolean,
+      default: true
     }
   },
   {

@@ -14,7 +14,9 @@ import {
   EXPENSE_DETAILS_FAIL,
   EXPENSE_MEMBERS_REQUEST,
   EXPENSE_MEMBERS_SUCCESS,
-  EXPENSE_MEMBERS_FAIL
+  EXPENSE_MEMBERS_FAIL,
+  EXPENSE_CREATE_MESSAGE_CLEAR,
+  EXPENSE_DELETE_MESSAGE_CLEAR
 } from '../constants/expenseConstants'
 
 import { logout } from './userActions'
@@ -113,7 +115,16 @@ export const createExpense = expenseName => async (dispatch, getState) => {
     }
     await axios.post('/api/expenses/', { expenseName }, config)
 
-    dispatch({ type: EXPENSE_CREATE_SUCCESS })
+    const msg = 'Expense added successfully'
+    dispatch({
+      type: EXPENSE_CREATE_SUCCESS,
+      payload: msg
+    })
+    setTimeout(() => {
+      dispatch({
+        type: EXPENSE_CREATE_MESSAGE_CLEAR
+      })
+    }, 5000)
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -147,7 +158,12 @@ export const deleteExpense = id => async (dispatch, getState) => {
 
     await axios.delete(`/api/expenses/${id}`, config)
 
-    dispatch({ type: EXPENSE_DELETE_SUCCESS })
+    const msg = 'Expense deleted successfully'
+    dispatch({ type: EXPENSE_DELETE_SUCCESS, payload: msg })
+
+    setTimeout(() => {
+      dispatch({ type: EXPENSE_DELETE_MESSAGE_CLEAR })
+    }, 5000)
   } catch (error) {
     const message =
       error.response && error.response.data.message
