@@ -15,9 +15,11 @@ import {
   memberDeleteReducer
 } from './reducers/memberReducer'
 import {
-  transactionLastListReducer,
   transactionAllListReducer,
-  transactionCreateReducer
+  transactionLastListReducer,
+  transactionTrashListReducer,
+  transactionCreateReducer,
+  transactionDeleteReducer
 } from './reducers/transactionReducers'
 
 const reducer = combineReducers({
@@ -32,8 +34,10 @@ const reducer = combineReducers({
   memberUpdate: memberUpdateReducer,
   memberDelete: memberDeleteReducer,
   transactionCreate: transactionCreateReducer,
+  transactionDelete: transactionDeleteReducer,
+  expenseAllTransactions: transactionAllListReducer,
   expenseLastTransactions: transactionLastListReducer,
-  expenseAllTransactions: transactionAllListReducer
+  expenseTrashTransactions: transactionTrashListReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

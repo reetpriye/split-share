@@ -3,15 +3,15 @@ import {
   MEMBER_CREATE_REQUEST,
   MEMBER_CREATE_SUCCESS,
   MEMBER_CREATE_FAIL,
-  MEMBER_CREATE_ERROR_CLEAR,
+  MEMBER_CREATE_MESSAGE_CLEAR,
   MEMBER_UPDATE_REQUEST,
   MEMBER_UPDATE_SUCCESS,
   MEMBER_UPDATE_FAIL,
-  MEMBER_UPDATE_ERROR_CLEAR,
+  MEMBER_UPDATE_MESSAGE_CLEAR,
   MEMBER_DELETE_REQUEST,
   MEMBER_DELETE_SUCCESS,
   MEMBER_DELETE_FAIL,
-  MEMBER_DELETE_ERROR_CLEAR
+  MEMBER_DELETE_MESSAGE_CLEAR
 } from '../constants/memberConstants'
 import { logout } from '../actions/userActions'
 
@@ -39,7 +39,7 @@ export const createMember = ({ name }) => async (dispatch, getState) => {
 
     dispatch({
       type: MEMBER_CREATE_SUCCESS,
-      payload: data
+      payload: data.msg
     })
   } catch (error) {
     const message =
@@ -53,12 +53,12 @@ export const createMember = ({ name }) => async (dispatch, getState) => {
       type: MEMBER_CREATE_FAIL,
       payload: message
     })
-    setTimeout(() => {
-      dispatch({
-        type: MEMBER_CREATE_ERROR_CLEAR
-      })
-    }, 2500)
   }
+  setTimeout(() => {
+    dispatch({
+      type: MEMBER_CREATE_MESSAGE_CLEAR
+    })
+  }, 2500)
 }
 
 export const updateMember = ({ name }, id) => async (dispatch, getState) => {
@@ -78,14 +78,15 @@ export const updateMember = ({ name }, id) => async (dispatch, getState) => {
       }
     }
 
-    await axios.put(
+    const { data } = await axios.put(
       `/api/expenses/${currExpenseId}/members/${id}`,
       { name },
       config
     )
 
     dispatch({
-      type: MEMBER_UPDATE_SUCCESS
+      type: MEMBER_UPDATE_SUCCESS,
+      payload: data.msg
     })
   } catch (error) {
     const message =
@@ -99,12 +100,12 @@ export const updateMember = ({ name }, id) => async (dispatch, getState) => {
       type: MEMBER_UPDATE_FAIL,
       payload: message
     })
-    setTimeout(() => {
-      dispatch({
-        type: MEMBER_UPDATE_ERROR_CLEAR
-      })
-    }, 2500)
   }
+  setTimeout(() => {
+    dispatch({
+      type: MEMBER_UPDATE_MESSAGE_CLEAR
+    })
+  }, 2500)
 }
 
 export const deleteMember = (expenseId, memberId) => async (
@@ -141,6 +142,6 @@ export const deleteMember = (expenseId, memberId) => async (
     })
   }
   setTimeout(() => {
-    dispatch({ type: MEMBER_DELETE_ERROR_CLEAR })
+    dispatch({ type: MEMBER_DELETE_MESSAGE_CLEAR })
   }, 2500)
 }

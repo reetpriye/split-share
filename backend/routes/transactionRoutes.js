@@ -3,8 +3,9 @@ import { protect } from '../middleware/authMiddleware.js'
 import {
   addTransaction,
   deleteTransaction,
+  getAllTransactions,
   getLastTransactions,
-  getAllTransactions
+  getTrashTransactions
 } from '../controllers/transactionController.js'
 
 const router = express.Router()
@@ -15,5 +16,6 @@ router
   .get(protect, getAllTransactions)
   .put(protect, deleteTransaction)
 router.route('/:id/last').get(protect, getLastTransactions)
+router.route('/:id/trash').get(protect, getTrashTransactions)
 
 export default router

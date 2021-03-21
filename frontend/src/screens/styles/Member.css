@@ -1,45 +1,93 @@
-.suggestions {
-  font-size: 18px;
-  line-height: 18px;
-  text-transform: uppercase;
-  color: #ffffff;
+#member-message {
+  text-align: center;
 }
 
-.suggestions > span {
+#member-message > span {
   color: var(--secondary-color);
 }
 
-.member-list-container {
+.add-member-container-xl {
+  background: var(--tertiary-color);
+  min-height: calc(89.156px + 40px);
   padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--tertiary-color);
 }
 
-.member-list-container > h5 {
-  text-transform: uppercase;
-  font-size: 14px;
-  color: #ffffff;
+.add-member-container-xs {
+  background: var(--tertiary-color);
+  min-height: 89.156px;
+  padding: 1.25rem;
 }
 
-.member-list-container > h6 {
-  font-weight: 400;
-  color: #cbcfd4;
-  margin: 0;
-}
-
-.member-list-container > h2 {
-  font-size: 24px;
-  line-height: 0px;
-  text-align: center;
-  color: #ffffff;
+.add-member-container-xs > h6,
+.add-member-container-xl > h6 {
+  margin: 0.4rem 0;
 }
 
 #add-member-input-container {
   display: flex;
 }
 
-.clear-btn {
+#add-member-success-message {
+  margin: 0.2rem 0;
+  color: var(--btn-color);
+}
+
+#delete-member-success-message {
+  margin: 0.2rem 0;
+  color: var(--danger-color);
+}
+
+.add-member-success-message--appear {
+  opacity: 0;
+}
+.add-member-success-message--appear-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.add-member-success-message--exit {
+  opacity: 1;
+}
+.add-member-success-message--exit-active {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.delete-member-success-message--appear {
+  opacity: 0;
+}
+.delete-member-success-message--appear-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.delete-member-success-message--exit {
+  opacity: 1;
+}
+
+.delete-member-success-message--exit-active {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#placeholder-div {
+  min-height: calc(15px + 0.4rem);
+}
+
+#done-adding-members {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.member-list-container {
+  background: var(--tertiary-color);
+  margin: 1rem 0;
+  padding: 1.25rem;
+}
+
+/* .clear-btn {
   background: transparent;
   border: 0;
   outline: 0;
@@ -49,15 +97,7 @@
   position: relative;
   left: -20px;
   opacity: 0.8;
-}
-
-.members-name-container {
-  margin-top: 1rem;
-}
-
-.member-edit-btn {
-  background-color: transparent !important;
-}
+} */
 
 .member {
   margin: 0.6rem 0;
@@ -68,10 +108,6 @@
 
 .member-name {
   margin: 0;
-}
-
-.message {
-  color: #6fcf97 !important;
 }
 
 .member .edit-btn {

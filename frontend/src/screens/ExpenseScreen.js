@@ -39,10 +39,10 @@ const ExpenseScreen = ({ history }) => {
   }, [history, userInfo, dispatch, successCreate, successDelete])
 
   return (
-    <div className='my-expenses-container'>
+    <div className='expense-main-container'>
       <h2 className='heading'>Expenses</h2>
       {expenses && expenses.length === 0 && (
-        <h4 id='my-expenses-message'>
+        <h4 id='expense-message'>
           HI, {userInfo && userInfo.name.toUpperCase().split(' ')[0]}. KINDLY
           FIRST ADD <span>SOME EXPENSE</span>
         </h4>
@@ -65,6 +65,10 @@ const ExpenseScreen = ({ history }) => {
             />
             <input className='btn' type='submit' value='+ADD' />
           </div>
+
+          <h6 id='expense-examples'>
+            e.g. Goa Trip, January Flat Expense, New Year Picnic Expense, etc
+          </h6>
 
           {messageCreate && (
             <CSSTransition

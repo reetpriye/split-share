@@ -33,7 +33,9 @@ const DashboardScreen = ({ match, history }) => {
       history.push('/login')
       dispatch(logout())
     }
-    dispatch(getExpenseDetails(match.params.id))
+    if (successCreate) {
+      dispatch(getExpenseDetails(match.params.id))
+    }
     // eslint-disable-next-line
   }, [match.params.id, history, dispatch, successCreate, userInfo])
 

@@ -23,7 +23,7 @@ const importData = async () => {
     await User.deleteMany()
     await Transaction.deleteMany()
 
-    // const createdUsers = await User.insertMany(users)
+    const createdUsers = await User.insertMany(users)
 
     // const userids = createdUsers.map(user => user._id)
     // const memberids = createdUsers[0].expenses[0].membersData.map(

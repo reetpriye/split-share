@@ -116,6 +116,9 @@ const updateMember = asyncHandler(async (req, res) => {
   const member = expense.membersData.find(
     m => m._id.toString() === req.params.memberId.toString()
   )
+  if (!member.isUnmodified) {
+    throw Error(`Member has associated transactions. Can't be renamed`)
+  }
   member.name = name
   await user.save()
 
@@ -131,7 +134,6 @@ const deleteMember = asyncHandler(async (req, res) => {
   const expense = user.expenses.find(
     expense => expense._id.toString() === req.params.id.toString()
   )
-  console.log(req.params.memberId)
   const member = expense.membersData.find(
     member => member._id.toString() === req.params.memberId.toString()
   )

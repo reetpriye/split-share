@@ -1,16 +1,60 @@
 import axios from 'axios'
 import {
-  TRANSACTION_LAST_LIST_REQUEST,
-  TRANSACTION_LAST_LIST_SUCCESS,
-  TRANSACTION_LAST_LIST_FAIL,
   TRANSACTION_ALL_LIST_REQUEST,
   TRANSACTION_ALL_LIST_SUCCESS,
   TRANSACTION_ALL_LIST_FAIL,
+  TRANSACTION_LAST_LIST_REQUEST,
+  TRANSACTION_LAST_LIST_SUCCESS,
+  TRANSACTION_LAST_LIST_FAIL,
+  TRANSACTION_TRASH_LIST_REQUEST,
+  TRANSACTION_TRASH_LIST_SUCCESS,
+  TRANSACTION_TRASH_LIST_FAIL,
   TRANSACTION_CREATE_REQUEST,
   TRANSACTION_CREATE_SUCCESS,
-  TRANSACTION_CREATE_FAIL
+  TRANSACTION_CREATE_FAIL,
+  TRANSACTION_DELETE_REQUEST,
+  TRANSACTION_DELETE_SUCCESS,
+  TRANSACTION_DELETE_FAIL,
+  TRANSACTION_DELETE_MESSAGE_CLEAR
 } from '../constants/transactionConstants'
 import { logout } from './userActions'
+
+export const listAllTransactions = tripId => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TRANSACTION_ALL_LIST_REQUEST
+    })
+
+    const {
+      userLogin: { userInfo }
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+
+    const { data } = await axios.get(`/api/transactions/${tripId}`, config)
+
+    dispatch({
+      type: TRANSACTION_ALL_LIST_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: TRANSACTION_ALL_LIST_FAIL,
+      payload: message
+    })
+  }
+}
 
 export const listLastTransactions = tripId => async (dispatch, getState) => {
   try {
@@ -49,10 +93,10 @@ export const listLastTransactions = tripId => async (dispatch, getState) => {
   }
 }
 
-export const listAllTransactions = tripId => async (dispatch, getState) => {
+export const listTrashTransactions = tripId => async (dispatch, getState) => {
   try {
     dispatch({
-      type: TRANSACTION_ALL_LIST_REQUEST
+      type: TRANSACTION_TRASH_LIST_REQUEST
     })
 
     const {
@@ -65,10 +109,13 @@ export const listAllTransactions = tripId => async (dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.get(`/api/transactions/${tripId}`, config)
+    const { data } = await axios.get(
+      `/api/transactions/${tripId}/trash`,
+      config
+    )
 
     dispatch({
-      type: TRANSACTION_ALL_LIST_SUCCESS,
+      type: TRANSACTION_TRASH_LIST_SUCCESS,
       payload: data
     })
   } catch (error) {
@@ -80,7 +127,7 @@ export const listAllTransactions = tripId => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: TRANSACTION_ALL_LIST_FAIL,
+      type: TRANSACTION_TRASH_LIST_FAIL,
       payload: message
     })
   }
@@ -120,4 +167,43 @@ export const createTransaction = ({ transaction }) => async (
       payload: message
     })
   }
+}
+
+export const deleteTransaction = transactionId => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const {
+      userLogin: { userInfo }
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+    dispatch({ type: TRANSACTION_DELETE_REQUEST })
+    const { data } = await axios.put(
+      `/api/transactions/${transactionId}`,
+      {},
+      config
+    )
+
+    dispatch({ type: TRANSACTION_DELETE_SUCCESS, payload: data.msg })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: TRANSACTION_DELETE_FAIL,
+      payload: message
+    })
+  }
+  setTimeout(() => {
+    dispatch({ type: TRANSACTION_DELETE_MESSAGE_CLEAR })
+  }, 2500)
 }

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import Dash from '../components/Dash'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
@@ -23,22 +24,26 @@ const MemberScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const userLogin = useSelector(state => state.userLogin)
   const currExpense = useSelector(state => state.currExpense)
   const membersData = useSelector(state => state.membersData)
   const memberCreate = useSelector(state => state.memberCreate)
   const memberUpdate = useSelector(state => state.memberUpdate)
   const memberDelete = useSelector(state => state.memberDelete)
 
+  const { userInfo } = userLogin
   const { currExpenseId } = currExpense
   const { members, loading } = membersData
   const {
     loading: loadingCreate,
     success: successCreate,
+    message: messageCreate,
     error: errorCreate
   } = memberCreate
   const {
     loading: loadingUpdate,
     success: successUpdate,
+    message: messageUpdate,
     error: errorUpdate
   } = memberUpdate
   const {
@@ -49,7 +54,9 @@ const MemberScreen = ({ history, match }) => {
   } = memberDelete
 
   useEffect(() => {
-    dispatch(listExpenseMembers(currExpenseId))
+    if (successDelete) {
+      dispatch(listExpenseMembers(currExpenseId))
+    }
   }, [
     history,
     dispatch,
@@ -71,25 +78,33 @@ const MemberScreen = ({ history, match }) => {
   }
 
   return (
-    <div className='members'>
+    <div className='member-main-container'>
+      <h2 className='heading'>Members</h2>
       {membersData.members && membersData.members.length === 0 && (
-        <h3 className='suggestions'>
-          Kindly first <span>add members</span> in order to start managing
-          expenses
-        </h3>
+        <h4 id='member-message'>
+          HI, {userInfo && userInfo.name.toUpperCase().split(' ')[0]}. KINDLY
+          FIRST <span>ADD MEMBERS</span> IN ORDER TO START MANAGING EXPENSES
+        </h4>
       )}
 
-      {errorUpdate ? (
-        <Message>{errorUpdate}</Message>
-      ) : errorCreate ? (
-        <Message>{errorCreate}</Message>
-      ) : null}
+      {errorCreate ? (
+        <Message variant={'danger'}>{errorCreate}</Message>
+      ) : errorUpdate ? (
+        <Message variant={'danger'}>{errorUpdate}</Message>
+      ) : (
+        errorDelete && <Message variant={'danger'}>{errorDelete}</Message>
+      )}
 
-      <div className='member-list-container'>
-        <h2>
-          Member List <i className='fas fa-user-circle'></i>
-        </h2>
-        <h6>ADD NEW MEMBER</h6>
+      <section
+        className={
+          members && members.length > 0
+            ? 'add-member-container-xl'
+            : 'add-member-container-xs'
+        }
+      >
+        <h6>
+          ADD NEW MEMBER <i className='fas fa-user-circle'></i>
+        </h6>
         <form onSubmit={onSubmitHandler}>
           <div id='add-member-input-container'>
             <input
@@ -114,59 +129,83 @@ const MemberScreen = ({ history, match }) => {
               className='btn'
             />
           </div>
-        </form>
 
-        <div className='members-container'>
-          {(messageDelete && <h6>{messageDelete}</h6>) ||
-            (errorDelete && <h6>{errorDelete}</h6>)}
-          {loading || loadingCreate || loadingUpdate || loadingDelete ? (
-            <Loader />
+          {messageCreate ? (
+            <CSSTransition
+              in={true}
+              classNames={'add-member-success-message-'}
+              timeout={{ enter: 1000, exit: 1000 }}
+              appear={true}
+            >
+              <h6 id='add-member-success-message'>{messageCreate}</h6>
+            </CSSTransition>
+          ) : messageDelete ? (
+            <CSSTransition
+              in={messageDelete.length}
+              classNames={'delete-member-success-message-'}
+              timeout={{ enter: 1000, exit: 1000 }}
+              appear={true}
+            >
+              <h6 id='delete-member-success-message'>{messageDelete}</h6>
+            </CSSTransition>
           ) : (
-            members &&
-            members.length > 0 &&
-            members.map(member => (
-              <>
-                <div key={member._id} className='member'>
-                  <h3 className='member-name'>{member.name}</h3>
-                  <button
-                    className='edit-btn'
-                    onClick={() => {
-                      setIsUpdate(true)
-                      setName(member.name)
-                      setMemberId(member._id)
-                    }}
-                  >
-                    <i className='fas fa-pencil-alt'></i>
-                  </button>
-                  <button
-                    className='delete-btn'
-                    type='button'
-                    onClick={() =>
-                      dispatch(deleteMember(currExpenseId, member._id))
-                    }
-                  >
-                    <i className='fas fa-times'></i>
-                  </button>
-                </div>
-                <Dash />
-              </>
-            ))
+            <div id='placeholder-div' />
           )}
-        </div>
 
-        <h5>
-          Done adding members?{' '}
-          <Link
-            to={`/expense/${currExpenseId}`}
-            onClick={() => {
-              dispatch(getExpenseDetails(match.params.id))
-            }}
-          >
-            Click here
-          </Link>{' '}
-          to start managing expense
-        </h5>
-      </div>
+          {members && members.length > 0 && (
+            <h5 id='done-adding-members'>
+              Done adding members?{' '}
+              <Link
+                to={`/expense/${currExpenseId}`}
+                onClick={() => {
+                  dispatch(getExpenseDetails(match.params.id))
+                }}
+              >
+                Click here
+              </Link>{' '}
+              to start managing expense
+            </h5>
+          )}
+        </form>
+      </section>
+
+      <section className='member-list-container'>
+        <h2 className='sub-heading'>
+          MEMBER LIST <i className='fas fa-money-check-alt'></i>
+        </h2>
+        {loading || loadingCreate || loadingUpdate || loadingDelete ? (
+          <Loader width={'311px'} height={'128px'} />
+        ) : (
+          members &&
+          members.map(member => (
+            <Fragment key={member._id}>
+              <div className='member'>
+                <h3 className='member-name'>{member.name}</h3>
+                <button
+                  className='edit-btn'
+                  onClick={() => {
+                    setIsUpdate(true)
+                    setName(member.name)
+                    setMemberId(member._id)
+                  }}
+                >
+                  <i className='fas fa-pencil-alt'></i>
+                </button>
+                <button
+                  className='delete-btn'
+                  type='button'
+                  onClick={() =>
+                    dispatch(deleteMember(currExpenseId, member._id))
+                  }
+                >
+                  <i className='fas fa-times'></i>
+                </button>
+              </div>
+              <Dash />
+            </Fragment>
+          ))
+        )}
+      </section>
     </div>
   )
 }

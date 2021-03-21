@@ -5,19 +5,37 @@ import User from '../models/userModel.js'
 
 // Method   GET
 // Route    api/transactions/:id
+// Desc.    Get all the user's transactions
+// Access   Private
+const getAllTransactions = asyncHandler(async (req, res) => {
+  const transactions = await Transaction.find({
+    expense: req.params.id,
+    isTrash: false
+  })
+  res.json(transactions.reverse())
+})
+
+// Method   GET
+// Route    api/transactions/:id/last
 // Desc.    Get last 5 user's transactions
 // Access   Private
 const getLastTransactions = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ expense: req.params.id })
+  const transactions = await Transaction.find({
+    expense: req.params.id,
+    isTrash: false
+  })
   res.json(transactions.slice(-5).reverse())
 })
 
 // Method   GET
-// Route    api/transactions/:id
-// Desc.    Get all the user's transactions
+// Route    api/transactions/:id/trash
+// Desc.    Get all the user's trash transactions
 // Access   Private
-const getAllTransactions = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ expense: req.params.id })
+const getTrashTransactions = asyncHandler(async (req, res) => {
+  const transactions = await Transaction.find({
+    expense: req.params.id,
+    isTrash: true
+  })
   res.json(transactions.reverse())
 })
 
@@ -165,14 +183,13 @@ const deleteTransaction = asyncHandler(async (req, res) => {
       } else if (!isPayer && !isExcluded) {
         membersData[i].amount += Number(shareAmount)
       }
-      console.log(membersData[i].amount)
     }
     await user.save()
 
     transaction.isTrash = true
     await transaction.save()
 
-    res.status(201).json({ msg: 'Transaction deleted successfully' })
+    res.status(201).json({ msg: 'Transaction moved to trash' })
   } else {
     res.status(404)
     throw new Error('Transaction not found')
@@ -182,6 +199,7 @@ const deleteTransaction = asyncHandler(async (req, res) => {
 export {
   addTransaction,
   deleteTransaction,
+  getAllTransactions,
   getLastTransactions,
-  getAllTransactions
+  getTrashTransactions
 }

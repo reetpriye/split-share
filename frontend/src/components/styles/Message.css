@@ -2,26 +2,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  color: #ffffff;
-  padding: 0.7rem;
+  padding: 0.2rem;
   opacity: 0.9;
-  background: var(--light-color);
-  color: #333;
-}
-
-.alert-primary {
   background: var(--primary-color);
-  color: var(--primary-color);
+  color: #333;
 }
 
 .alert-light {
   background: var(--light-color);
-  color: #333;
 }
 
 .alert-dark {

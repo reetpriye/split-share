@@ -1,23 +1,28 @@
-#my-expenses-message {
+#expense-message {
   text-align: center;
 }
 
-#my-expenses-message > span {
+#expense-message > span {
   color: var(--secondary-color);
 }
 
 .add-expense-container {
   background: var(--tertiary-color);
-  min-height: 89.156px;
-  padding: 1.25rem;
+  padding: 0.8rem 1.25rem;
+  min-height: 104.125px;
 }
 
 .add-expense-container > h6 {
-  margin: 0.4rem 0;
+  margin: 0.2rem 0;
 }
 
 #add-expense-input-container {
   display: flex;
+}
+
+#expense-examples {
+  margin: 0.2rem 0;
+  color: whitesmoke;
 }
 
 #add-expense-success-message {

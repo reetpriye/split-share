@@ -8,29 +8,35 @@ const AboutScreen = () => {
     <div>
       <div className='card'>
         <img src={profile} alt='Profile Pic' />
-        <h4>Web Developer</h4>
+        <h4>Sophomore</h4>
         <h2>Reet Priye</h2>
         <h3>Kolkata, India</h3>
       </div>
       <div className='description'>
         <p>
-          What is Lorem Ipsum? <br /> Lorem Ipsum is simply dummy text of the
-          printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took
-          a galley of type and scrambled it to make a type specimen book. It has
-          survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in
-          the 1960s with the release of Letraset sheets containing Lorem Ipsum
-          passages, and more recently with desktop publishing software like
-          Aldus PageMaker including versions of Lorem Ipsum.
+          Hello, people of the Internet, I'm Reet Priye, currently pursuing a
+          Bachelor of Technology(ECE) from Heritage Institute of Technology,
+          Kolkata. I created this site keeping in mind all the needs that the
+          user may require. This site is built using the MERN stack and with a
+          bunch of other NPM packages such as JWT, BcryptJS, etc.
+          <br />
+          I developed it as an attempt to improve my programming, designing
+          skills and most importantly to learn full-stack development.
+          <br />I would love to create more web app in future which could solve
+          some real-life problems.
+          <br />
+          If you have any feature suggestions or want to report any bug, kindly
+          mail to <span>reetpriye@gmail.com</span>
+          <br />
+          I would love and try my best to fix that.
+          <br />
         </p>
       </div>
       <div className='label'>
         <h4>VERSION: 1.0.0</h4>
-        <h4>
-          FORK THIS ON{' '}
-          <a href='https://github.com/reetpriye/split-share'>GITHUB</a>
-        </h4>
+        <a href='https://www.buymeacoffee.com/reetpriye'>
+          Buy me a coffee <i className='fas fa-coffee'></i>{' '}
+        </a>
       </div>
     </div>
   )

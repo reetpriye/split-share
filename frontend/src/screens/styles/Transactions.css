@@ -97,12 +97,22 @@
   content: '₹';
 }
 
-.all-transactions-container > button:nth-of-type(1) {
+.transactions-link-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.transactions-link-container > button {
   padding: 0.8rem;
   border-radius: 3px;
   border: 0;
   background: var(--secondary-color);
   color: var(--primary-color);
   font-weight: 500;
-  margin-left: auto;
+  margin: 0;
+}
+
+.transactions-link-container > button > a {
+  color: var(--primary-color);
 }

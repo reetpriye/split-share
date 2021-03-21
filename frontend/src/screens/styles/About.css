@@ -44,28 +44,37 @@
 
 .description > p {
   margin-top: 1.2rem;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 21px;
   letter-spacing: -0.457692px;
   color: #f1f8f9;
 }
 
+.description > p > span {
+  color: var(--secondary-color);
+}
+
 .label {
   margin-top: 18px;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: 1.75px;
-  text-transform: uppercase;
-
   color: #ffffff;
 }
 
 .label a {
   text-decoration: none;
   color: var(--secondary-color);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 1.75px;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 .label > h4 {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 1.75px;
+  text-transform: uppercase;
   margin: 0;
 }

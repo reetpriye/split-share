@@ -113,18 +113,12 @@ export const createExpense = expenseName => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`
       }
     }
-    await axios.post('/api/expenses/', { expenseName }, config)
+    const { data } = await axios.post('/api/expenses/', { expenseName }, config)
 
-    const msg = 'Expense added successfully'
     dispatch({
       type: EXPENSE_CREATE_SUCCESS,
-      payload: msg
+      payload: data.msg
     })
-    setTimeout(() => {
-      dispatch({
-        type: EXPENSE_CREATE_MESSAGE_CLEAR
-      })
-    }, 5000)
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -138,6 +132,11 @@ export const createExpense = expenseName => async (dispatch, getState) => {
       payload: message
     })
   }
+  setTimeout(() => {
+    dispatch({
+      type: EXPENSE_CREATE_MESSAGE_CLEAR
+    })
+  }, 2500)
 }
 
 export const deleteExpense = id => async (dispatch, getState) => {
@@ -156,14 +155,9 @@ export const deleteExpense = id => async (dispatch, getState) => {
       }
     }
 
-    await axios.delete(`/api/expenses/${id}`, config)
+    const { data } = await axios.delete(`/api/expenses/${id}`, config)
 
-    const msg = 'Expense deleted successfully'
-    dispatch({ type: EXPENSE_DELETE_SUCCESS, payload: msg })
-
-    setTimeout(() => {
-      dispatch({ type: EXPENSE_DELETE_MESSAGE_CLEAR })
-    }, 5000)
+    dispatch({ type: EXPENSE_DELETE_SUCCESS, payload: data.msg })
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -177,6 +171,9 @@ export const deleteExpense = id => async (dispatch, getState) => {
       payload: message
     })
   }
+  setTimeout(() => {
+    dispatch({ type: EXPENSE_DELETE_MESSAGE_CLEAR })
+  }, 2500)
 }
 
 export const listExpenseMembers = id => async (dispatch, getState) => {
