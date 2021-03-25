@@ -8,6 +8,10 @@
   margin: 0;
 }
 
+#expense-details-placeholder-div {
+  min-height: 22px;
+}
+
 .total-expense-container {
   background: var(--tertiary-color);
   padding: 1.25rem;
@@ -66,6 +70,7 @@
   margin: 0;
   justify-self: start;
   margin-left: 0.4rem;
+  text-transform: capitalize;
 }
 
 .new-item-container {
@@ -76,17 +81,6 @@
 #excludes-label {
   margin-right: 0.6rem;
 }
-
-/* .new-item-container .add-btn {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #000;
-  min-width: 84.8px;
-  height: 34px;
-  background: rgba(111, 207, 151, 0.87);
-  border-radius: 3px;
-  border: 0;
-} */
 
 .new-item-type {
   margin-top: 0.8rem;

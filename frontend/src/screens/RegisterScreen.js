@@ -40,8 +40,13 @@ const RegisterScreen = ({ history }) => {
   return (
     <div className='form-container'>
       <h1 className='heading'>Register</h1>
-      {message && <Message variant='danger'>{message}</Message>}
-      {error && <Message variant='danger'>{error}</Message>}
+      {message ? (
+        <Message variant='danger'>{message}</Message>
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <div id='register-screen-message-placeholder-div' />
+      )}
 
       <form onSubmit={submitHandler}>
         <div className='form-group'>

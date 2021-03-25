@@ -27,7 +27,7 @@
 
 #add-expense-success-message {
   margin: 0.2rem 0;
-  color: var(--btn-color);
+  color: var(--success-color);
 }
 
 #delete-expense-success-message {

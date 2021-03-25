@@ -1,12 +1,14 @@
 import axios from 'axios'
 import {
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_MESSAGE_CLEAR,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS
+  USER_LOGIN_MESSAGE_CLEAR,
+  USER_LOGOUT
 } from '../constants/userConstants'
 
 export const login = (email, password) => async dispatch => {
@@ -41,6 +43,9 @@ export const login = (email, password) => async dispatch => {
           ? error.response.data.message
           : error.message
     })
+    setTimeout(() => {
+      dispatch({ type: USER_LOGIN_MESSAGE_CLEAR })
+    }, 2500)
   }
 }
 
@@ -87,5 +92,8 @@ export const register = (name, email, password) => async dispatch => {
           ? error.response.data.message
           : error.message
     })
+    setTimeout(() => {
+      dispatch({ type: USER_REGISTER_MESSAGE_CLEAR })
+    }, 2500)
   }
 }

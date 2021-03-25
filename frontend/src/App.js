@@ -6,6 +6,7 @@ import './App.css'
 import LineChart from './components/LineChart'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import NotFound from './components/NotFound'
 
 import HomeScreen from './screens/HomeScreen'
 import LoginScreen from './screens/LoginScreen'
@@ -70,6 +71,7 @@ const App = () => {
             <Route path='/analytics' component={AnalyticsScreen} />
             <Route path='/about' component={AboutScreen} />
             <Route path='/' component={HomeScreen} exact />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Router>

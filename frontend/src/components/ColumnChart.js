@@ -1,14 +1,23 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import ReactApexChart from 'react-apexcharts'
 
 import './styles/Chart.css'
 
 const ColumnChart = () => {
+  const currExpense = useSelector(state => state.currExpense)
+  const { expenseData } = currExpense
+
+  let membersShare = []
+  let membersName = []
+
+  membersShare = expenseData && expenseData.membersData.map(m => m.amount)
+  membersName = expenseData && expenseData.membersData.map(m => m.name)
   const state = {
     series: [
       {
         name: 'Shares',
-        data: [4.0, 124.0, -56.0, -76.0, 94.0]
+        data: membersShare
       }
     ],
     options: {
@@ -58,24 +67,29 @@ const ColumnChart = () => {
       },
       xaxis: {
         type: 'string',
-        categories: ['Ashish', 'Raj', 'Manish', 'Ankit', 'Reet'],
+        categories: membersName,
         labels: {
-          rotate: -90
+          rotate: -90,
+          style: {
+            fontSize: '10px'
+          }
         }
       }
     }
   }
 
   return (
-    <div className='chart-container'>
+    <div className='card chart-container'>
       <h2 className='sub-heading'>Members Share</h2>
       <div id='wrapper'>
         <div id='chart-area'>
-          <ReactApexChart
-            options={state.options}
-            series={state.series}
-            type='bar'
-          />
+          {expenseData && (
+            <ReactApexChart
+              options={state.options}
+              series={state.series}
+              type='bar'
+            />
+          )}
         </div>
       </div>
     </div>

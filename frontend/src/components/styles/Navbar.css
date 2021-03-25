@@ -7,17 +7,11 @@
 
 .navbar {
   padding: 0.25rem 0.6rem;
-  background: #272c31;
+  background: var(--navbar-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1rem;
-}
-
-.nav-item {
-  display: flex;
-  align-items: right;
-  height: 80px;
 }
 
 .close-icon {
@@ -29,6 +23,7 @@
   margin: 0;
   padding: 2rem 0;
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
   width: 100%;
   height: calc(100vh - 56px);
@@ -51,15 +46,23 @@
   z-index: 1;
 }
 
+.nav-item {
+  list-style: none;
+  margin-right: 1rem;
+}
+
+.nav-item > button {
+  margin: 0;
+}
+
 .nav-links {
+  margin-bottom: 2rem;
   font-size: 1.8rem;
   line-height: 40px;
-  text-align: right;
   width: 100%;
-  display: table;
+  display: inline-block;
   color: white;
   text-decoration: none;
-  padding-right: 26px;
 }
 
 .branding {

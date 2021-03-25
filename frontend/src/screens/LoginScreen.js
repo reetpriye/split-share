@@ -30,7 +30,11 @@ const LoginScreen = ({ history }) => {
   return (
     <div className='form-container'>
       <h1 className='heading'>Login</h1>
-      {error && <Message variant='danger'>{error}</Message>}
+      {error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <div id='login-screen-message-placeholder-div' />
+      )}
       <form onSubmit={submitHandler}>
         <div className='form-group'>
           <label htmlFor='email'>Email Address</label>

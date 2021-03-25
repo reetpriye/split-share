@@ -41,7 +41,25 @@ const getExpenseData = asyncHandler(async (req, res) => {
 // Access   Private
 const addExpense = asyncHandler(async (req, res) => {
   const { expenseName } = req.body
+
+  if (!expenseName) {
+    res.status(400)
+    throw new Error('Kindly provide a name')
+  }
+
+  if (expenseName.length > 20) {
+    res.status(400)
+    throw new Error('Length should not be more than 20 characters')
+  }
+
   const user = await User.findById(req.user._id)
+  const isPresent = user.expenses.find(
+    e => e.expenseName.toLowerCase() === expenseName.toLowerCase()
+  )
+  if (isPresent) {
+    res.status(400)
+    throw new Error('Name should be unique')
+  }
   user.expenses.push({ expenseName })
   await user.save()
 
@@ -82,12 +100,24 @@ const addMember = asyncHandler(async (req, res) => {
     throw new Error('Kindly provide a name')
   }
 
+  if (name.length > 10) {
+    res.status(400)
+    throw new Error('Length should not be more than 10 characters')
+  }
+
   const user = await User.findById(req.user._id)
   const expense = user.expenses.find(
     t => t._id.toString() === req.params.id.toString()
   )
 
   if (expense) {
+    const isPresent = expense.membersData.find(
+      m => m.name.toLowerCase() === name.toLowerCase()
+    )
+    if (isPresent) {
+      res.status(400)
+      throw new Error('Name should be unique')
+    }
     expense.membersData.push({ name })
     await user.save()
 
@@ -109,6 +139,11 @@ const updateMember = asyncHandler(async (req, res) => {
     throw new Error('Kindly provide a name')
   }
 
+  if (name.length > 10) {
+    res.status(400)
+    throw new Error('Length should not be more than 10 characters')
+  }
+
   const user = await User.findById(req.user._id)
   const expense = user.expenses.find(
     t => t._id.toString() === req.params.id.toString()
@@ -118,6 +153,14 @@ const updateMember = asyncHandler(async (req, res) => {
   )
   if (!member.isUnmodified) {
     throw Error(`Member has associated transactions. Can't be renamed`)
+  }
+
+  const isPresent = expense.membersData.find(
+    m => m.name.toLowerCase() === name.toLowerCase()
+  )
+  if (isPresent) {
+    res.status(400)
+    throw new Error('Name should be unique')
   }
   member.name = name
   await user.save()

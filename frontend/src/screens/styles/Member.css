@@ -1,25 +1,18 @@
 #member-message {
   text-align: center;
+  font-size: 1rem;
 }
 
 #member-message > span {
   color: var(--secondary-color);
 }
 
-.add-member-container-xl {
+.add-member-container {
   background: var(--tertiary-color);
-  min-height: calc(89.156px + 40px);
   padding: 1.25rem;
 }
 
-.add-member-container-xs {
-  background: var(--tertiary-color);
-  min-height: 89.156px;
-  padding: 1.25rem;
-}
-
-.add-member-container-xs > h6,
-.add-member-container-xl > h6 {
+.add-member-container > h6 {
   margin: 0.4rem 0;
 }
 
@@ -29,7 +22,12 @@
 
 #add-member-success-message {
   margin: 0.2rem 0;
-  color: var(--btn-color);
+  color: var(--success-color);
+}
+
+#update-member-success-message {
+  margin: 0.2rem 0;
+  color: var(--info-color);
 }
 
 #delete-member-success-message {
@@ -49,6 +47,22 @@
   opacity: 1;
 }
 .add-member-success-message--exit-active {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.update-member-success-message--appear {
+  opacity: 0;
+}
+.update-member-success-message--appear-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.update-member-success-message--exit {
+  opacity: 1;
+}
+.update-member-success-message--exit-active {
   opacity: 0;
   transition: opacity 1s;
 }
@@ -87,6 +101,30 @@
   padding: 1.25rem;
 }
 
+.no-members {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem 0;
+}
+
+.no-members > h6 {
+  margin: 0;
+}
+
+.no-members > h6:nth-of-type(2) {
+  color: var(--secondary-color);
+}
+
+.clear-btn {
+  border-top: 1px solid var(--secondary-color) !important;
+  border-bottom: 1px solid var(--secondary-color) !important;
+  padding: 0 0.4rem;
+  background: var(--primary-color);
+  border: 0;
+}
+
 /* .clear-btn {
   background: transparent;
   border: 0;
@@ -107,6 +145,7 @@
 }
 
 .member-name {
+  text-transform: capitalize;
   margin: 0;
 }
 

@@ -92,7 +92,7 @@ const LineChart = () => {
   }
 
   return (
-    <div className='chart-container'>
+    <div className='card chart-container'>
       <h2 className='sub-heading'>Expense chart</h2>
       <div id='wrapper'>
         <div id='chart-area'>

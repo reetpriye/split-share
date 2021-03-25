@@ -101,11 +101,25 @@ const Navbar = ({ location }) => {
                   }, 200)
                 }}
               >
-                <button className='link-btn'>Logout</button>
+                <button className='btn btn-secondary'>Logout</button>
               </li>
             </>
           ) : (
             <>
+              <li className='nav-item'>
+                <Link to={`/`} className='nav-links' onClick={closeMobileMenu}>
+                  Home
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link
+                  to={`/faqs`}
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  FAQs
+                </Link>
+              </li>
               <li className='nav-item'>
                 <Link
                   to='/about'
@@ -115,28 +129,25 @@ const Navbar = ({ location }) => {
                   About
                 </Link>
               </li>
-              <div className='btn-container'>
-                <li
-                  className='nav-item'
-                  onClick={() => {
-                    closeMobileMenu()
-                  }}
+
+              <li className='nav-item' onClick={closeMobileMenu}>
+                <Link
+                  style={{ color: 'var(--secondary-color)' }}
+                  to='/login'
+                  className='nav-links'
                 >
-                  <Link to='/login' className='nav-links'>
-                    <button className='link-btn'>Login</button>
-                  </Link>
-                </li>
-                <li
-                  className='nav-item'
-                  onClick={() => {
-                    closeMobileMenu()
-                  }}
+                  LOGIN
+                </Link>
+              </li>
+              <li className='nav-item' onClick={closeMobileMenu}>
+                <Link
+                  style={{ color: 'var(--secondary-color)' }}
+                  to='/register'
+                  className='nav-links'
                 >
-                  <Link to='/register' className='nav-links'>
-                    <button className='link-btn'>Register</button>
-                  </Link>
-                </li>
-              </div>
+                  REGISTER
+                </Link>
+              </li>
             </>
           )}
         </ul>

@@ -4,10 +4,14 @@
   align-items: center;
   font-size: 0.75rem;
   text-transform: uppercase;
-  padding: 0.2rem;
+  padding: 0.6rem 0.4rem;
   opacity: 0.9;
   background: var(--primary-color);
   color: #333;
+}
+
+.alert > p {
+  margin: 0;
 }
 
 .alert-light {
@@ -33,4 +37,20 @@
   background: var(--primary-color);
   color: #333;
   border: #ccc solid 1px;
+}
+
+.alert--appear {
+  opacity: 0;
+}
+.alert--appear-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.alert--exit {
+  opacity: 1;
+}
+.alert--exit-active {
+  opacity: 0;
+  transition: opacity 1s;
 }

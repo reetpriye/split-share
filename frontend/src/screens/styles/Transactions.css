@@ -3,8 +3,12 @@
   flex-direction: column;
 }
 
+#message-placeholder-div {
+  height: 37.19px;
+}
+
 .transaction-card {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: grid;
   padding: 1rem;
   grid-template-columns: 9fr auto;
@@ -101,18 +105,5 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.transactions-link-container > button {
-  padding: 0.8rem;
-  border-radius: 3px;
-  border: 0;
-  background: var(--secondary-color);
-  color: var(--primary-color);
-  font-weight: 500;
-  margin: 0;
-}
-
-.transactions-link-container > button > a {
-  color: var(--primary-color);
+  margin-bottom: 0.4rem;
 }

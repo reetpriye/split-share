@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react'
+import { Spring, config } from 'react-spring/renderprops'
 import Dash from '../components/Dash'
 import Loader from '../components/Loader'
 import LineChart from '../components/LineChart'
@@ -30,11 +31,11 @@ const DashboardScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/login')
       dispatch(logout())
-    }
-    if (successCreate) {
-      dispatch(getExpenseDetails(match.params.id))
+    } else {
+      if (successCreate) {
+        dispatch(getExpenseDetails(match.params.id))
+      }
     }
     // eslint-disable-next-line
   }, [match.params.id, history, dispatch, successCreate, userInfo])
@@ -42,7 +43,12 @@ const DashboardScreen = ({ match, history }) => {
   useEffect(() => {
     const initiateStateWithLocalStorageValues = () => {
       const inputDataLS = JSON.parse(localStorage.getItem('inputData'))
-      if (inputDataLS && inputDataLS[0].id === expenseData.membersData[0]._id) {
+      if (
+        inputDataLS &&
+        inputDataLS[inputDataLS.length - 1].id ===
+          expenseData.membersData[expenseData.membersData.length - 1]._id &&
+        inputDataLS.length === expenseData.membersData.length
+      ) {
         setInputData(inputDataLS)
       } else {
         localStorage.removeItem('inputData')
@@ -69,6 +75,12 @@ const DashboardScreen = ({ match, history }) => {
     }
   }, [expenseData, history, match.params.id])
 
+  const onChangeHandler = idx => e => {
+    let updatedPayers = [...inputData]
+    updatedPayers[idx].amount = e.target.value
+    setInputData(updatedPayers)
+  }
+
   const payerHandler = idx => e => {
     let updatedPayers = [...inputData]
     updatedPayers[idx].isPayer = e.target.checked
@@ -83,19 +95,14 @@ const DashboardScreen = ({ match, history }) => {
     localStorage.setItem('inputData', JSON.stringify(updatedExcludes))
   }
 
-  const onChangeHandler = idx => e => {
-    let updatedPayers = [...inputData]
-    updatedPayers[idx].amount = e.target.value
-    setInputData(updatedPayers)
-  }
-
   const onSubmitHandler = e => {
     e.preventDefault()
     const transaction = {
       description,
       expense: match.params.id,
       payers: [],
-      excludes: []
+      excludes: [],
+      consumersNotPayer: []
     }
     inputData.forEach(m => {
       if (m.isPayer) {
@@ -111,6 +118,9 @@ const DashboardScreen = ({ match, history }) => {
           name: m.name
         })
       }
+      if (!m.isExclude && !m.isPayer) {
+        transaction.consumersNotPayer.push(m.id)
+      }
     })
 
     dispatch(createTransaction({ transaction }))
@@ -124,104 +134,149 @@ const DashboardScreen = ({ match, history }) => {
         </h5>
         {expenseData && expenseData.expenseName === 'Not Saved' ? (
           <button className='expense-save-btn'>Save?</button>
-        ) : null}
-      </div>
-      <div className='total-expense-container'>
-        <h2 className='sub-heading'>Total Expense</h2>
-        {loading || loadingCreate ? (
-          <Loader height={'135px'} />
         ) : (
-          <h1>₹{expenseData && expenseData.totalExpense}</h1>
+          <div id='expense-details-placeholder-div' />
         )}
       </div>
 
-      <div className='new-item-container'>
-        <h2 className='sub-heading'>Add New Item</h2>
-        {loading ? (
-          <Loader height={`${inpHeight}px`} />
-        ) : (
-          <div className='new-item-inp-container'>
-            <form onSubmit={onSubmitHandler}>
-              <div className='desc-input-container'>
-                <input
-                  placeholder='Enter description'
-                  className='desc-input'
-                  type='text'
-                  onChange={e => setDescription(e.target.value)}
-                  required
-                />
-                <input type='submit' value='+ADD' className='add-btn btn' />
-              </div>
-              <div className='t-head'>
-                <h5 id='members-name-label'>Name</h5>
-                <h5 id='payers-label'>Payer</h5>
-                <h5 id='excludes-label'>Exclude</h5>
-                <h5 id='payers-input'>Amount</h5>
-              </div>
-              <div className='input-grid'>
-                {inputData &&
-                  inputData.map((member, idx) => (
-                    <Fragment key={member.id}>
-                      <h3 className='members-name'>{member.name}</h3>
-                      <input
-                        type='checkbox'
-                        className='checkbox payers-checkbox'
-                        checked={member.isPayer}
-                        onChange={payerHandler(idx)}
-                      />
-                      <input
-                        type='checkbox'
-                        className='checkbox excludes-checkbox'
-                        checked={member.isExclude}
-                        onChange={excludeHandler(idx)}
-                      />
-                      <input
-                        disabled={member.isPayer ? '' : 'disabled'}
-                        className='payers-input'
-                        type='number'
-                        onChange={onChangeHandler(idx)}
-                        required
-                      />
-                    </Fragment>
-                  ))}
-              </div>
-            </form>
-          </div>
+      <Spring
+        from={{ opacity: 0, transform: 'scale(0.9)' }}
+        to={{ opacity: 1, transform: 'scale(1)' }}
+        leave={{ opacity: 0 }}
+        config={config.wobbly}
+      >
+        {props => (
+          <section style={props} className='card total-expense-container'>
+            <h2 className='sub-heading'>Total Expense</h2>
+            {loading || loadingCreate ? (
+              <Loader height={'135px'} />
+            ) : (
+              expenseData && (
+                <Spring
+                  from={{ number: 0 }}
+                  to={{ number: expenseData.totalExpense }}
+                  config={config.default}
+                >
+                  {props => <h1>{`₹${props.number.toFixed(0)}`}</h1>}
+                </Spring>
+              )
+            )}
+          </section>
         )}
-      </div>
+      </Spring>
 
-      <div className='members-share-container'>
-        <i
-          onClick={() => setIsInfoOpen(!isInfoOpen)}
-          className={isInfoOpen ? 'fas fa-times' : 'fas fa-info'}
-        ></i>
-        {isInfoOpen && (
-          <h5 className='info'>
-            Minus signifies that member needs to pay that much amount and plus
-            signifies that member will recieve that much amount. Overall the
-            summation will always be zero.
-          </h5>
-        )}
-        <h2 className='sub-heading'>Member's Share</h2>
-        {loading ? (
-          <Loader />
-        ) : (
-          expenseData &&
-          expenseData.membersData.map(member => (
-            <Fragment key={member._id}>
-              <div className='member-share'>
-                <h4>{member.name}</h4>
-                <h5 className='member-share-amount'>
-                  {member.amount.toFixed(2)}
-                </h5>
+      <Spring
+        from={{ opacity: 0, transform: 'scale(0.9)' }}
+        to={{ opacity: 1, transform: 'scale(1)' }}
+        leave={{ opacity: 0 }}
+        config={config.wobbly}
+      >
+        {props => (
+          <section style={props} className='card new-item-container'>
+            <h2 className='sub-heading'>Add New Item</h2>
+            {loading || loadingCreate ? (
+              <Loader height={`${inpHeight}px`} />
+            ) : (
+              <div className='new-item-inp-container'>
+                <form onSubmit={onSubmitHandler}>
+                  <div className='desc-input-container'>
+                    <input
+                      placeholder='Enter description'
+                      className='desc-input'
+                      type='text'
+                      onChange={e => setDescription(e.target.value)}
+                      required
+                    />
+                    <input
+                      type='submit'
+                      value='+ADD'
+                      className='btn btn-primary'
+                    />
+                  </div>
+                  <div className='t-head'>
+                    <h5 id='members-name-label'>Name</h5>
+                    <h5 id='payers-label'>Payer</h5>
+                    <h5 id='excludes-label'>Exclude</h5>
+                    <h5 id='payers-input'>Amount</h5>
+                  </div>
+                  <div className='input-grid'>
+                    {inputData &&
+                      inputData.map((member, idx) => (
+                        <Fragment key={member.id}>
+                          <h3 className='members-name'>{member.name}</h3>
+                          <input
+                            type='checkbox'
+                            className='checkbox payers-checkbox'
+                            checked={member.isPayer}
+                            onChange={payerHandler(idx)}
+                          />
+                          <input
+                            type='checkbox'
+                            className='checkbox excludes-checkbox'
+                            checked={member.isExclude}
+                            onChange={excludeHandler(idx)}
+                          />
+                          <input
+                            disabled={member.isPayer ? '' : 'disabled'}
+                            className='payers-input'
+                            type='number'
+                            onChange={onChangeHandler(idx)}
+                            required
+                          />
+                        </Fragment>
+                      ))}
+                  </div>
+                </form>
               </div>
-              <Dash />
-            </Fragment>
-          ))
+            )}
+          </section>
         )}
-      </div>
+      </Spring>
 
-      <TransactionList expenseId={match.params.id} />
+      <Spring
+        from={{ opacity: 0, transform: 'scale(0.9)' }}
+        to={{ opacity: 1, transform: 'scale(1)' }}
+        leave={{ opacity: 0 }}
+        config={config.wobbly}
+      >
+        {props => (
+          <section style={props} className='card members-share-container'>
+            <i
+              onClick={() => setIsInfoOpen(!isInfoOpen)}
+              className={isInfoOpen ? 'fas fa-times' : 'fas fa-info'}
+            ></i>
+            {isInfoOpen && (
+              <h5 className='info'>
+                Minus signifies that member needs to pay that much amount and
+                plus signifies that member will recieve that much amount.
+                Overall the summation will always be zero.
+              </h5>
+            )}
+            <h2 className='sub-heading'>Member's Share</h2>
+            {loading || loadingCreate ? (
+              <Loader />
+            ) : (
+              expenseData &&
+              expenseData.membersData.map(member => (
+                <Fragment key={member._id}>
+                  <div className='member-share'>
+                    <h4>{member.name}</h4>
+                    <h5 className='member-share-amount'>
+                      {member.amount.toFixed(2)}
+                    </h5>
+                  </div>
+                  <Dash />
+                </Fragment>
+              ))
+            )}
+          </section>
+        )}
+      </Spring>
+
+      <TransactionList
+        expenseId={match.params.id}
+        successCreate={successCreate}
+      />
       <LineChart />
       <ColumnChart />
     </div>

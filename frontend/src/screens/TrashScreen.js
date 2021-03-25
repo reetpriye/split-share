@@ -21,13 +21,14 @@ const TrashScreen = ({ match }) => {
 
   return (
     <div className='all-transactions-container'>
+      <h1 className='heading'>TRASH</h1>
       {loading ? (
         <Loader />
       ) : (
         <>
           {transactions &&
             transactions.map(t => (
-              <div key={t._id} className='transaction-card'>
+              <div key={t._id} className='card transaction-card'>
                 <h5>{t.description}</h5>
                 <h5>{moment(t.createdAt).format('MMM Do YY')}</h5>
                 <div className='payers-container'>

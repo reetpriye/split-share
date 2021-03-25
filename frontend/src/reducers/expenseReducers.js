@@ -30,18 +30,19 @@ export const userExpensesReducer = (state = {}, action) => {
       return state
   }
 }
-export const expenseDetailsReducer = (state = {}, action) => {
+export const expenseDetailsReducer = (state = { expenseData: [] }, action) => {
   switch (action.type) {
     case EXPENSE_DETAILS_REQUEST:
-      return { loading: true }
+      return { ...state, loading: true }
     case EXPENSE_DETAILS_SUCCESS:
       return {
+        ...state,
         loading: false,
         expenseData: action.payload,
         currExpenseId: action.payload._id
       }
     case EXPENSE_DETAILS_FAIL:
-      return { loading: false, error: action.payload }
+      return { ...state, loading: false, error: action.payload }
     default:
       return state
   }

@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
+import { Spring, config } from 'react-spring/renderprops'
 import { Link } from 'react-router-dom'
+import Message from '../components/Message'
+import NoData from '../components/NoData'
 import moment from 'moment'
 import generatePDF from '../services/reportGenerator'
 import Loader from '../components/Loader'
@@ -12,7 +15,7 @@ import {
 
 import './styles/Transactions.css'
 
-const TransactionsScreen = ({ match, history }) => {
+const TransactionsScreen = ({ match }) => {
   const dispatch = useDispatch()
 
   const expenseAllTransactions = useSelector(
@@ -21,7 +24,7 @@ const TransactionsScreen = ({ match, history }) => {
   const currExpense = useSelector(state => state.currExpense)
   const transactionDelete = useSelector(state => state.transactionDelete)
 
-  const { expenseData, currExpenseId } = currExpense
+  const { expenseData } = currExpense
   const { loading, transactions } = expenseAllTransactions
   const {
     loading: loadingDelete,
@@ -31,9 +34,7 @@ const TransactionsScreen = ({ match, history }) => {
   } = transactionDelete
 
   useEffect(() => {
-    if (!currExpenseId) {
-      history.push('/expenses')
-    } else {
+    if (successDelete) {
       dispatch(listAllTransactions(match.params.id))
       dispatch(getExpenseDetails(match.params.id))
     }
@@ -41,25 +42,38 @@ const TransactionsScreen = ({ match, history }) => {
 
   return (
     <div className='all-transactions-container'>
+      <div className='transactions-link-container'>
+        <button className='btn btn-secondary'>
+          <Link style={{ color: '#fff' }} to={match.url + '/trash'}>
+            Check Trash <i className='fas fa-trash'></i>
+          </Link>
+        </button>
+        <button
+          className='btn btn-secondary'
+          onClick={() => generatePDF(transactions, expenseData)}
+        >
+          Generate Report <i className='fas fa-file-pdf'></i>
+        </button>
+      </div>
+      {messageDelete ? (
+        <Message variant='success'>{messageDelete}</Message>
+      ) : errorDelete ? (
+        <Message variant='danger'>{errorDelete}</Message>
+      ) : (
+        <div id='message-placeholder-div' />
+      )}
       {loading || loadingDelete ? (
         <Loader />
-      ) : (
-        <>
-          {messageDelete && <h6>{messageDelete}</h6>}
-          {errorDelete && <h6>{errorDelete}</h6>}
-          <div className='transactions-link-container'>
-            <button>
-              <Link to={match.url + '/trash'}>
-                Check Trash <i className='fas fa-trash'></i>
-              </Link>
-            </button>
-            <button onClick={() => generatePDF(transactions, expenseData)}>
-              Generate Report <i className='fas fa-file-pdf'></i>
-            </button>
-          </div>
-          {transactions &&
-            transactions.map(t => (
-              <div key={t._id} className='transaction-card'>
+      ) : transactions && transactions.length !== 0 ? (
+        transactions.map(t => (
+          <Spring
+            from={{ marginTop: -20 }}
+            to={{ marginTop: 0 }}
+            leave={{ opacity: 0 }}
+            config={config.wobbly}
+          >
+            {props => (
+              <div style={props} key={t._id} className='card transaction-card'>
                 <h5>{t.description}</h5>
                 <h5>{moment(t.createdAt).format('MMM Do YY')}</h5>
                 <div className='payers-container'>
@@ -91,15 +105,18 @@ const TransactionsScreen = ({ match, history }) => {
                   <div />
                 )}
 
-                <h3
-                  style={{ color: '#f64034' }}
+                <button
+                  className='btn btn-tertiary'
                   onClick={() => dispatch(deleteTransaction(t._id))}
                 >
                   DELETE <i className='fas fa-trash'></i>
-                </h3>
+                </button>
               </div>
-            ))}
-        </>
+            )}
+          </Spring>
+        ))
+      ) : (
+        <NoData message={'Kindly add some transactions'} />
       )}
     </div>
   )

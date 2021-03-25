@@ -45,7 +45,13 @@ const getTrashTransactions = asyncHandler(async (req, res) => {
 // Access   Private
 const addTransaction = asyncHandler(async (req, res) => {
   const {
-    transaction: { expense: expenseId, description, payers, excludes }
+    transaction: {
+      expense: expenseId,
+      description,
+      payers,
+      excludes,
+      consumersNotPayer
+    }
   } = req.body
   const user = await User.findById(req.user._id)
   const expense = user.expenses.find(t => t._id.toString() === expenseId)
@@ -104,8 +110,10 @@ const addTransaction = asyncHandler(async (req, res) => {
       expense: expense._id,
       totalAmount,
       description,
+      numberOfConsumers,
       payers: [],
-      excludes: []
+      excludes: [],
+      consumersNotPayer
     }
     const updatedPayers = payers.map(p => ({
       member: mongoose.Types.ObjectId(p.member),
@@ -142,24 +150,25 @@ const deleteTransaction = asyncHandler(async (req, res) => {
     e => e._id.toString() === expenseId.toString()
   )
   if (transaction) {
-    const numberOfMembers = expense.membersData.length
-    const numberOfExcludes = transaction.excludes.length
-    const numberOfConsumers = numberOfMembers - numberOfExcludes
-
     let { membersData } = expense
+
+    const numberOfMembers = membersData.length
     const totalAmount = transaction.totalAmount
     expense.totalExpense -= totalAmount
 
-    const shareAmount = (totalAmount / numberOfConsumers).toFixed(2)
-
+    const shareAmount = (totalAmount / transaction.numberOfConsumers).toFixed(2)
+    console.log(shareAmount)
     for (let i = 0; i < numberOfMembers; i++) {
       let isExcluded = false
       let isPayer = false
+      let isPresent = false
+
       for (let j = 0; j < transaction.excludes.length; j++) {
         if (
           transaction.excludes[j].member.toString() ===
           membersData[i]._id.toString()
         ) {
+          isPresent = true
           isExcluded = true
           break
         }
@@ -171,17 +180,31 @@ const deleteTransaction = asyncHandler(async (req, res) => {
           membersData[i]._id.toString()
         ) {
           payerAmount = transaction.payers[j].amount
+          isPresent = true
           isPayer = true
           break
         }
       }
 
-      if (isExcluded && isPayer) {
-        membersData[i].amount -= payerAmount
-      } else if (isPayer && !isExcluded) {
-        membersData[i].amount -= payerAmount - Number(shareAmount)
-      } else if (!isPayer && !isExcluded) {
-        membersData[i].amount += Number(shareAmount)
+      if (!isPresent) {
+        isPresent = transaction.consumersNotPayer.find(
+          c => membersData[i]._id.toString() === c.toString()
+        )
+      }
+
+      if (isPresent) {
+        console.log(i)
+
+        console.log(payerAmount)
+        console.log(shareAmount)
+
+        if (isExcluded && isPayer) {
+          membersData[i].amount -= payerAmount
+        } else if (isPayer && !isExcluded) {
+          membersData[i].amount -= payerAmount - Number(shareAmount)
+        } else if (!isPayer && !isExcluded) {
+          membersData[i].amount += Number(shareAmount)
+        }
       }
     }
     await user.save()

@@ -2,10 +2,12 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGIN_MESSAGE_CLEAR,
   USER_LOGOUT,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_MESSAGE_CLEAR
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -21,6 +23,8 @@ export const userLoginReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}
+    case USER_LOGIN_MESSAGE_CLEAR:
+      return { ...state, error: '' }
     default:
       return state
   }
@@ -39,6 +43,8 @@ export const userRegisterReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}
+    case USER_REGISTER_MESSAGE_CLEAR:
+      return { ...state, error: '' }
     default:
       return state
   }

@@ -48,8 +48,13 @@ const transactionSchema = mongoose.Schema(
       type: Boolean,
       default: false
     },
+    numberOfConsumers: {
+      type: Number,
+      required: true
+    },
     payers: [payerSchema],
-    excludes: [excludeSchema]
+    excludes: [excludeSchema],
+    consumersNotPayer: [mongoose.Schema.Types.ObjectId]
   },
   {
     timestamps: true
