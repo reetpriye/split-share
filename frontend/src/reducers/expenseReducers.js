@@ -5,6 +5,7 @@ import {
   EXPENSE_DETAILS_REQUEST,
   EXPENSE_DETAILS_SUCCESS,
   EXPENSE_DETAILS_FAIL,
+  EXPENSE_DETAILS_CLEAR_STATE,
   EXPENSE_CREATE_REQUEST,
   EXPENSE_CREATE_SUCCESS,
   EXPENSE_CREATE_FAIL,
@@ -43,6 +44,8 @@ export const expenseDetailsReducer = (state = { expenseData: [] }, action) => {
       }
     case EXPENSE_DETAILS_FAIL:
       return { ...state, loading: false, error: action.payload }
+    case EXPENSE_DETAILS_CLEAR_STATE:
+      return {}
     default:
       return state
   }
@@ -63,7 +66,7 @@ export const expenseMembersReducer = (state = {}, action) => {
   }
 }
 
-export const expenseCreateReducer = (state = {}, action) => {
+export const expenseCreateReducer = (state = { success: true }, action) => {
   switch (action.type) {
     case EXPENSE_CREATE_REQUEST:
       return { ...state, success: false, loading: true }
@@ -82,7 +85,7 @@ export const expenseCreateReducer = (state = {}, action) => {
   }
 }
 
-export const expenseDeleteReducer = (state = {}, action) => {
+export const expenseDeleteReducer = (state = { success: true }, action) => {
   switch (action.type) {
     case EXPENSE_DELETE_REQUEST:
       return { ...state, success: false, loading: true }

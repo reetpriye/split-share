@@ -1,0 +1,19 @@
+.curr-expense-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+  margin-bottom: 0.4rem;
+}
+
+.curr-expense-container > a {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--info-color);
+}
+
+#curr-expense-name {
+  margin: 0;
+}

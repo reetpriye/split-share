@@ -13,6 +13,7 @@
   padding: 1rem;
   grid-template-columns: 9fr auto;
   background: var(--tertiary-color);
+  align-items: center;
 }
 
 .transaction-card > h5 {

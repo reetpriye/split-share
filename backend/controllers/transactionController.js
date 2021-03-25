@@ -53,6 +53,14 @@ const addTransaction = asyncHandler(async (req, res) => {
       consumersNotPayer
     }
   } = req.body
+
+  if (payers.length === 0) {
+    throw new Error('At least one payer is required')
+  }
+  if (description === '') {
+    throw new Error('Description is required')
+  }
+
   const user = await User.findById(req.user._id)
   const expense = user.expenses.find(t => t._id.toString() === expenseId)
   if (expense) {
@@ -64,6 +72,9 @@ const addTransaction = asyncHandler(async (req, res) => {
       (acc, payer) => Number(payer.amount) + acc,
       0
     )
+    if (totalAmount > 999999) {
+      throw new Error(`It's too much amount for me to handle.`)
+    }
     expense.totalExpense += totalAmount
     const shareAmount = (totalAmount / numberOfConsumers).toFixed(2)
     for (let i = 0; i < numberOfMembers; i++) {
@@ -157,7 +168,6 @@ const deleteTransaction = asyncHandler(async (req, res) => {
     expense.totalExpense -= totalAmount
 
     const shareAmount = (totalAmount / transaction.numberOfConsumers).toFixed(2)
-    console.log(shareAmount)
     for (let i = 0; i < numberOfMembers; i++) {
       let isExcluded = false
       let isPayer = false
@@ -193,11 +203,6 @@ const deleteTransaction = asyncHandler(async (req, res) => {
       }
 
       if (isPresent) {
-        console.log(i)
-
-        console.log(payerAmount)
-        console.log(shareAmount)
-
         if (isExcluded && isPayer) {
           membersData[i].amount -= payerAmount
         } else if (isPayer && !isExcluded) {

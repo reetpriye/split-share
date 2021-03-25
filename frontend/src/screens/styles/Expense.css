@@ -86,6 +86,8 @@
   color: var(--primary-color);
   font-size: 1rem;
   padding: 0.8rem 0;
+  width: 100%;
+  margin-right: auto;
 }
 
 .expense button {
@@ -99,7 +101,6 @@
   color: var(--secondary-color);
   font-size: 0.57rem;
   height: fit-content;
-  margin-left: auto;
 }
 
 .expense .del-btn {

@@ -52,6 +52,7 @@ const RegisterScreen = ({ history }) => {
         <div className='form-group'>
           <label htmlFor='name'>Name</label>
           <input
+            style={{ borderRadius: '3px' }}
             placeholder='Enter your full name'
             type='text'
             value={name}
@@ -62,6 +63,7 @@ const RegisterScreen = ({ history }) => {
         <div className='form-group'>
           <label htmlFor='email'>Email Address</label>
           <input
+            style={{ borderRadius: '3px' }}
             placeholder='Enter your email'
             type='email'
             value={email}
@@ -72,6 +74,7 @@ const RegisterScreen = ({ history }) => {
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
           <input
+            style={{ borderRadius: '3px' }}
             placeholder='Enter your password'
             type='password'
             value={password}
@@ -83,6 +86,7 @@ const RegisterScreen = ({ history }) => {
         <div className='form-group'>
           <label htmlFor='password2'>Confirm Password</label>
           <input
+            style={{ borderRadius: '3px' }}
             placeholder='Re-enter your password'
             type='password'
             name='password2'

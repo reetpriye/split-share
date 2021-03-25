@@ -153,6 +153,14 @@ h5 {
   font-size: 0.8rem;
 }
 
+.btn-quaternary {
+  border-radius: 3px;
+  background: transparent;
+  color: #fff;
+  padding: 0.6rem;
+  border: 2px solid var(--secondary-color);
+}
+
 .link-btn {
   display: block;
   font-size: 18px;

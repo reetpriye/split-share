@@ -7,9 +7,8 @@ import './styles/About.css'
 const AboutScreen = () => {
   return (
     <Spring
-      from={{ opacity: 0, transform: 'scale(0.9)' }}
-      to={{ opacity: 1, transform: 'scale(1)' }}
-      leave={{ opacity: 0 }}
+      from={{ transform: 'scale(0.9)' }}
+      to={{ transform: 'scale(1)' }}
       config={config.wobbly}
     >
       {props => (

@@ -11,6 +11,7 @@ import {
   TRANSACTION_CREATE_REQUEST,
   TRANSACTION_CREATE_SUCCESS,
   TRANSACTION_CREATE_FAIL,
+  TRANSACTION_CREATE_MESSAGE_CLEAR,
   TRANSACTION_DELETE_REQUEST,
   TRANSACTION_DELETE_SUCCESS,
   TRANSACTION_DELETE_FAIL,
@@ -89,6 +90,8 @@ export const transactionCreateReducer = (state = { success: true }, action) => {
       }
     case TRANSACTION_CREATE_FAIL:
       return { loading: false, error: action.payload, success: true }
+    case TRANSACTION_CREATE_MESSAGE_CLEAR:
+      return { ...state, error: '' }
     default:
       return state
   }

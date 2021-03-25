@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import NoData from '../components/NoData'
 import { Spring, config } from 'react-spring/renderprops'
 import { Link } from 'react-router-dom'
 import Transaction from './Transaction'
@@ -35,18 +36,21 @@ const TransactionList = ({ expenseId, successCreate }) => {
           <h2 className='sub-heading'>Last 5 Transactions</h2>
           {loading ? (
             <Loader height={'247.42px'} />
+          ) : transactions && transactions.length === 0 ? (
+            <NoData message={'Kindly add transactions'} />
           ) : (
-            transactions &&
-            transactions.map(transaction => (
-              <Transaction key={transaction._id} transaction={transaction} />
-            ))
+            <>
+              {transactions.map(transaction => (
+                <Transaction key={transaction._id} transaction={transaction} />
+              ))}
+              <Link
+                to={`/transactions/${currExpenseId}`}
+                style={{ textAlign: 'right', marginTop: '1rem' }}
+              >
+                Show all
+              </Link>
+            </>
           )}
-          <Link
-            to={`/transactions/${currExpenseId}`}
-            style={{ textAlign: 'right', marginTop: '1rem' }}
-          >
-            Show all
-          </Link>
         </div>
       )}
     </Spring>

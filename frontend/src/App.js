@@ -1,9 +1,8 @@
 import { Fragment, useState, useLayoutEffect } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import './App.css'
 
-import LineChart from './components/LineChart'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import NotFound from './components/NotFound'
@@ -35,7 +34,7 @@ const App = () => {
   }
 
   //eslint-disable-next-line
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
 
   if (width > 480) {
     return <NotSupportedScreen />
@@ -44,37 +43,26 @@ const App = () => {
   }
   return (
     <Fragment>
-      <Router>
-        <Route render={props => <Navbar {...props} />} />
-        <div className='Content'>
-          {/* For debug purpose
-          <h1>
-            {width}*{height}
-          </h1> */}
-          <Switch>
-            <Route path='/linechart' component={LineChart} />
-            <Route path='/login' component={LoginScreen} />
-            <Route path='/register' component={RegisterScreen} />
-            <Route path='/expenses/' component={ExpenseScreen} exact />
-            <Route path='/expense/:id' component={DashboardScreen} exact />
-            <Route
-              path='/expense/:id/members/'
-              component={MemberScreen}
-              exact
-            />
-            <Route
-              path='/transactions/:id'
-              component={TransactionsScreen}
-              exact
-            />
-            <Route path='/transactions/:id/trash' component={TrashScreen} />
-            <Route path='/analytics' component={AnalyticsScreen} />
-            <Route path='/about' component={AboutScreen} />
-            <Route path='/' component={HomeScreen} exact />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </Router>
+      <Route render={props => <Navbar {...props} />} />
+      <div className='Content'>
+        <Switch>
+          <Route path='/login' component={LoginScreen} />
+          <Route path='/register' component={RegisterScreen} />
+          <Route path='/expenses/' component={ExpenseScreen} exact />
+          <Route path='/expense/:id' component={DashboardScreen} exact />
+          <Route path='/expenses/:id/members/' component={MemberScreen} exact />
+          <Route
+            path='/transactions/:id'
+            component={TransactionsScreen}
+            exact
+          />
+          <Route path='/transactions/:id/trash' component={TrashScreen} />
+          <Route path='/analytics/:id' component={AnalyticsScreen} />
+          <Route path='/about' component={AboutScreen} />
+          <Route path='/' component={HomeScreen} exact />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
       <Footer className='Footer' />
     </Fragment>
   )

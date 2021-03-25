@@ -1,6 +1,80 @@
-.home {
+.home-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+}
+
+.home-container > img {
+  align-self: center;
+}
+
+.overview {
+  margin: 1rem 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.overview > img {
+  align-self: center;
+  margin-bottom: 2rem;
+}
+
+.overview > .overview-summary > h3 {
+  margin: 0;
+}
+
+.fa-chevron-right {
+  margin-left: 0.4rem;
+}
+
+.features {
+  margin: 0.8rem 0;
+}
+
+.features > section {
+  margin: 2rem 0;
+}
+
+.features img {
+  border: 2px solid var(--tertiary-color);
+}
+
+.multi-use {
+  display: flex;
+}
+
+.multi-use-summary {
+  margin-right: 1rem;
+}
+
+.manage-members {
+  display: flex;
+}
+
+.manage-members-summary {
+  margin-left: 1rem;
+}
+
+.full-control {
+  display: flex;
+}
+
+.full-control-summary {
+  margin-right: 1rem;
+}
+
+.all-transactions {
+  display: flex;
+}
+
+.all-transactions-summary {
+  margin-left: 1rem;
+}
+
+.generate-report {
+  display: flex;
+}
+
+.generate-report-summary {
+  margin-right: 1rem;
 }

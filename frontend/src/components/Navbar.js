@@ -51,7 +51,9 @@ const Navbar = ({ location }) => {
                 <Link
                   to={`/expense/${currExpenseId}`}
                   className='nav-links'
-                  onClick={closeMobileMenu}
+                  onClick={e =>
+                    currExpenseId ? closeMobileMenu() : e.preventDefault()
+                  }
                 >
                   Dashboard
                 </Link>
@@ -67,7 +69,7 @@ const Navbar = ({ location }) => {
               </li>
               <li className='nav-item'>
                 <Link
-                  to='/analytics'
+                  to={`/analytics/${currExpenseId}`}
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >

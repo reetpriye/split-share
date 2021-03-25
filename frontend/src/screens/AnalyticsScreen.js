@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import AreaChart from '../components/AreaChart'
+import ColumnChart from '../components/ColumnChart'
 
-const AnalyticsScreen = () => {
+const AnalyticsScreen = ({ match }) => {
   return (
-    <center>
-      <h1>Analytics Screen</h1>
-    </center>
+    <Fragment>
+      <h1 className='heading'>Analytics</h1>
+      <AreaChart expenseId={match.params.id} />
+      <ColumnChart />
+    </Fragment>
   )
 }
 

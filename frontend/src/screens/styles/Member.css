@@ -7,6 +7,21 @@
   color: var(--secondary-color);
 }
 
+.member-list-container > .fa-info,
+.member-list-container > .fa-times {
+  float: right;
+  font-size: 0.8rem;
+}
+
+.add-member-container > .fa-times {
+  font-size: 1rem;
+}
+
+.fa-arrow-left {
+  margin-right: 0.3rem;
+  margin-left: 0.2rem;
+}
+
 .add-member-container {
   background: var(--tertiary-color);
   padding: 1.25rem;

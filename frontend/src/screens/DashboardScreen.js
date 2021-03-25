@@ -1,8 +1,10 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { Spring, config } from 'react-spring/renderprops'
+import CurrExpense from '../components/CurrExpense'
 import Dash from '../components/Dash'
+import Message from '../components/Message'
 import Loader from '../components/Loader'
-import LineChart from '../components/LineChart'
+import AreaChart from '../components/AreaChart'
 import ColumnChart from '../components/ColumnChart'
 
 import TransactionList from '../components/TransactionList'
@@ -25,7 +27,11 @@ const DashboardScreen = ({ match, history }) => {
   const transactionCreate = useSelector(state => state.transactionCreate)
 
   const { expenseData, loading } = currExpense
-  const { success: successCreate, loading: loadingCreate } = transactionCreate
+  const {
+    success: successCreate,
+    loading: loadingCreate,
+    error: errorCreate
+  } = transactionCreate
 
   const inpHeight = 291
 
@@ -69,7 +75,7 @@ const DashboardScreen = ({ match, history }) => {
     }
 
     if (expenseData && expenseData.membersData.length === 0) {
-      history.push(`/expense/${match.params.id}/members`)
+      history.push(`/expenses/${match.params.id}/members`)
     } else {
       expenseData && initiateStateWithLocalStorageValues()
     }
@@ -129,20 +135,18 @@ const DashboardScreen = ({ match, history }) => {
   return (
     <div className='dashboard'>
       <div className='expense-details'>
-        <h5 className='expense-name'>
-          {expenseData && expenseData.expenseName}
-        </h5>
-        {expenseData && expenseData.expenseName === 'Not Saved' ? (
-          <button className='expense-save-btn'>Save?</button>
+        {errorCreate ? (
+          <Message variant='danger'>{errorCreate}</Message>
+        ) : expenseData && expenseData.expenseName ? (
+          <CurrExpense trip={true} />
         ) : (
           <div id='expense-details-placeholder-div' />
         )}
       </div>
 
       <Spring
-        from={{ opacity: 0, transform: 'scale(0.9)' }}
-        to={{ opacity: 1, transform: 'scale(1)' }}
-        leave={{ opacity: 0 }}
+        from={{ transform: 'scale(0.9)' }}
+        to={{ transform: 'scale(1)' }}
         config={config.wobbly}
       >
         {props => (
@@ -166,9 +170,8 @@ const DashboardScreen = ({ match, history }) => {
       </Spring>
 
       <Spring
-        from={{ opacity: 0, transform: 'scale(0.9)' }}
-        to={{ opacity: 1, transform: 'scale(1)' }}
-        leave={{ opacity: 0 }}
+        from={{ transform: 'scale(0.9)' }}
+        to={{ transform: 'scale(1)' }}
         config={config.wobbly}
       >
         {props => (
@@ -234,9 +237,8 @@ const DashboardScreen = ({ match, history }) => {
       </Spring>
 
       <Spring
-        from={{ opacity: 0, transform: 'scale(0.9)' }}
-        to={{ opacity: 1, transform: 'scale(1)' }}
-        leave={{ opacity: 0 }}
+        from={{ transform: 'scale(0.9)' }}
+        to={{ transform: 'scale(1)' }}
         config={config.wobbly}
       >
         {props => (
@@ -277,8 +279,8 @@ const DashboardScreen = ({ match, history }) => {
         expenseId={match.params.id}
         successCreate={successCreate}
       />
-      <LineChart />
       <ColumnChart />
+      <AreaChart expenseId={match.params.id} successCreate={successCreate} />
     </div>
   )
 }

@@ -1,3 +1,7 @@
+.all-transactions-container > .heading {
+  margin: 1rem 0;
+}
+
 .transaction {
   display: flex;
   flex-direction: column;
@@ -15,6 +19,7 @@
 
 .dropdown-items {
   display: grid;
+  align-items: center;
   grid-template-columns: 2fr 1fr;
   justify-items: start;
   margin-bottom: 1rem;

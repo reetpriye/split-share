@@ -52,7 +52,7 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => dispatch => {
   localStorage.clear()
   dispatch({ type: USER_LOGOUT })
-  document.location.href = '/login'
+  document.location.href = '/'
 }
 
 export const register = (name, email, password) => async dispatch => {

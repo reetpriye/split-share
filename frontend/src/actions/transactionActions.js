@@ -12,6 +12,7 @@ import {
   TRANSACTION_CREATE_REQUEST,
   TRANSACTION_CREATE_SUCCESS,
   TRANSACTION_CREATE_FAIL,
+  TRANSACTION_CREATE_MESSAGE_CLEAR,
   TRANSACTION_DELETE_REQUEST,
   TRANSACTION_DELETE_SUCCESS,
   TRANSACTION_DELETE_FAIL,
@@ -167,6 +168,9 @@ export const createTransaction = ({ transaction }) => async (
       payload: message
     })
   }
+  setTimeout(() => {
+    dispatch({ type: TRANSACTION_CREATE_MESSAGE_CLEAR })
+  }, 2500)
 }
 
 export const deleteTransaction = transactionId => async (

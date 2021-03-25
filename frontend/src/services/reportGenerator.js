@@ -8,8 +8,12 @@ const generatePDF = (transactions, expenseData) => {
   let membersDetails = ''
   expenseData.membersData.map(m =>
     m.amount >= 0
-      ? (membersDetails += `${m.name} needs to pay ${Math.abs(m.amount)}\n`)
-      : (membersDetails += `${m.name} will recieve ${Math.abs(m.amount)}\n`)
+      ? (membersDetails += `${m.name} will receive ${Math.abs(
+          m.amount.toFixed(2)
+        )}\n`)
+      : (membersDetails += `${m.name} needs to pay ${Math.abs(
+          m.amount.toFixed(2)
+        )}\n`)
   )
 
   let membersName = ''
@@ -49,23 +53,27 @@ const generatePDF = (transactions, expenseData) => {
     transactions[transactions.length - 1].createdAt
   ).format('MM-DD-YYYY')
 
-  doc.setFontSize(10)
+  doc.setFontSize(20)
   doc.setTextColor(0, 0, 255)
   doc.setFont('helvetica', 'bold')
-  doc.text(`${expenseData.expenseName}`, 200, 15, null, null, 'right')
+  doc.text(
+    `${expenseData.expenseName.toUpperCase()}`,
+    100,
+    15,
+    null,
+    null,
+    'center'
+  )
 
+  doc.setFontSize(10)
   doc.setTextColor(0, 0, 0)
   doc.text(`Total expense: ${expenseData.totalExpense}`, 14, 25)
 
-  doc.setFont('helvetica', 'bold')
-  doc.setTextColor(0, 0, 255)
-  doc.text('Overall Shares', 14, 30)
-
   doc.setTextColor(100)
   doc.setFont('times', 'italic')
-  doc.text(membersDetails, 14, 35)
+  doc.text(`${membersDetails}`, 195, 25, null, null, 'right')
 
-  const yMargin = expenseData.membersData.length * 5 + 40
+  const yMargin = expenseData.membersData.length * 5 + 40 - 5
 
   doc.line(14, yMargin - 8, 195, yMargin - 8)
 

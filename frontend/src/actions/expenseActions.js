@@ -12,6 +12,7 @@ import {
   EXPENSE_DETAILS_REQUEST,
   EXPENSE_DETAILS_SUCCESS,
   EXPENSE_DETAILS_FAIL,
+  EXPENSE_DETAILS_CLEAR_STATE,
   EXPENSE_MEMBERS_REQUEST,
   EXPENSE_MEMBERS_SUCCESS,
   EXPENSE_MEMBERS_FAIL,
@@ -37,7 +38,7 @@ export const listUserExpense = () => async (dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.get(`/api/expenses/`, config)
+    const { data } = await axios.get(`/api/expenses`, config)
 
     dispatch({
       type: EXPENSE_LIST_SUCCESS,
@@ -81,6 +82,10 @@ export const getExpenseDetails = id => async (dispatch, getState) => {
       payload: data
     })
 
+    if (data.membersData.length === 0) {
+      dispatch({ type: EXPENSE_DETAILS_CLEAR_STATE })
+    }
+
     localStorage.setItem('currExpenseId', JSON.stringify(data._id))
   } catch (error) {
     const message =
@@ -113,7 +118,7 @@ export const createExpense = expenseName => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`
       }
     }
-    const { data } = await axios.post('/api/expenses/', { expenseName }, config)
+    const { data } = await axios.post('/api/expenses', { expenseName }, config)
 
     dispatch({
       type: EXPENSE_CREATE_SUCCESS,

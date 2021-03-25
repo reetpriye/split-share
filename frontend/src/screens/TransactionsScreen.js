@@ -67,15 +67,15 @@ const TransactionsScreen = ({ match }) => {
       ) : transactions && transactions.length !== 0 ? (
         transactions.map(t => (
           <Spring
+            key={t._id}
             from={{ marginTop: -20 }}
             to={{ marginTop: 0 }}
-            leave={{ opacity: 0 }}
             config={config.wobbly}
           >
             {props => (
-              <div style={props} key={t._id} className='card transaction-card'>
+              <div style={props} className='card transaction-card'>
                 <h5>{t.description}</h5>
-                <h5>{moment(t.createdAt).format('MMM Do YY')}</h5>
+                <h5>{moment(t.createdAt).format('MMM Do hh:mm')}</h5>
                 <div className='payers-container'>
                   <div className='payers-label'>
                     <h6>PAYERS</h6>

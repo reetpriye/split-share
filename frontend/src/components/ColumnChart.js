@@ -1,4 +1,5 @@
 import React from 'react'
+import NoData from '../components/NoData'
 import { useSelector } from 'react-redux'
 import ReactApexChart from 'react-apexcharts'
 
@@ -6,13 +7,18 @@ import './styles/Chart.css'
 
 const ColumnChart = () => {
   const currExpense = useSelector(state => state.currExpense)
+  const expenseAllTransactions = useSelector(
+    state => state.expenseAllTransactions
+  )
   const { expenseData } = currExpense
+  const { transactions } = expenseAllTransactions
 
-  let membersShare = []
-  let membersName = []
+  const membersShare = []
+  const membersName = []
 
-  membersShare = expenseData && expenseData.membersData.map(m => m.amount)
-  membersName = expenseData && expenseData.membersData.map(m => m.name)
+  expenseData && expenseData.membersData.map(m => membersShare.push(m.amount))
+  expenseData && expenseData.membersData.map(m => membersName.push(m.name))
+
   const state = {
     series: [
       {
@@ -81,17 +87,19 @@ const ColumnChart = () => {
   return (
     <div className='card chart-container'>
       <h2 className='sub-heading'>Members Share</h2>
-      <div id='wrapper'>
-        <div id='chart-area'>
-          {expenseData && (
+      {transactions && transactions.length === 0 ? (
+        <NoData message={'Kindly add transactions'} />
+      ) : (
+        <div id='wrapper'>
+          <div id='chart-area'>
             <ReactApexChart
               options={state.options}
               series={state.series}
               type='bar'
             />
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import NoData from '../components/NoData'
+import { Spring, config } from 'react-spring/renderprops'
 import moment from 'moment'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,41 +28,53 @@ const TrashScreen = ({ match }) => {
         <Loader />
       ) : (
         <>
-          {transactions &&
+          {transactions && transactions.length !== 0 ? (
             transactions.map(t => (
-              <div key={t._id} className='card transaction-card'>
-                <h5>{t.description}</h5>
-                <h5>{moment(t.createdAt).format('MMM Do YY')}</h5>
-                <div className='payers-container'>
-                  <div className='payers-label'>
-                    <h6>PAYERS</h6>
-                  </div>
-                  <div className='payers'>
-                    {t.payers.map(p => (
-                      <div key={p._id} className='payer'>
-                        <h5>{p.name}</h5>
-                        <h5>{p.amount}</h5>
+              <Spring
+                key={t._id}
+                from={{ marginTop: -20 }}
+                to={{ marginTop: 0 }}
+                config={config.wobbly}
+              >
+                {props => (
+                  <div style={props} className='card transaction-card'>
+                    <h5>{t.description}</h5>
+                    <h5>{moment(t.createdAt).format('MMM Do YY')}</h5>
+                    <div className='payers-container'>
+                      <div className='payers-label'>
+                        <h6>PAYERS</h6>
                       </div>
-                    ))}
-                  </div>
-                </div>
-                <h5 id='total-amount'>{t.totalAmount}</h5>
-                {t.excludes.length !== 0 ? (
-                  <div className='excludes-container'>
-                    <div className='excludes-label'>
-                      <h6>EXCLUDES</h6>
+                      <div className='payers'>
+                        {t.payers.map(p => (
+                          <div key={p._id} className='payer'>
+                            <h5>{p.name}</h5>
+                            <h5>{p.amount}</h5>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className='excludes'>
-                      {t.excludes.map(e => (
-                        <h5 key={e._id}>{e.name} </h5>
-                      ))}
-                    </div>
+                    <h5 id='total-amount'>{t.totalAmount}</h5>
+                    {t.excludes.length !== 0 ? (
+                      <div className='excludes-container'>
+                        <div className='excludes-label'>
+                          <h6>EXCLUDES</h6>
+                        </div>
+                        <div className='excludes'>
+                          {t.excludes.map(e => (
+                            <h5 key={e._id}>{e.name} </h5>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div />
+                    )}
                   </div>
-                ) : (
-                  <div />
                 )}
-              </div>
-            ))}
+              </Spring>
+            ))
+          ) : (
+            <NoData message={'Kindly add some transactions'} />
+          )}
         </>
       )}
     </div>

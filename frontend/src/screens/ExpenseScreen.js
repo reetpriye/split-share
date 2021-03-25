@@ -11,8 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   listUserExpense,
   createExpense,
-  deleteExpense,
-  listExpenseMembers
+  deleteExpense
 } from '../actions/expenseActions'
 
 import './styles/Expense.css'
@@ -40,7 +39,13 @@ const ExpenseScreen = ({ history }) => {
   } = expenseDelete
 
   useEffect(() => {
-    dispatch(listUserExpense())
+    if (!userInfo) {
+      history.push('/')
+    }
+
+    if (successCreate || successDelete) {
+      dispatch(listUserExpense())
+    }
   }, [history, userInfo, dispatch, successCreate, successDelete])
 
   return (
@@ -61,9 +66,8 @@ const ExpenseScreen = ({ history }) => {
       )} */}
 
       <Spring
-        from={{ opacity: 0, transform: 'scale(0.9)' }}
-        to={{ opacity: 1, transform: 'scale(1)' }}
-        leave={{ opacity: 0 }}
+        from={{ transform: 'scale(0.9)' }}
+        to={{ transform: 'scale(1)' }}
         config={config.wobbly}
       >
         {props => (
@@ -118,9 +122,8 @@ const ExpenseScreen = ({ history }) => {
       </Spring>
 
       <Spring
-        from={{ opacity: 0, transform: 'scale(0.9)' }}
-        to={{ opacity: 1, transform: 'scale(1)' }}
-        leave={{ opacity: 0 }}
+        from={{ transform: 'scale(0.9)' }}
+        to={{ transform: 'scale(1)' }}
         config={config.wobbly}
       >
         {props => (
@@ -129,21 +132,21 @@ const ExpenseScreen = ({ history }) => {
               EXPENSE LIST <i className='fas fa-money-check-alt'></i>
             </h2>
             {loading || loadingCreate || loadingDelete ? (
-              <Loader width={'311px'} height={'128px'} />
+              <Loader height={'128px'} />
             ) : expenses && expenses.length !== 0 ? (
               expenses.map(expense => (
                 <Fragment key={expense._id}>
                   <div className='expense'>
-                    <Link to={`expense/${expense._id}`}>
+                    <Link
+                      style={{ textTransform: 'capitalize' }}
+                      to={`expense/${expense._id}`}
+                    >
                       {expense.expenseName}
                     </Link>
-                    <button
-                      onClick={() => dispatch(listExpenseMembers(expense._id))}
-                      className='man-btn'
-                    >
+                    <button className='man-btn'>
                       <Link
                         className='man-btn'
-                        to={`expense/${expense._id}/members`}
+                        to={`expenses/${expense._id}/members`}
                       >
                         Manage
                         <br />

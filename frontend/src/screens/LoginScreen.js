@@ -39,6 +39,7 @@ const LoginScreen = ({ history }) => {
         <div className='form-group'>
           <label htmlFor='email'>Email Address</label>
           <input
+            style={{ borderRadius: '3px' }}
             placeholder='Enter your email'
             type='email'
             value={email}
@@ -49,6 +50,7 @@ const LoginScreen = ({ history }) => {
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
           <input
+            style={{ borderRadius: '3px' }}
             placeholder='Enter your password'
             type='password'
             value={password}
