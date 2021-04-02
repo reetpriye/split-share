@@ -8,7 +8,7 @@ import Transaction from '../models/transactionModel.js'
 // Access   Private
 const getUserExpenses = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
-  res.send(user.expenses)
+  res.send(user.expenses.reverse())
 })
 
 // Method   GET

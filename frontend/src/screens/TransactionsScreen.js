@@ -75,7 +75,7 @@ const TransactionsScreen = ({ match }) => {
             {props => (
               <div style={props} className='card transaction-card'>
                 <h5>{t.description}</h5>
-                <h5>{moment(t.createdAt).format('MMM Do hh:mm')}</h5>
+                <h5>{moment(t.createdAt).format('MMM Do kk:mm')}</h5>
                 <div className='payers-container'>
                   <div className='payers-label'>
                     <h6>PAYERS</h6>

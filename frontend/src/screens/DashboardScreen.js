@@ -111,7 +111,7 @@ const DashboardScreen = ({ match, history }) => {
       consumersNotPayer: []
     }
     inputData.forEach(m => {
-      if (m.isPayer) {
+      if (m.isPayer && Number(m.amount) !== 0) {
         transaction.payers.push({
           member: m.id,
           amount: Number(m.amount),

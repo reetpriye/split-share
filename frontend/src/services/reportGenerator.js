@@ -28,19 +28,20 @@ const generatePDF = (transactions, expenseData) => {
   ]
   const tableRows = []
 
-  transactions.forEach(transaction => {
+  transactions.forEach(t => {
     let payersDetails = ''
     let excludesDetails = ''
-    transaction.payers.forEach(
-      payer => (payersDetails += `${payer.name} ${payer.amount}\n`)
-    )
-    transaction.excludes.forEach(
-      exclude => (excludesDetails += `${exclude.name}\n`)
-    )
+    t.payers.forEach(p => (payersDetails += `${p.name} ${p.amount}\n`))
+    t.excludes.forEach(e => (excludesDetails += `${e.name}\n`))
+
+    const dateAndTime = `${moment(t.createdAt).format('MMM Do')}\n${moment(
+      t.createdAt
+    ).format('hh:mm a')}`
+
     const transactionsDetails = [
-      moment(transaction.createdAt).format('MMM Do YY'),
-      transaction.description,
-      transaction.totalAmount,
+      dateAndTime,
+      t.description,
+      t.totalAmount,
       payersDetails,
       excludesDetails
     ]
@@ -73,7 +74,7 @@ const generatePDF = (transactions, expenseData) => {
   doc.setFont('times', 'italic')
   doc.text(`${membersDetails}`, 195, 25, null, null, 'right')
 
-  const yMargin = expenseData.membersData.length * 5 + 40 - 5
+  const yMargin = expenseData.membersData.length * 5 + 30
 
   doc.line(14, yMargin - 8, 195, yMargin - 8)
 

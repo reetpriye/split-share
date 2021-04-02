@@ -115,15 +115,6 @@ const Navbar = ({ location }) => {
               </li>
               <li className='nav-item'>
                 <Link
-                  to={`/faqs`}
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  FAQs
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link
                   to='/about'
                   className='nav-links'
                   onClick={closeMobileMenu}
