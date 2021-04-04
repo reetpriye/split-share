@@ -18,6 +18,7 @@ import MemberScreen from './screens/MemberScreen'
 import TransactionsScreen from './screens/TransactionsScreen'
 import AnalyticsScreen from './screens/AnalyticsScreen'
 import NotSupportedScreen from './screens/NotSupportedScreen'
+import HowToUseScreen from './screens/HowToUseScreen'
 
 const App = () => {
   const useWindowSize = () => {
@@ -59,6 +60,7 @@ const App = () => {
           <Route path='/transactions/:id/trash' component={TrashScreen} />
           <Route path='/analytics/:id' component={AnalyticsScreen} />
           <Route path='/about' component={AboutScreen} />
+          <Route path='/howtouse' component={HowToUseScreen} />
           <Route path='/' component={HomeScreen} exact />
           <Route component={NotFound} />
         </Switch>

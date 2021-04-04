@@ -4,6 +4,7 @@
 }
 
 #message-placeholder-div {
+  margin: 0.4rem 0;
   height: 37.19px;
 }
 
@@ -17,6 +18,7 @@
 }
 
 .transaction-card > h5 {
+  text-transform: capitalize;
   margin: 0;
 }
 
@@ -26,7 +28,7 @@
 }
 
 .payers-container {
-  margin-top: 1rem;
+  margin: 0.5rem 0;
   display: flex;
   align-items: center;
 }
@@ -62,10 +64,11 @@
 
 .payer > h5 {
   margin: 0;
+  text-transform: capitalize;
 }
 
 .excludes-container {
-  margin-top: 1rem;
+  margin: 0.5rem 0;
   display: flex;
   align-items: center;
 }
@@ -91,6 +94,7 @@
 
 .excludes > h5 {
   margin: 0;
+  text-transform: capitalize;
 }
 
 #total-amount {

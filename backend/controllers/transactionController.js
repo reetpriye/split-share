@@ -60,6 +60,9 @@ const addTransaction = asyncHandler(async (req, res) => {
   if (description === '') {
     throw new Error('Description is required')
   }
+  if (description.length > 22) {
+    throw new Error('Description is too long')
+  }
 
   const user = await User.findById(req.user._id)
   const expense = user.expenses.find(t => t._id.toString() === expenseId)
@@ -122,6 +125,7 @@ const addTransaction = asyncHandler(async (req, res) => {
       totalAmount,
       description,
       numberOfConsumers,
+      numberOfMembers,
       payers: [],
       excludes: [],
       consumersNotPayer

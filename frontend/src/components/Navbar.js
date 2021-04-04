@@ -94,6 +94,15 @@ const Navbar = ({ location }) => {
                   About
                 </Link>
               </li>
+              <li className='nav-item'>
+                <Link
+                  to={`/howtouse`}
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  Tutorial
+                </Link>
+              </li>
               <li
                 className='nav-item'
                 onClick={() => {
@@ -120,6 +129,15 @@ const Navbar = ({ location }) => {
                   onClick={closeMobileMenu}
                 >
                   About
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link
+                  to={`/howtouse`}
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  Tutorial
                 </Link>
               </li>
 

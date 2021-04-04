@@ -27,6 +27,15 @@
   margin-left: 0.4rem;
 }
 
+.fa-question {
+  margin-left: 0.4rem;
+}
+
+#how-to-use-btn {
+  margin-top: 1rem;
+  border: 2px #dbdada solid;
+}
+
 .features {
   margin: 0.8rem 0;
 }
@@ -39,42 +48,63 @@
   border: 2px solid var(--tertiary-color);
 }
 
-.multi-use {
+#multi-use {
   display: flex;
 }
 
-.multi-use-summary {
+#multi-use-summary {
   margin-right: 1rem;
 }
 
-.manage-members {
+#manage-members {
   display: flex;
 }
 
-.manage-members-summary {
+#manage-members-summary {
   margin-left: 1rem;
 }
 
-.full-control {
+#full-control {
   display: flex;
 }
 
-.full-control-summary {
+#full-control-summary {
   margin-right: 1rem;
 }
 
-.all-transactions {
+#members-share {
   display: flex;
 }
 
-.all-transactions-summary {
+#members-share-summary {
   margin-left: 1rem;
 }
 
-.generate-report {
+#members-share > img {
+  height: 100%;
+  align-self: center;
+}
+
+#all-transactions {
   display: flex;
 }
 
-.generate-report-summary {
+#all-transactions-summary {
+  margin-right: 1rem;
+}
+
+#analytics-chart-report {
+  display: flex;
+}
+
+#analytics-chart-summary {
+  margin-left: 1rem;
+}
+
+#generate-report {
+  display: flex;
+}
+
+#generate-report-summary {
   margin-right: 1rem;
 }

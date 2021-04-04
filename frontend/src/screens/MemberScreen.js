@@ -101,7 +101,7 @@ const MemberScreen = ({ history, match }) => {
       >
         {props => (
           <section style={props}>
-            <CurrExpense />
+            <CurrExpense text='Back to expenses' link='/expenses' />
             <section className='card add-member-container'>
               <h6>
                 ADD NEW MEMBER <i className='fas fa-user-circle'></i>

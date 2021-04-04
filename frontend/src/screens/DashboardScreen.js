@@ -138,7 +138,11 @@ const DashboardScreen = ({ match, history }) => {
         {errorCreate ? (
           <Message variant='danger'>{errorCreate}</Message>
         ) : expenseData && expenseData.expenseName ? (
-          <CurrExpense trip={true} />
+          <CurrExpense
+            trip={true}
+            text='Back to members'
+            link={`/expenses/${match.params.id}/members`}
+          />
         ) : (
           <div id='expense-details-placeholder-div' />
         )}

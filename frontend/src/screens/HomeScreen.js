@@ -4,10 +4,11 @@ import { Spring } from 'react-spring/renderprops'
 import Dash from '../components/Dash'
 import expensesScreen from '../assets/expenses-screen.png'
 import membersScreen from '../assets/members-screen.png'
+import membersShare from '../assets/members-share.jpg'
 import dashboardScreen from '../assets/dashboard-screen.png'
 import transactionsScreen from '../assets/transactions-screen.png'
-// import trip from '../assets/trip.svg'
 import report from '../assets/report.jpg'
+import analyticsScreen from '../assets/analytics-screen.png'
 import destination from '../assets/destination.svg'
 import { useSelector } from 'react-redux'
 
@@ -36,7 +37,9 @@ const HomeScreen = ({ history }) => {
     >
       {props => (
         <div style={props} className='home-container'>
-          {/* <img src={trip} style={{ width: '80%' }} alt='trip' /> */}
+          <br />
+          <br />
+
           <section className='overview'>
             <img src={destination} style={{ width: '90%' }} alt='destination' />
 
@@ -58,15 +61,25 @@ const HomeScreen = ({ history }) => {
             </Link>
           </button>
 
+          <button
+            style={{ width: 'fit-content' }}
+            id='how-to-use-btn'
+            className='btn btn-quaternary'
+          >
+            <Link to='/howtouse' style={{ color: '#fff' }}>
+              HOW TO USE <i className='fas fa-question'></i>
+            </Link>
+          </button>
+
           <div className='features'>
             <h1 className='heading'>FEATURES</h1>
 
-            <section className='multi-use'>
-              <div className='multi-use-summary'>
+            <section id='multi-use'>
+              <div id='multi-use-summary'>
                 <h3 style={{ color: 'var(--secondary-color)' }}>MULTI USE</h3>
                 <p>
-                  This web app can be used in a varities of scenarios such as
-                  expense related to trip, monthly flat expenses, etc.
+                  This web app can be used in a variety of scenarios such as
+                  expense related to the trip, monthly flat expenses, etc.
                 </p>
               </div>
               <img
@@ -78,33 +91,32 @@ const HomeScreen = ({ history }) => {
 
             <Dash />
 
-            <section className='manage-members'>
+            <section id='manage-members'>
               <img
                 src={membersScreen}
                 style={{ width: '40%' }}
                 alt='destination'
               />
-              <div className='manage-members-summary'>
+              <div id='manage-members-summary'>
                 <h3 style={{ color: 'var(--secondary-color)' }}>
                   MANAGE MEMBERS
                 </h3>
                 <p>
-                  Manage members specific to a expense. If the member is
-                  associated with any transaction. He/she can't be deleted or
-                  updated.
+                  Member with associated transactions can't be deleted or
+                  renamed. New members can be added in between.
                 </p>
               </div>
             </section>
 
             <Dash />
 
-            <section className='full-control'>
-              <div className='full-control-summary'>
+            <section id='full-control'>
+              <div id='full-control-summary'>
                 <h3 style={{ color: 'var(--secondary-color)' }}>
-                  FULL CONTROL
+                  FULL FLEXIBILITY
                 </h3>
                 <p>
-                  Transaction can be added with full control(i.e.
+                  Transactions can be added with full control(i.e.
                   single/multiple payers, multiple excluded members).
                 </p>
               </div>
@@ -117,13 +129,29 @@ const HomeScreen = ({ history }) => {
 
             <Dash />
 
-            <section className='all-transactions'>
+            <section id='members-share'>
               <img
-                src={transactionsScreen}
+                src={membersShare}
                 style={{ width: '40%' }}
                 alt='destination'
               />
-              <div className='all-transactions-summary'>
+              <div id='members-share-summary'>
+                <h3 style={{ color: 'var(--secondary-color)' }}>
+                  REAL TIME MEMBER's SHARE
+                </h3>
+                <p>
+                  Just after adding a transaction, member's share gets updated.
+                  Negative values signifies that the member need to pay that
+                  much amount and positive values signifies that member will
+                  receive that much amount.
+                </p>
+              </div>
+            </section>
+
+            <Dash />
+
+            <section id='all-transactions'>
+              <div id='all-transactions-summary'>
                 <h3 style={{ color: 'var(--secondary-color)' }}>
                   ALL TRANSACTIONS
                 </h3>
@@ -132,17 +160,39 @@ const HomeScreen = ({ history }) => {
                   to trash them.
                 </p>
               </div>
+              <img
+                src={transactionsScreen}
+                style={{ width: '40%' }}
+                alt='destination'
+              />
             </section>
 
             <Dash />
 
-            <section className='generate-report'>
-              <div className='generate-report-summary'>
+            <section id='analytics-chart-report'>
+              <img
+                src={analyticsScreen}
+                style={{ width: '40%' }}
+                alt='destination'
+              />
+              <div id='analytics-chart-summary'>
+                <h3 style={{ color: 'var(--secondary-color)' }}>ANALYTICS</h3>
+                <p>
+                  Charts to show member's share as well expense on previous
+                  transactions.
+                </p>
+              </div>
+            </section>
+
+            <Dash />
+
+            <section id='generate-report'>
+              <div id='generate-report-summary'>
                 <h3 style={{ color: 'var(--secondary-color)' }}>
                   GENERATE REPORT
                 </h3>
                 <p>
-                  User can generate pdf report which consists of all the
+                  User can generate a pdf report which consists of all the
                   transactions and member's share information.
                 </p>
               </div>

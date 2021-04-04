@@ -138,6 +138,10 @@
   margin: 0;
 }
 
+.member-share > h4 {
+  text-transform: capitalize;
+}
+
 .member-share-amount {
   margin-left: auto;
   color: var(--secondary-color);
@@ -172,7 +176,7 @@
 .desc-input {
   background: white !important;
   color: #333 !important;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .desc-input::placeholder {

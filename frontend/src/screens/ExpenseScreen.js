@@ -58,13 +58,6 @@ const ExpenseScreen = ({ history }) => {
         <Placeholder />
       )}
 
-      {/* {expenses && expenses.length === 0 && (
-        <h4 id='expense-message'>
-          HI, {userInfo && userInfo.name.toUpperCase().split(' ')[0]}. KINDLY
-          FIRST ADD <span>SOME EXPENSE</span>
-        </h4>
-      )} */}
-
       <Spring
         from={{ transform: 'scale(0.9)' }}
         to={{ transform: 'scale(1)' }}
@@ -154,7 +147,11 @@ const ExpenseScreen = ({ history }) => {
                       </Link>
                     </button>
                     <button
-                      onClick={() => dispatch(deleteExpense(expense._id))}
+                      onClick={() => {
+                        if (window.confirm('Are you sure?')) {
+                          dispatch(deleteExpense(expense._id))
+                        }
+                      }}
                       className='del-btn'
                     >
                       <i className='fas fa-trash'></i>

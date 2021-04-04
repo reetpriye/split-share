@@ -2,14 +2,17 @@ import React, { useEffect } from 'react'
 import { Spring, config } from 'react-spring/renderprops'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message'
+import CurrExpense from '../components/CurrExpense'
 import NoData from '../components/NoData'
 import moment from 'moment'
 import generatePDF from '../services/reportGenerator'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../actions/userActions'
 import { getExpenseDetails } from '../actions/expenseActions'
 import {
   listAllTransactions,
+  listTrashTransactions,
   deleteTransaction
 } from '../actions/transactionActions'
 
@@ -21,11 +24,20 @@ const TransactionsScreen = ({ match }) => {
   const expenseAllTransactions = useSelector(
     state => state.expenseAllTransactions
   )
+  const expenseTrashTransactions = useSelector(
+    state => state.expenseTrashTransactions
+  )
+  const userLogin = useSelector(state => state.userLogin)
   const currExpense = useSelector(state => state.currExpense)
   const transactionDelete = useSelector(state => state.transactionDelete)
 
+  const { userInfo } = userLogin
   const { expenseData } = currExpense
   const { loading, transactions } = expenseAllTransactions
+  const {
+    loading: loadingTrash,
+    transactions: transactionsTrash
+  } = expenseTrashTransactions
   const {
     loading: loadingDelete,
     success: successDelete,
@@ -34,11 +46,15 @@ const TransactionsScreen = ({ match }) => {
   } = transactionDelete
 
   useEffect(() => {
+    if (!userInfo) {
+      dispatch(logout())
+    }
     if (successDelete) {
       dispatch(listAllTransactions(match.params.id))
+      dispatch(listTrashTransactions(match.params.id))
       dispatch(getExpenseDetails(match.params.id))
     }
-  }, [dispatch, match.params.id, successDelete])
+  }, [dispatch, match.params.id, successDelete, userInfo])
 
   return (
     <div className='all-transactions-container'>
@@ -55,20 +71,31 @@ const TransactionsScreen = ({ match }) => {
           Generate Report <i className='fas fa-file-pdf'></i>
         </button>
       </div>
+
       {messageDelete ? (
         <Message variant='success'>{messageDelete}</Message>
       ) : errorDelete ? (
         <Message variant='danger'>{errorDelete}</Message>
       ) : (
-        <div id='message-placeholder-div' />
+        <div id='message-placeholder-div'>
+          {transactionsTrash && (
+            <CurrExpense
+              trash={true}
+              cnt={transactionsTrash && transactionsTrash.length}
+              text='Back to dashboard'
+              link={`/expense/${match.params.id}`}
+            />
+          )}
+        </div>
       )}
-      {loading || loadingDelete ? (
+
+      {loading || loadingDelete || loadingTrash ? (
         <Loader />
       ) : transactions && transactions.length !== 0 ? (
         transactions.map(t => (
           <Spring
             key={t._id}
-            from={{ marginTop: -20 }}
+            from={{ marginTop: -15 }}
             to={{ marginTop: 0 }}
             config={config.wobbly}
           >
@@ -111,6 +138,10 @@ const TransactionsScreen = ({ match }) => {
                 >
                   DELETE <i className='fas fa-trash'></i>
                 </button>
+                <p
+                  style={{ margin: '0', marginLeft: '16px' }}
+                >{`Members: ${t.numberOfMembers}`}</p>
+                <div />
               </div>
             )}
           </Spring>

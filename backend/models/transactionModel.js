@@ -52,6 +52,10 @@ const transactionSchema = mongoose.Schema(
       type: Number,
       required: true
     },
+    numberOfMembers: {
+      type: Number,
+      required: true
+    },
     payers: [payerSchema],
     excludes: [excludeSchema],
     consumersNotPayer: [mongoose.Schema.Types.ObjectId]

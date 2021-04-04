@@ -1,0 +1,24 @@
+#how-to-use-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#how-to-use-container > p {
+  align-self: flex-start;
+}
+
+.how-to-use {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.how-to-use > img {
+  border: 2px solid var(--tertiary-color);
+  max-width: 60%;
+}
+
+#how-to-use-2 {
+  align-self: flex-end;
+}
