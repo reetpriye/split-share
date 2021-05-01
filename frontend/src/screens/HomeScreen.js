@@ -67,8 +67,18 @@ const HomeScreen = ({ history }) => {
             className='btn btn-quaternary'
           >
             <Link to='/howtouse' style={{ color: '#fff' }}>
-              HOW TO USE <i className='fas fa-question'></i>
+              How to use <i className='fas fa-question'></i>
             </Link>
+          </button>
+
+          <button
+            style={{ width: 'fit-content' }}
+            id='how-to-use-btn'
+            className='btn btn-quaternary'
+          >
+            <a href='https://youtu.be/rgekoh5_OfM' style={{ color: '#fff' }}>
+              Watch Tutorial <i className='fab fa-youtube'></i>
+            </a>
           </button>
 
           <div className='features'>

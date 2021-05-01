@@ -18,6 +18,16 @@ const HowToUseScreen = () => {
           <h1 className='heading' style={{ marginBottom: '1rem' }}>
             How to use?
           </h1>
+
+          <button
+            style={({ width: 'fit-content' }, { alignSelf: 'center' })}
+            className='btn btn-quaternary'
+          >
+            <a href='https://youtu.be/rgekoh5_OfM' style={{ color: '#fff' }}>
+              Click here for video tutorial <i className='fab fa-youtube'></i>
+            </a>
+          </button>
+
           <h4>
             This gif will demostrate how to use the site. <br />
             In easy 1,2,3 steps <br />

@@ -1,6 +1,8 @@
 .DS_Store
 Logic.jpg
 
+heroku-cli-commands.txt
+
 node_modules/
 /config/production.json
 /config/default.json
