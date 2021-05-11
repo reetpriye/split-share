@@ -5,16 +5,21 @@
   justify-content: center;
   min-height: 100%;
 }
-.not-supported-text > h1 {
+
+.not-supported > div {
+  display: flex;
+}
+
+.not-supported-text > div > h1 {
   margin: 0;
   font-size: 8vw;
 }
 
-.not-supported-text > h1 > span {
+.not-supported-text > div > h1 > span {
   color: var(--secondary-color);
 }
 
-.not-supported-text > p {
+.not-supported-text > div > p {
   font-size: 1.4vw;
   text-align: right;
   margin: -3vw 0;
