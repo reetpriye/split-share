@@ -17,7 +17,11 @@ const NotSupportedScreen = ({ device }) => {
           </>
         ) : (
           <>
-            <img src={notAvailable} style={{width: '300px'}}/>
+            <img
+              src={notAvailable}
+              style={{ width: '300px' }}
+              alt='Not available'
+            />
             <div>
               <h1>
                 Split<span>Share</span>

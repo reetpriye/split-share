@@ -3,6 +3,7 @@ import path from 'path'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 import colors from 'colors'
+import httpsRedirect from 'express-https-redirect'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
@@ -12,6 +13,7 @@ import transactionRoutes from './routes/transactionRoutes.js'
 dotenv.config()
 
 const app = express()
+app.use('/', httpsRedirect())
 
 // Connect to database
 connectDB()
