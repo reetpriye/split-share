@@ -70,6 +70,11 @@ const addTransaction = asyncHandler(async (req, res) => {
     let { membersData } = expense
     const numberOfMembers = expense.membersData.length
     const numberOfExcludes = excludes.length
+
+    if (numberOfExcludes == numberOfMembers) {
+      throw new Error("All member's can't be excluded")
+    }
+
     const numberOfConsumers = numberOfMembers - numberOfExcludes
     const totalAmount = payers.reduce(
       (acc, payer) => Number(payer.amount) + acc,
