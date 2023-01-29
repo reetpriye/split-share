@@ -1,6 +1,9 @@
 {
   "name": "split-share",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.19.0"
+  },
   "description": "Split money between friends",
   "main": "server.js",
   "type": "module",
@@ -10,8 +13,8 @@
     "client": "npm start --prefix frontend",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:destroy": "node backend/seeder -d",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "data:destroy": "node backend/seeder -d"
   },
   "author": "Reet Priye",
   "license": "MIT",
