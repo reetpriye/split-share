@@ -13,7 +13,10 @@ import transactionRoutes from './routes/transactionRoutes.js'
 dotenv.config()
 
 const app = express()
-app.use('/', httpsRedirect())
+
+if(process.env.NODE_ENV === 'production') {
+    app.use('/', httpsRedirect())
+}
 
 // Connect to database
 connectDB()
