@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import NoData from '../components/NoData'
 import { Spring, config } from 'react-spring/renderprops'
 import { Link } from 'react-router-dom'

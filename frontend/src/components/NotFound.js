@@ -1,4 +1,3 @@
-import React from 'react'
 import notFound from '../assets/not-found.svg'
 
 import './styles/NotFound.css'

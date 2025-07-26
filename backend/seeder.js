@@ -4,8 +4,6 @@ data present in the database and add new sample data
 for development purpose.
 */
 
-import mongoose from 'mongoose'
-import colors from 'colors'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 

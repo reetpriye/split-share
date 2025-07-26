@@ -1,4 +1,3 @@
-import React from 'react'
 import { Spring } from 'react-spring/renderprops'
 import Demo01 from '../assets/demo-01.gif'
 import Demo02 from '../assets/demo-02.gif'

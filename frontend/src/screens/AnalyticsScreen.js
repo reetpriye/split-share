@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import AreaChart from '../components/AreaChart'
 import ColumnChart from '../components/ColumnChart'
 

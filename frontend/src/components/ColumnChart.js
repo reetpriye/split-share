@@ -1,4 +1,3 @@
-import React from 'react'
 import NoData from '../components/NoData'
 import { useSelector } from 'react-redux'
 import ReactApexChart from 'react-apexcharts'

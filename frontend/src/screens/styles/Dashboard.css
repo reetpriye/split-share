@@ -20,7 +20,7 @@
 .total-expense-container > h1 {
   margin: 0;
   font-weight: 500;
-  font-size: 20vw;
+  font-size: 5rem;
   line-height: 135px;
   text-align: center;
   color: var(--secondary-color);

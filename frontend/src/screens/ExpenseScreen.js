@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import { Spring, config } from 'react-spring/renderprops'
 import { CSSTransition } from 'react-transition-group'
 import Dash from '../components/Dash'

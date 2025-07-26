@@ -1,4 +1,3 @@
-import React from 'react'
 import { Spring, config } from 'react-spring/renderprops'
 import profile from '../assets/profile.jpg'
 
@@ -15,29 +14,29 @@ const AboutScreen = () => {
         <div style={props}>
           <div className='card about-card'>
             <img src={profile} alt='Profile Pic' />
-            <h4>Sophomore</h4>
+            <h4>Software Developer</h4>
             <h2>Reet Priye</h2>
             <h3>Kolkata, India</h3>
           </div>
           <div className='description'>
             <p>
-              Hello, people of the Internet, I'm Reet Priye, currently pursuing
-              a Bachelor of Technology(ECE) from Heritage Institute of
-              Technology, Kolkata. I created this site keeping in mind all the
-              needs that the user may require. This site is built using the MERN
-              stack and with a bunch of other NPM packages such as JWT,
-              BcryptJS, etc.
-              <br />
-              I developed it as an attempt to improve my programming, designing
-              skills and most importantly to learn full-stack development.
-              <br />I would love to create more web app in future which could
-              solve some real-life problems.
-              <br />
-              If you have any feature suggestions or want to report any bug,
-              kindly mail to <span>reetpriye@gmail.com</span>
-              <br />
-              I would love and try my best to fix that.
-              <br />
+              Hello, I'm <strong>Reet Priye</strong>, a Full Stack Developer currently working at 
+              <strong> Tata Consultancy Services</strong>. I have <strong>2 years of experience</strong> 
+              building scalable, enterprise-grade web applications using technologies like 
+              <strong> React, Java, Spring Boot</strong>, and DevOps tools including 
+              <strong> Docker, Kubernetes</strong>, and CI/CD pipelines.
+            </p>
+            <p>
+              I'm passionate about writing clean, maintainable code and solving complex problems—
+              demonstrated by solving <strong>1000+ DSA problems</strong> on LeetCode and earning the 
+              <strong> Knight Badge</strong>. My work currently supports a leading German multinational 
+              bank, where I contribute to critical systems used by hundreds of business clients.
+            </p>
+            <p>
+              I'm always looking to learn new technologies, collaborate on impactful projects, and create 
+              solutions that address real-world problems. If you'd like to connect, discuss opportunities, 
+              or share feedback, feel free to reach out at 
+              <strong> reetpriye@gmail.com</strong>.
             </p>
           </div>
           <div className='label'>

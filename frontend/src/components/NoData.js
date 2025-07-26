@@ -1,4 +1,3 @@
-import React from 'react'
 import noData from '../assets/no-data.svg'
 
 const NoData = ({ message }) => {
